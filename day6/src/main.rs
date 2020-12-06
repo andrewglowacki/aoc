@@ -4,18 +4,16 @@ use std::io::{BufRead, BufReader, Lines};
 use std::collections::HashSet;
 
 fn get_group_yes_count(lines: &mut Lines<BufReader<File>>) -> Option<usize> {
-    lines.take_while(|line| line.is_ok())
-        .map(|line| line.unwrap())
+    lines.filter_map(|line| line.ok())
         .take_while(|line| !line.is_empty())
         .map(|line| line.chars().collect::<HashSet<char>>())
         .fold(None::<HashSet::<char>>, |set, answers| {
-            match set {
-                None => Some(answers),
-                Some(set) => {
-                    Some(set.intersection(&answers)
-                        .map(|c| *c)
-                        .collect::<HashSet<char>>())
-                }
+            if let Some(set) = set {
+                Some(set.intersection(&answers)
+                    .map(|c| *c)
+                    .collect::<HashSet<char>>())
+            } else {
+                None
             }
         })
         .map(|set| set.len())
