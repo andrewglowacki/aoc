@@ -26,9 +26,9 @@ impl Mapping {
     }
 }
 
-struct FieldValue {
-    mapping: Mapping,
-    value: String
+struct TokenMatch {
+    flag: u32,
+    is_match: bool
 }
 
 fn split_copy(line: String, split_char: char) -> Vec<String> {
@@ -41,19 +41,16 @@ fn is_next_passport_valid(token_map: &Mappings, lines: &mut Peekable<Lines<BufRe
     lines.filter_map(|line| line.ok())
         .take_while(|line| !line.is_empty())
         .flat_map(|line| split_copy(line, ' '))
-        .map(|token| split_copy(token, ' '))
+        .map(|token| split_copy(token, ':'))
         .filter_map(|token| {
-            if let Some(mapping) = token_map.get(token[0].as_str()) {
-                Some(FieldValue {
-                    mapping: mapping.clone(),
-                    value: String::from(token[1].as_str())
+            token_map.get(token[0].as_str())
+                .map(|mapping| TokenMatch {
+                    flag: mapping.flag,
+                    is_match: mapping.validator.is_match(token[1].as_str())
                 })
-            } else {
-                None
-            }
         })
-        .filter(|entry| entry.mapping.validator.is_match(entry.value.as_str()))
-        .map(|entry| entry.mapping.flag)
+        .filter(|entry| entry.is_match)
+        .map(|entry| entry.flag)
         .fold(0, |sum, val| sum | val) == HAS_ALL
 }
 
