@@ -97,15 +97,7 @@ fn get_transitive_map(bags: &Vec<Bag>, bags_by_contents: HashMap::<String, Vec<S
     transitive_bags_by_contents
 }
 
-fn main() {
-    let path = Path::new("input.txt");
-    let file = File::open(path).unwrap();
-
-    let bags = BufReader::new(file).lines()
-        .flat_map(|line| line.ok())
-        .map(|line| Bag::from_description(line))
-        .collect::<Vec<Bag>>();
-
+fn get_bags_by_contents(bags: &Vec<Bag>) -> HashMap::<String, Vec<String>> {
     let mut bags_by_contents = HashMap::<String, Vec<String>>::new();
     bags.iter()
         .flat_map(|bag| {
@@ -121,8 +113,21 @@ fn main() {
                 bags_by_contents.insert(content, vec![container]);
             }
         });
+    bags_by_contents
+}
 
+fn main() {
+    let path = Path::new("input.txt");
+    let file = File::open(path).unwrap();
+
+    let bags = BufReader::new(file).lines()
+        .flat_map(|line| line.ok())
+        .map(|line| Bag::from_description(line))
+        .collect::<Vec<Bag>>();
+
+    let bags_by_contents = get_bags_by_contents(&bags);
     let transitive_bags_by_contents = get_transitive_map(&bags, bags_by_contents);
+    
     let bags_that_can_hold_shiny_gold = transitive_bags_by_contents.get("shiny gold").unwrap().len();
     
     println!("{} bags can hold at least one shiny gold bag", bags_that_can_hold_shiny_gold);
