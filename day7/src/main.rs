@@ -32,9 +32,9 @@ impl Bag {
         }
     }
 
-    fn get_num_bags(bag: &Bag, bags_by_color: &HashMap<String, &Bag>) -> u32 {
-        bag.contents.iter()
-            .map(|content| BagContent::get_num_bags(content, bags_by_color))
+    fn get_num_bags(&self, bags_by_color: &HashMap<String, &Bag>) -> u32 {
+        self.contents.iter()
+            .map(|content| content.get_num_bags(bags_by_color))
             .sum::<u32>() + 1
     }
 }
@@ -63,9 +63,9 @@ impl BagContent {
         }
     }
     
-    fn get_num_bags(content: &BagContent, bags_by_color: &HashMap<String, &Bag>) -> u32 {
-        let bag = bags_by_color.get(&content.color).unwrap();
-        content.count * Bag::get_num_bags(bag, bags_by_color)
+    fn get_num_bags(&self, bags_by_color: &HashMap<String, &Bag>) -> u32 {
+        let bag = bags_by_color.get(&self.color).unwrap();
+        self.count * Bag::get_num_bags(bag, bags_by_color)
     }
 }
 
@@ -137,7 +137,7 @@ fn main() {
         .collect::<HashMap<String, &Bag>>();
     
     let shiny_bag = bags_by_color.get("shiny gold").unwrap();
-    let num_bags_in_shiny_bag = Bag::get_num_bags(&shiny_bag, &bags_by_color);
+    let num_bags_in_shiny_bag = shiny_bag.get_num_bags(&bags_by_color);
     println!("Num bags in shiny bag: {}", num_bags_in_shiny_bag - 1);
 
 }
