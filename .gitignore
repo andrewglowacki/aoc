@@ -1,4 +1,4 @@
 target
 input.txt
-sample.txt
+*sample.txt
 .vscode
