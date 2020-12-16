@@ -86,14 +86,10 @@ fn test_part_two(file_name: &str) {
     // parse my ticket
     let my_ticket = parse_ticket(lines.next().unwrap().unwrap());
     
-    let field_names = fields.iter()
-        .map(|field| &field.name)
-        .collect::<Vec<&String>>();
-    
     let mut candidates = (0..fields.len())
         .map(|_| {
-            field_names.iter()
-                .map(|name| (*name).clone())
+            fields.iter()
+                .map(|field| field.name.clone())
                 .collect::<HashSet<String>>()
         })
         .collect::<Vec<HashSet<String>>>();
@@ -123,7 +119,7 @@ fn test_part_two(file_name: &str) {
     loop {
         let mut removed = false;
         // find all fields we know for sure
-        let knowns = (0..field_names.len())
+        let knowns = (0..fields.len())
             .filter(|i| candidates[*i].len() == 1)
             .map(|i| {
                 let field = candidates[i].iter().last().unwrap();
