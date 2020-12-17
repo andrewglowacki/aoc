@@ -66,7 +66,7 @@ fn check_inactive(orig: &Grid, grid: &mut Grid, inactive_checked: &mut Grid, cen
     }
 }
 
-fn execute_one_cycle_pt_one(grid: &mut Grid) {
+fn execute_one_cycle(grid: &mut Grid) {
     let mut inactive_checked: Grid = HashSet::new();
 
     let orig = grid.clone();
@@ -83,7 +83,7 @@ fn test_input(file_name: &str) {
     let mut grid = read_initial_grid(file_name);
 
     for _ in 0..6 {
-        execute_one_cycle_pt_one(&mut grid);
+        execute_one_cycle(&mut grid);
     }
 
     println!("For {}, active after 6 cycles is {}", file_name, grid.len());
