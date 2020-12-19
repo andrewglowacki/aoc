@@ -125,7 +125,7 @@ impl VecIter {
     }
 }
 
-fn parse_individual(text: &String, parsed: &mut Rules) {
+fn parse_and(text: &String, parsed: &mut Rules) {
     let rules = text.split(" ")
         .map(|id| id.to_owned())
         .collect::<Vec<String>>();
@@ -152,7 +152,7 @@ fn parse_or(id: &String, text: &String, parsed: &mut Rules) {
 
         parsed.insert(id.clone(), OrRule::new(rules));
 
-        to_parse.iter().for_each(|text| parse_individual(text, parsed));
+        to_parse.iter().for_each(|text| parse_and(text, parsed));
     }
 }
 
