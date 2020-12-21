@@ -17,24 +17,18 @@ fn extended_glowackian_algorithm(args: Vec<(i64, i64)>) -> Vec<(i64, i64)> {
     // other (less subtracting the initial difference)
     //
     // Ex:
-    // How often do these two intersection? Start at x=1
+    // How often do these two intersect?
     // 7x + 3 and 15y + 4
-    // 7 - 3 = 4, 15 - 4 = 11 - diff 7
-    // 4 + 7 = 11, 11 + 0 = 11 - diff 0 - first intersection at x = 2
-    // 11 + 7 = 18, 11 + 15 = 26 - diff 8
-    // 18 + 7 = 25, 26 + 0 = 26 - diff 1
-    // 25 + 7 = 32, 26 + 0 = 26 - diff 8
-    // 32 + 0 = 32, 26 + 15 = 31 - diff 1
-    // 32 + 0 = 32, 31 + 15 = 46 - diff 14
-    // 32 + 7 = 39, 46 + 0 = 46 - diff 7
-    // 39 + 7 = 46, 46 + 0 = 46 - diff 0 - second intersection at x = 9
+    // 7 -  3 = 4,  15 - 4 =  11 - diff 7  - initial case, we subtract the differences. (x multiple, y multiple) = (1,1)
+    // 4  + 7 = 11, 11 + 0 =  11 - diff 0  - (2, 1) - diff = 0, so record this as the first seen multiples
+    // 11 + 7 = 18, 11 + 0 =  11 - diff 7  - (3, 1)
+    // 18 + 0 = 18, 11 + 15 = 26 - diff 8  - (3, 2)
+    // 18 + 7 = 24, 26 + 0  = 26 - diff 2  - (4, 2)
+    // 24 + 7 = 32, 26 + 0 =  26 - diff 6  - (5, 2)
+    // 32 + 0 = 32, 26 + 15 = 41 - diff 9  - (5, 3)
+    // 32 + 7 = 39, 41 + 0  = 41 - diff 2 -  (6, 3)
+    // 39 + 7 = 46, 46 + 0 =  46 - diff 7  - (7, 3) second intersection - first intersection = (5, 2)
     //
-    // subtract the difference in the x's: 9 - 2 = 7
-    // then: starting at x = 2, the functions intersect every 7
-    // result: (2, 7)
-    // 
-    // do the rest for the remaining variables (comparing 7x + 3 to them)
-    // 
     let (base, base_diff) = args[0];
     let mut results = vec![];
     let mut results2 = vec![];
