@@ -5,7 +5,7 @@ use std::collections::{HashSet, HashMap};
 
 type Input = Lines<BufReader<File>>;
 
-fn get_file_lines(file_name: &str) -> Lines<BufReader<File>> {
+fn get_file_lines(file_name: &str) -> Input {
     let path = Path::new(file_name);
     let file = File::open(path).unwrap();
     BufReader::new(file).lines()
