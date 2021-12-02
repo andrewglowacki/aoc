@@ -2,3 +2,4 @@ target
 input.txt
 *sample.txt
 .vscode
+Cargo.lock
