@@ -167,9 +167,78 @@ fn part_two(file_name: &str) {
     println!("Part 2: {} * {} = {}", oxygen, co2, oxygen * co2);
 }
 
+fn split<'a>(remaining: &Vec<&'a Vec<char>>, i: usize) -> (Vec<&'a Vec<char>>, Vec<&'a Vec<char>>) {
+    let mut zeros = Vec::<&'a Vec<char>>::new();
+    let mut ones = Vec::<&'a Vec<char>>::new();
+
+    remaining.iter().for_each(|line| match line[i] {
+        '0' => zeros.push(line),
+        '1' => ones.push(line),
+        _ => panic!("invalid character!")
+    });
+    
+    (zeros, ones)
+}
+
+fn to_number(line: &Vec<char>) -> u64 {
+    line.iter().fold(0, |acc, next| {
+        let acc = acc << 1;
+        match *next == '1' {
+            true => acc | 1,
+            false => acc
+        }
+    })
+}
+
+fn part_two_no_structs(file_name: &str) {
+    let orig = get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .map(|line| line.chars().collect::<Vec<char>>())
+        .collect::<Vec<Vec<char>>>();
+
+    let mut remaining = Vec::<&Vec<char>>::new();
+    orig.iter().for_each(|line| remaining.push(&line));
+    
+    for i in 0..12 {
+        let (zeros, ones) = split(&remaining, i);
+        
+        remaining = match ones.len() >= zeros.len() {
+            true => ones,
+            false => zeros
+        };
+
+        if remaining.len() == 1 {
+            break;
+        }
+    }
+
+    let oxygen = to_number(remaining[0]);
+    
+    let mut remaining = Vec::<&Vec<char>>::new();
+    orig.iter().for_each(|line| remaining.push(&line));
+
+    for i in 0..12 {
+        let (zeros, ones) = split(&remaining, i);
+        
+        remaining = match zeros.len() <= ones.len() {
+            true => zeros,
+            false => ones
+        };
+
+        if remaining.len() == 1 {
+            break;
+        }
+    }
+
+    let co2 = to_number(remaining[0]);
+
+    println!("Part 2 ez: {} * {} = {}", oxygen, co2, oxygen * co2);
+}
+
 fn main() {
     part_one("input.txt");
     part_two("input.txt");
+    part_two_no_structs("input.txt");
 
     println!("Done!");
 }
