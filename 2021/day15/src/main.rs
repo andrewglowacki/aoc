@@ -1,7 +1,5 @@
 use std::collections::BTreeMap;
 use std::collections::HashSet;
-use std::collections::HashMap;
-use std::cmp::min;
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -21,40 +19,18 @@ struct Cave {
 }
 
 struct CaveLog {
-    visiting: HashSet<(usize, usize)>,
-    calculated: HashMap<(usize, usize), (u32, Vec<(usize, usize)>)>,
-    sum: u32
+    visiting: HashSet<(usize, usize)>
 }
 
 impl CaveLog {
     fn new() -> CaveLog {
         CaveLog {
-            visiting: HashSet::new(),
-            calculated: HashMap::new(),
-            sum: 0
+            visiting: HashSet::new()
         }
     }
     fn copy(copy: &CaveLog) -> CaveLog {
         CaveLog {
-            visiting: copy.visiting.clone(),
-            calculated: copy.calculated.clone(),
-            sum: copy.sum
-        }
-    }
-    fn can_visit(&mut self, r: usize, c: usize) -> bool {
-        self.visiting.insert((r, c))
-    }
-    fn visited(&mut self, r: usize, c: usize, risk: u32, to_end: Vec<(usize, usize)>, have_all: bool) {
-        self.visiting.remove(&(r, c));
-        if have_all {
-            self.calculated.insert((r, c), (risk, to_end));
-        }
-    }
-    fn get_risk(&self, r: usize, c: usize) -> Option<(u32, Vec<(usize, usize)>)> {
-        if let Some((risk, path)) = self.calculated.get(&(r, c)) {
-            Some((*risk, path.to_vec()))
-        } else {
-            None
+            visiting: copy.visiting.clone()
         }
     }
 }
@@ -73,51 +49,6 @@ impl Cave {
             rows,
             height,
             width
-        }
-    }
-
-    fn find_cheapest_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<(u32, Vec<(usize, usize)>)> {
-        let base_risk = self.rows[r][c];
-        if r == self.height - 1 && c == self.width - 1 {
-            // end game
-            println!("End!");
-            return Some((base_risk, vec![(r, c)]));
-        } else if let Some((risk_to_end, path)) = log.get_risk(r, c) {
-            println!("Returning pre-computed risk-to-end of {} for {:?}", risk_to_end, (r, c));
-            return Some((risk_to_end, path));
-        } else if !log.can_visit(r, c) {
-            return None;
-        }
-
-        println!("Finding path for {:?}", (r, c));
-        
-        let points = self.get_adjacent_points(r, c);
-
-        let mut lowest_risk = u32::MAX;
-        let mut lowest_risk_path = vec![];
-        let mut info = vec![];
-        let mut have_all = true;
-        for point in points {
-            let (r, c) = point;
-            if let Some((final_risk, path)) = self.find_cheapest_path(r, c, log) {
-                lowest_risk = min(lowest_risk, final_risk);
-                lowest_risk_path = path;
-                info.push(format!("  {:?} = {}", point, lowest_risk));
-            } else {
-                info.push(format!("  {:?} = skipped", point));
-                have_all = false;
-            }
-        }
-
-        if lowest_risk == u32::MAX {
-            None
-        } else {
-            println!("For {:?}: final: {}", (r, c), lowest_risk + base_risk);
-            info.into_iter().for_each(|line| println!("{}", line));
-
-            lowest_risk_path.insert(0, (r, c));
-            log.visited(r, c, lowest_risk + base_risk, lowest_risk_path.to_vec(), have_all);
-            Some((lowest_risk + base_risk, lowest_risk_path))
         }
     }
     
