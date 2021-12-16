@@ -42,6 +42,26 @@ impl CaveLog {
     }
 }
 
+struct Stack {
+    r: usize,
+    c: usize,
+    config: u8,
+    points: Vec<(usize, usize)>,
+    lowest_risk: u32,
+}
+
+impl Stack {
+    fn new(r: usize, c: usize, config: u8, points: Vec<(usize, usize)>) -> Stack {
+        Stack {
+            r,
+            c,
+            config,
+            points,
+            lowest_risk: u32::MAX
+        }
+    }
+}
+
 impl Cave {
     fn from_file(file_name: &str, size_mult: usize) -> Cave {
         let rows = get_file_lines(file_name)
@@ -104,35 +124,60 @@ impl Cave {
     }
 
     fn find_least_risky_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<u32> {
-        let base_risk = self.get_risk(r, c);
-
+        let mut stack = vec![];
         let (config, points) = self.get_adjacent_points(r, c, &log);
-        
-        if r == self.height - 1 && c == self.width - 1 {
-            // end game
-            return Some(base_risk);
-        } else if let Some(risk_to_end) = log.get_risk(r, c, config) {
-            return Some(*risk_to_end);
-        } else if points.len() == 0 {
-            return None
-        }
+        stack.push(Stack::new(0, 0, config, points));
+        loop {
+            let mut frame = stack.pop().unwrap();
 
-        log.visiting.insert((r, c));
+            let r = frame.r;
+            let c = frame.c;
+            let config = frame.config;
+            
+            let base_risk = self.get_risk(r, c);
+            
+            let stack_len = stack.len();
 
-        let mut lowest_risk = u32::MAX;
-        for point in points {
-            let (r, c) = point;
-            if let Some(final_risk) = self.find_least_risky_path(r, c, log) {
-                lowest_risk = min(lowest_risk, final_risk);
+            if r == self.height - 1 && c == self.width - 1 {
+                // end game
+                let prev = stack.get_mut(stack_len - 1).unwrap();
+                prev.lowest_risk = min(prev.lowest_risk, base_risk);
+                continue;
+            } else if let Some(risk_to_end) = log.get_risk(r, c, config) {
+                if stack_len == 0 {
+                    return Some(*risk_to_end);
+                } else {
+                    let prev = stack.get_mut(stack_len - 1).unwrap();
+                    prev.lowest_risk = min(prev.lowest_risk, *risk_to_end);
+                }
+                continue;
             }
-        }
 
-        if lowest_risk == u32::MAX {
-            log.visiting.remove(&(r, c));
-            None
-        } else {
-            log.visited(r, c, lowest_risk + base_risk, config);
-            Some(lowest_risk + base_risk)
+            log.visiting.insert((r, c));
+
+            if frame.points.len() > 0 {
+                let (r, c) = frame.points.pop().unwrap();
+                let (config, points) = self.get_adjacent_points(r, c, &log);
+                stack.push(frame);
+                if points.len() > 0 {
+                    stack.push(Stack::new(r, c, config, points));
+                }
+                continue;
+            }
+
+            if frame.lowest_risk == u32::MAX {
+                log.visiting.remove(&(r, c));
+            } else {
+                let result = frame.lowest_risk + base_risk;
+                log.visited(r, c, result, config);
+                
+                if stack_len == 0 {
+                    return Some(result);
+                } else {
+                    let prev = stack.get_mut(stack_len - 1).unwrap();
+                    prev.lowest_risk = min(prev.lowest_risk, result);
+                }
+            }
         }
     }
 
