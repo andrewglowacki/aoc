@@ -1,4 +1,5 @@
-use std::collections::BTreeMap;
+use std::collections::HashMap;
+use std::cmp::min;
 use std::collections::HashSet;
 use std::fs::File;
 use std::path::Path;
@@ -19,25 +20,29 @@ struct Cave {
 }
 
 struct CaveLog {
-    visiting: HashSet<(usize, usize)>
+    visiting: HashSet<(usize, usize)>,
+    calculated: HashMap<(usize, usize, u8), u32>
 }
 
 impl CaveLog {
     fn new() -> CaveLog {
         CaveLog {
-            visiting: HashSet::new()
+            visiting: HashSet::new(),
+            calculated: HashMap::new()
         }
     }
-    fn copy(copy: &CaveLog) -> CaveLog {
-        CaveLog {
-            visiting: copy.visiting.clone()
-        }
+    fn visited(&mut self, r: usize, c: usize, risk: u32, config: u8) {
+        self.visiting.remove(&(r, c));
+        self.calculated.insert((r, c, config), risk);
+    }
+    fn get_risk(&self, r: usize, c: usize, config: u8) -> Option<&u32> {
+        self.calculated.get(&(r, c, config))
     }
 }
 
 impl Cave {
     fn from_file(file_name: &str) -> Cave {
-        let rows = get_file_lines(file_name)
+        let mut rows = get_file_lines(file_name)
             .flat_map(|line| line.ok())
             .map(|line| line.chars()
                 .map(|c| c.to_digit(10).unwrap())
@@ -45,74 +50,75 @@ impl Cave {
             .collect::<Vec<_>>();
         let height = rows.len();
         let width = rows[0].len();
+        rows[0][0] = 0;
         Cave {
             rows,
             height,
             width
         }
     }
+
+    fn add_if_valid(&self, r: i32, c: i32, log: &CaveLog, points: &mut Vec<(usize, usize)>) -> bool {
+        if r >= 0 && r < self.height as i32 && c >= 0 && c < self.width as i32 {
+            let point = (r as usize, c as usize);
+            if !log.visiting.contains(&point) {
+                points.push(point);
+                return true;
+            }
+        }
+        false
+    }
     
-    fn get_adjacent_points(&self, r: usize, c: usize) -> Vec<(usize, usize)> {
+    fn get_adjacent_points(&self, r: usize, c: usize, log: &CaveLog) -> (u8, Vec<(usize, usize)>) {
         let mut points = vec![];
-        if r != 0 {
-            points.push((r - 1, c));
+        let mut config = 0;
+        let c = c as i32;
+        let r = r as i32;
+        if self.add_if_valid(r - 1, c, log, &mut points) {
+            config = 0x01;
         }
-        if r != self.height - 1 {
-            points.push((r + 1, c));
+        if self.add_if_valid(r + 1, c, log, &mut points) {
+            config |= 0x02;
         }
-        if c != 0 {
-            points.push((r, c - 1));
+        if self.add_if_valid(r, c - 1, log, &mut points) {
+            config |= 0x04;
         }
-        if c != self.width - 1 {
-            points.push((r, c + 1));
+        if self.add_if_valid(r, c + 1, log, &mut points) {
+            config |= 0x08;
         }
-        points
+        (config, points)
     }
 
-    fn get_adjacent_not_visited(&self, r: usize, c: usize, log: &CaveLog) -> Vec<(usize, usize, u32)> {
-        self.get_adjacent_points(r, c).into_iter()
-            .filter(|point| !log.visiting.contains(point))
-            .map(|(r, c)| (r, c, self.rows[r][c]))
-            .collect::<Vec<_>>()
-    }
+    fn find_cheapest_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<u32> {
+        let base_risk = self.rows[r][c];
 
-    fn add_or_append(risk: u32, r: usize, c: usize, log: CaveLog, next_point_risk: &mut BTreeMap<u32, Vec<(usize, usize, CaveLog)>>) {
-        if let Some(for_risk) = next_point_risk.get_mut(&risk) {
-            for_risk.push((r, c, log));
-        } else {
-            next_point_risk.insert(risk, vec![(r, c, log)]);
+        let (config, points) = self.get_adjacent_points(r, c, &log);
+        
+        if r == self.height - 1 && c == self.width - 1 {
+            // end game
+            return Some(base_risk);
+        } else if let Some(risk_to_end) = log.get_risk(r, c, config) {
+            return Some(*risk_to_end);
+        } else if points.len() == 0 {
+            return None
         }
-    }
 
-    fn find_cheapest_path2(&self) -> u32 {
-        let mut next_point_risk = BTreeMap::<u32, Vec<(usize, usize, CaveLog)>>::new();
+        log.visiting.insert((r, c));
 
-        for point in self.get_adjacent_points(0, 0) {
+        let mut lowest_risk = u32::MAX;
+        for point in points {
             let (r, c) = point;
-            let risk = self.rows[r][c];
-            Cave::add_or_append(risk, r, c, CaveLog::new(), &mut next_point_risk);
+            if let Some(final_risk) = self.find_cheapest_path(r, c, log) {
+                lowest_risk = min(lowest_risk, final_risk);
+            }
         }
 
-        loop {
-            let (min_risk, infos) = next_point_risk.iter_mut().next().unwrap();
-            let min_risk = *min_risk;
-            let (r, c, mut log) = infos.pop().unwrap();
-
-            if infos.len() == 0 {
-                next_point_risk.remove(&min_risk);
-            }
-            
-            log.visiting.insert((r, c));
-            
-            if r == self.height - 1 && c == self.width - 1 {
-                return min_risk;
-            }
-
-            for (r, c, risk) in self.get_adjacent_not_visited(r, c, &log) {
-                let new_risk = min_risk + risk;
-                let new_log = CaveLog::copy(&log);
-                Cave::add_or_append(new_risk, r, c, new_log, &mut next_point_risk);
-            }
+        if lowest_risk == u32::MAX {
+            log.visited(r, c, u32::MAX, config);
+            None
+        } else {
+            log.visited(r, c, lowest_risk + base_risk, config);
+            Some(lowest_risk + base_risk)
         }
     }
 
@@ -120,16 +126,8 @@ impl Cave {
 
 fn part_one(file_name: &str) {
     let cave = Cave::from_file(file_name);
-    // let mut log = CaveLog::new();
-    // let (cheapest, path) = cave.find_cheapest_path(0, 0, &mut log).unwrap();
-    // println!("Part 1: {} : {:?}", (cheapest - cave.rows[0][0]), path);
-    println!("Part 1: {}", cave.find_cheapest_path2());
-    // let mut calculated = log.calculated.iter()
-    //     .collect::<Vec<_>>();
-    // calculated.sort();
-    // for (point, info) in calculated {
-    //     println!("Calculated for {:?} is {:?}", point, info);
-    // }
+    let mut log = CaveLog::new();
+    println!("Part 1: {}", cave.find_cheapest_path(0, 0, &mut log).unwrap());
 }
 
 fn part_two(file_name: &str) {
