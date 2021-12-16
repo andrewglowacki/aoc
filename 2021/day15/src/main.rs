@@ -43,6 +43,31 @@ impl CaveLog {
 }
 
 struct Stack {
+    frames: Vec<Frame>
+}
+
+impl Stack {
+    fn new() -> Stack {
+        Stack {
+            frames: Vec::new()
+        }
+    }
+    fn push(&mut self, frame: Frame) {
+        self.frames.push(frame);
+    }
+    fn pop(&mut self) -> Frame {
+        self.frames.pop().unwrap()
+    }
+    fn last(&mut self) -> &mut Frame {
+        let len = self.frames.len();
+        self.frames.get_mut(len - 1).unwrap()
+    }
+    fn has_frames(&self) -> bool {
+        self.frames.len() > 0
+    }
+}
+
+struct Frame {
     r: usize,
     c: usize,
     config: u8,
@@ -50,15 +75,18 @@ struct Stack {
     lowest_risk: u32,
 }
 
-impl Stack {
-    fn new(r: usize, c: usize, config: u8, points: Vec<(usize, usize)>) -> Stack {
-        Stack {
+impl Frame {
+    fn new(r: usize, c: usize, config: u8, points: Vec<(usize, usize)>) -> Frame {
+        Frame {
             r,
             c,
             config,
             points,
             lowest_risk: u32::MAX
         }
+    }
+    fn check_risk(&mut self, risk: u32) {
+        self.lowest_risk = min(self.lowest_risk, risk);
     }
 }
 
@@ -123,12 +151,13 @@ impl Cave {
         (config, points)
     }
 
-    fn find_least_risky_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<u32> {
-        let mut stack = vec![];
-        let (config, points) = self.get_adjacent_points(r, c, &log);
-        stack.push(Stack::new(0, 0, config, points));
+    fn find_least_risky_path(&self) -> u32 {
+        let mut log = CaveLog::new();
+        let mut stack = Stack::new();
+        let (config, points) = self.get_adjacent_points(0, 0, &log);
+        stack.push(Frame::new(0, 0, config, points));
         loop {
-            let mut frame = stack.pop().unwrap();
+            let mut frame = stack.pop();
 
             let r = frame.r;
             let c = frame.c;
@@ -136,31 +165,29 @@ impl Cave {
             
             let base_risk = self.get_risk(r, c);
             
-            let stack_len = stack.len();
-
             if r == self.height - 1 && c == self.width - 1 {
                 // end game
-                let prev = stack.get_mut(stack_len - 1).unwrap();
-                prev.lowest_risk = min(prev.lowest_risk, base_risk);
+                let prev = stack.last();
+                prev.check_risk(base_risk);
                 continue;
             } else if let Some(risk_to_end) = log.get_risk(r, c, config) {
-                if stack_len == 0 {
-                    return Some(*risk_to_end);
+                if stack.has_frames() {
+                    let prev = stack.last();
+                    prev.check_risk(*risk_to_end);
+                    continue;
                 } else {
-                    let prev = stack.get_mut(stack_len - 1).unwrap();
-                    prev.lowest_risk = min(prev.lowest_risk, *risk_to_end);
+                    return *risk_to_end;
                 }
-                continue;
             }
 
             log.visiting.insert((r, c));
 
             if frame.points.len() > 0 {
                 let (r, c) = frame.points.pop().unwrap();
-                let (config, points) = self.get_adjacent_points(r, c, &log);
+                let (new_config, new_points) = self.get_adjacent_points(r, c, &log);
                 stack.push(frame);
-                if points.len() > 0 {
-                    stack.push(Stack::new(r, c, config, points));
+                if new_points.len() > 0 {
+                    stack.push(Frame::new(r, c, new_config, new_points));
                 }
                 continue;
             }
@@ -171,11 +198,11 @@ impl Cave {
                 let result = frame.lowest_risk + base_risk;
                 log.visited(r, c, result, config);
                 
-                if stack_len == 0 {
-                    return Some(result);
+                if stack.has_frames() {
+                    let prev = stack.last();
+                    prev.check_risk(result);
                 } else {
-                    let prev = stack.get_mut(stack_len - 1).unwrap();
-                    prev.lowest_risk = min(prev.lowest_risk, result);
+                    return result;
                 }
             }
         }
@@ -185,14 +212,12 @@ impl Cave {
 
 fn part_one(file_name: &str) {
     let cave = Cave::from_file(file_name, 1);
-    let mut log = CaveLog::new();
-    println!("Part 1: {}", cave.find_least_risky_path(0, 0, &mut log).unwrap());
+    println!("Part 1: {}", cave.find_least_risky_path());
 }
 
 fn part_two(file_name: &str) {
     let cave = Cave::from_file(file_name, 5);
-    let mut log = CaveLog::new();
-    println!("Part 2: {}", cave.find_least_risky_path(0, 0, &mut log).unwrap());
+    println!("Part 2: {}", cave.find_least_risky_path());
 }
 
 fn main() {
