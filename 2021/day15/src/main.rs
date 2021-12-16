@@ -15,8 +15,10 @@ fn get_file_lines(file_name: &str) -> Input {
 
 struct Cave {
     rows: Vec<Vec<u32>>,
-    height: usize,
-    width: usize
+    base_height: usize,
+    base_width: usize,
+    width: usize,
+    height: usize
 }
 
 struct CaveLog {
@@ -41,8 +43,8 @@ impl CaveLog {
 }
 
 impl Cave {
-    fn from_file(file_name: &str) -> Cave {
-        let mut rows = get_file_lines(file_name)
+    fn from_file(file_name: &str, size_mult: usize) -> Cave {
+        let rows = get_file_lines(file_name)
             .flat_map(|line| line.ok())
             .map(|line| line.chars()
                 .map(|c| c.to_digit(10).unwrap())
@@ -50,11 +52,23 @@ impl Cave {
             .collect::<Vec<_>>();
         let height = rows.len();
         let width = rows[0].len();
-        rows[0][0] = 0;
         Cave {
             rows,
-            height,
-            width
+            base_height: height,
+            base_width: width,
+            width: width * size_mult,
+            height: height * size_mult
+        }
+    }
+
+    fn get_risk(&self, r: usize, c: usize) -> u32 {
+        if r == 0 && c == 0 {
+            0
+        } else {
+            let add = ((r / self.base_height) + (c / self.base_width)) as u32;
+            let risk = self.rows[r % self.base_height][c % self.base_width];
+            let risk = risk + add;
+            risk % 10 + (risk / 10)
         }
     }
 
@@ -89,8 +103,8 @@ impl Cave {
         (config, points)
     }
 
-    fn find_cheapest_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<u32> {
-        let base_risk = self.rows[r][c];
+    fn find_least_risky_path(&self, r: usize, c: usize, log: &mut CaveLog) -> Option<u32> {
+        let base_risk = self.get_risk(r, c);
 
         let (config, points) = self.get_adjacent_points(r, c, &log);
         
@@ -108,13 +122,13 @@ impl Cave {
         let mut lowest_risk = u32::MAX;
         for point in points {
             let (r, c) = point;
-            if let Some(final_risk) = self.find_cheapest_path(r, c, log) {
+            if let Some(final_risk) = self.find_least_risky_path(r, c, log) {
                 lowest_risk = min(lowest_risk, final_risk);
             }
         }
 
         if lowest_risk == u32::MAX {
-            log.visited(r, c, u32::MAX, config);
+            log.visiting.remove(&(r, c));
             None
         } else {
             log.visited(r, c, lowest_risk + base_risk, config);
@@ -125,21 +139,20 @@ impl Cave {
 }
 
 fn part_one(file_name: &str) {
-    let cave = Cave::from_file(file_name);
+    let cave = Cave::from_file(file_name, 1);
     let mut log = CaveLog::new();
-    println!("Part 1: {}", cave.find_cheapest_path(0, 0, &mut log).unwrap());
+    println!("Part 1: {}", cave.find_least_risky_path(0, 0, &mut log).unwrap());
 }
 
 fn part_two(file_name: &str) {
-    let _lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
-    
-    println!("Part 2: {}", "incomplete");
+    let cave = Cave::from_file(file_name, 5);
+    let mut log = CaveLog::new();
+    println!("Part 2: {}", cave.find_least_risky_path(0, 0, &mut log).unwrap());
 }
 
 fn main() {
     part_one("input.txt");
-    part_one("sample.txt");
+    part_two("sample.txt");
     part_two("input.txt");
 
     println!("Done!");
