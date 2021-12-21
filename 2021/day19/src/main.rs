@@ -37,14 +37,8 @@ impl Point {
     fn coords(x: i32, y: i32, z: i32) -> Point {
         Point { x, y, z }
     }
-    fn distance(&self, other: &Point) -> Vector {
-        let diff = self.diff(other);
-        let product = self.dot(other);
-        let angle = ((product / (self.magnitude() * other.magnitude())).acos() * 1000.0).round() as u32;
-        Vector {
-            angle,
-            magnitude: diff.magnitude().round() as u32
-        }
+    fn diff_magnitude(&self, other: &Point) -> u32 {
+        self.diff(other).magnitude()
     }
     fn diff(&self, other: &Point) -> Point {
         Point::coords(
@@ -53,11 +47,8 @@ impl Point {
             self.z - other.z
         )
     }
-    fn dot(&self, other: &Point) -> f64 {
-        ((self.x * other.x) + (self.y * other.y) + (self.z * other.z)) as f64
-    }
-    fn magnitude(&self) -> f64 {
-        (((self.x * self.x) + (self.y * self.y) + (self.z * self.z)) as f64).sqrt()
+    fn magnitude(&self) -> u32 {
+        (((self.x * self.x) + (self.y * self.y) + (self.z * self.z)) as f64).sqrt().round() as u32
     }
     fn rotate(&mut self) {
         let swap = self.x;
@@ -90,27 +81,25 @@ impl Display for Point {
     }
 }
 
-#[derive(Copy, Clone, Debug, Eq, PartialEq, Hash, PartialOrd, Ord)]
-struct Vector {
-    magnitude: u32,
-    angle: u32
-}
-
 struct Scanner {
     label: String,
     points: Vec<Point>,
-    distances: HashMap<Vector, (Point, Point)>
+    distances: HashMap<u32, Vec<(Point, Point)>>
 }
 
 impl Scanner {
     fn new(label: String, points: Vec<Point>) -> Scanner {
-        let mut distances = HashMap::<Vector, (Point, Point)>::new();
+        let mut distances = HashMap::<u32, Vec<(Point, Point)>>::new();
         for i in 0..points.len() {
             let from = &points[i];
             for j in i + 1..points.len() {
                 let to = &points[j];
-                let distance = from.distance(to);
-                assert_eq!(true, distances.insert(distance, (*from, *to)).is_none());
+                let distance = from.diff_magnitude(to);
+                if let Some(points) = distances.get_mut(&distance) {
+                    points.push((*from, *to));
+                } else {
+                    distances.insert(distance, vec![(*from, *to)]);
+                }
             }
         }
         Scanner {
@@ -125,6 +114,7 @@ impl Scanner {
         self.points.iter_mut()
             .for_each(|point| transform(point));
         self.distances.values_mut()
+            .flat_map(|points| points)
             .for_each(|(a, b)| {
                 transform(a);
                 transform(b);
@@ -135,8 +125,8 @@ impl Scanner {
         println!("{}", self.label);
         let distances = self.distances.iter()
             .collect::<BTreeMap<_,_>>();
-        distances.iter().for_each(|(distance, (a, b))|  {
-            println!("{:?} -> {}, {}", distance, a, b)
+        distances.iter().for_each(|(distance, points)|  {
+            println!("{} -> {:?}", distance, points)
         });
         println!("");
     }
@@ -160,7 +150,7 @@ impl Scanner {
     fn try_align(&mut self, other: &Scanner) -> bool {
         let common = self.distances.iter()
             .filter(|(distance, _)| other.distances.contains_key(distance))
-            .map(|(distance, points)| (*distance, *points))
+            .map(|(distance, points)| (*distance, points.to_vec()))
             .collect::<Vec<_>>();
         
         println!("Common is {} between {} and {}", common.len(), self.label, other.label);
@@ -216,38 +206,43 @@ impl Scanner {
         for (distance, my_points) in common {
             let other_points = other.distances.get(&distance).unwrap();
             
-            let (my_from, my_to) = &my_points;
-            let (other_from, other_to) = &other_points;
-            
-            let other_diff = other_from.diff(other_to);
-            let mut my_diff = my_from.diff(&my_to);
+            for (my_from, my_to) in my_points {
+                for (other_from, other_to) in other_points {
+                    let other_diff = other_from.diff(other_to);
+                    let mut my_diff = my_from.diff(&my_to);
+        
+                    let mut count = 0;
+                    while my_diff != other_diff && count < permutations.len() {
+                        permutations[count](&mut my_diff);
+                        count += 1;
+                    }
 
-            let mut count = 0;
-            while my_diff != other_diff {
-                permutations[count](&mut my_diff);
-                count += 1;
-                // panics if we run out of permutations
-            }
-
-            for i in 0..count {
-                self.transform_points(|point| permutations[i](point));
-            }
-
-            // determine translation amount
-            let translation = {
-                if my_from.diff(other_from) == my_to.diff(other_to) {
-                    other_from.diff(my_from)
-                } else if my_from.diff(other_to) == my_to.diff(other_from) {
-                    other_to.diff(my_from)
-                } else {
-                    panic!("Neither translation matches between: {:?} -> {:?}, {:?} -> {:?}", 
-                        my_from, my_to, other_from, other_to);
+                    if count >= permutations.len() {
+                        continue;
+                    }
+        
+                    for i in 0..count {
+                        self.transform_points(|point| permutations[i](point));
+                    }
+        
+                    // determine translation amount
+                    let translation = {
+                        if my_from.diff(other_from) == my_to.diff(other_to) {
+                            other_from.diff(&my_from)
+                        } else if my_from.diff(other_to) == my_to.diff(other_from) {
+                            other_to.diff(&my_from)
+                        } else {
+                            panic!("Neither translation matches between: {:?} -> {:?}, {:?} -> {:?}", 
+                                my_from, my_to, other_from, other_to);
+                        }
+                    };
+        
+                    self.transform_points(|point| point.translate(&translation));
+                    return true;
                 }
-            };
-
-            self.transform_points(|point| point.translate(&translation));
+            }
         }
-        true
+        false
     }
 }
 
