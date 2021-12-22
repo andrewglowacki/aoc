@@ -121,12 +121,28 @@ impl Scanner {
             });
     }
 
+    fn print_points(points: &Vec<(Point, Point)>) -> String {
+        let mut formatted = String::new();
+
+        formatted.push('[');
+        points.iter().for_each(|(a,b)| {
+            if formatted.len() != 1 {
+                formatted.push(',');
+                formatted.push(' ');
+            }
+            formatted += format!("{}->{}", a, b).as_str();
+        });
+        formatted.push(']');
+
+        formatted
+    }
+
     fn _print(&self) {
         println!("{}", self.label);
         let distances = self.distances.iter()
             .collect::<BTreeMap<_,_>>();
         distances.iter().for_each(|(distance, points)|  {
-            println!("{} -> {:?}", distance, points)
+            println!("{} -> {}", distance, Scanner::print_points(points))
         });
         println!("");
     }
@@ -213,16 +229,22 @@ impl Scanner {
         
                     let mut count = 0;
                     while my_diff != other_diff && count < permutations.len() {
-                        permutations[count](&mut my_diff);
+                        let permutation = &permutations[count];
+                        permutation(&mut my_diff);
                         count += 1;
                     }
-
+                    
                     if count >= permutations.len() {
                         continue;
                     }
-        
+
+                    let mut my_from = my_from;
+                    let mut my_to = my_to;
+
                     for i in 0..count {
-                        self.transform_points(|point| permutations[i](point));
+                        let permutation = &permutations[i];
+                        permutation(&mut my_from);
+                        permutation(&mut my_to);
                     }
         
                     // determine translation amount
@@ -232,12 +254,28 @@ impl Scanner {
                         } else if my_from.diff(other_to) == my_to.diff(other_from) {
                             other_to.diff(&my_from)
                         } else {
-                            panic!("Neither translation matches between: {:?} -> {:?}, {:?} -> {:?}", 
-                                my_from, my_to, other_from, other_to);
+                            println!("No translation found: {}->{} and {}->{}", my_from, my_to, other_from, other_to);
+                            continue;
                         }
                     };
+
+                    println!("offset of {} to {} is {}", self.label, other.label, translation);
+        
+                    for i in 0..count {
+                        self.transform_points(|point| permutations[i](point));
+                    }
         
                     self.transform_points(|point| point.translate(&translation));
+
+                    println!("-----common-----");
+                    self.points.iter()
+                        .filter(|point| other.points.contains(point))
+                        .for_each(|point| println!("{}", point));
+                    println!("-----uncommon-----");
+                    self.points.iter()
+                        .filter(|point| !other.points.contains(point))
+                        .for_each(|point| println!("{}", point));
+
                     return true;
                 }
             }
