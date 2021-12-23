@@ -151,7 +151,7 @@ impl Cave {
         (config, points)
     }
 
-    fn find_least_risky_path(&self) -> u32 {
+    fn find_least_risky_path(&self) -> (u32, HashSet<(usize, usize)>) {
         let mut log = CaveLog::new();
         let mut stack = Stack::new();
         let (config, points) = self.get_adjacent_points(0, 0, &log);
@@ -176,7 +176,7 @@ impl Cave {
                     prev.check_risk(*risk_to_end);
                     continue;
                 } else {
-                    return *risk_to_end;
+                    return (*risk_to_end, self.get_path_to_end(r, c, &mut log));
                 }
             }
 
@@ -202,9 +202,51 @@ impl Cave {
                     let prev = stack.last();
                     prev.check_risk(result);
                 } else {
-                    return result;
+                    return (result, self.get_path_to_end(r, c, &mut log));
                 }
             }
+        }
+    }
+
+    fn get_path_to_end(&self, r: usize, c: usize, log: &mut CaveLog) -> HashSet<(usize, usize)> {
+        if r == self.height - 1 && c == self.width - 1 {
+            log.visiting.clone()
+        } else {
+            log.visiting.insert((r, c));
+            let (_, points) = self.get_adjacent_points(r, c, &log);
+            if let Some((r, c, _)) = points.into_iter()
+                .flat_map(|(r, c)| {
+                    let (config, _) = self.get_adjacent_points(r, c, &log);
+                    if let Some(risk) = log.get_risk(r, c, config) {
+                        Some((r, c, *risk))
+                    } else if r == self.height - 1 && c == self.width - 1 {
+                        Some((r, c, self.get_risk(r, c)))
+                    } else {
+                        None
+                    }
+                })
+                .min_by_key(|(_, _, risk)| *risk) 
+            {
+                self.get_path_to_end(r, c, log)
+            }
+            else
+            {
+                panic!("at ({}, {}) no next point with {} visited thus far", r, c, log.visiting.len());
+            }
+        }
+    }
+
+    fn _print_path(&self, points: HashSet<(usize, usize)>) {
+        for r in 0..self.height {
+            for c in 0..self.width {
+                let in_path = points.contains(&(r, c));
+                if in_path {
+                    print!("\x1b[42m{}\x1b[0m", self.get_risk(r, c));
+                } else {
+                    print!("{}", self.get_risk(r, c));
+                }
+            }
+            println!("");
         }
     }
 
@@ -212,12 +254,14 @@ impl Cave {
 
 fn part_one(file_name: &str) {
     let cave = Cave::from_file(file_name, 1);
-    println!("Part 1: {}", cave.find_least_risky_path());
+    let (risk, _) = cave.find_least_risky_path();
+    println!("Part 1: {}", risk);
 }
 
 fn part_two(file_name: &str) {
     let cave = Cave::from_file(file_name, 5);
-    println!("Part 2: {}", cave.find_least_risky_path());
+    let (risk, _) = cave.find_least_risky_path();
+    println!("Part 2: {}", risk);
 }
 
 fn main() {
