@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+use std::collections::HashSet;
 use std::fmt::Formatter;
 use std::fmt::Display;
 use std::cmp::max;
@@ -14,7 +16,7 @@ fn get_file_lines(file_name: &str) -> Input {
     BufReader::new(file).lines()
 }
 
-#[derive(PartialEq, Hash, Clone, Debug)]
+#[derive(PartialEq, Hash, Clone, Debug, Eq, Copy)]
 struct Range {
     from: i32,
     to: i32
@@ -42,27 +44,11 @@ impl Range {
             false => self.from < other.to && self.to > other.from
         }
     }
-    fn inner_length(&self) -> u64 {
-        max(0, (self.to - self.from) - 1) as u64
+    fn length(&self) -> u64 {
+        max(0, (self.to - self.from) + 1) as u64
     }
     fn contains(&self, other: &Range) -> bool {
         self.from <= other.from && self.to >= other.to
-    }
-    fn contains_point(&self, point: i32) -> bool {
-        self.from <= point && point <= self.to
-    }
-    fn constrain(&mut self, other: &Range) -> Range {
-        let mut from = self.from;
-        let mut to = self.to;
-
-        if from < other.from {
-            from = other.from;
-        }
-        if to > other.to {
-            to = other.to;
-        }
-
-        Range::new(from, to)
     }
     fn split(&self, other: &Range) -> Vec<Range> {
         let mut points = BTreeSet::new();
@@ -91,132 +77,35 @@ impl Range {
     }
 }
 
-#[derive(PartialEq, Hash, Debug)]
-enum PlaneType {
-    XY,
-    XZ,
-    YZ
-}
-
-#[derive(PartialEq, Hash, Debug)]
-struct Plane {
-    x: Range,
-    y: Range,
-    z: Range,
-    plane_type: PlaneType
+#[derive(PartialEq, Hash, Debug, Eq, Clone, Copy)]
+enum Plane {
+    XY { x: Range, y: Range, z: i32 },
+    XZ { x: Range, y: i32, z: Range },
+    YZ { x: i32, y: Range, z: Range }
 }
 
 impl Plane {
     fn new_xy(x: Range, y: Range, z: i32) -> Plane {
-        Plane {
-            x,
-            y,
-            z: Range::new(z, z),
-            plane_type: PlaneType::XY
-        }
+        Plane::XY { x, y, z }
     }
     fn new_xz(x: Range, y: i32, z: Range) -> Plane {
-        Plane {
-            x,
-            y: Range::new(y, y),
-            z,
-            plane_type: PlaneType::XZ
-        }
+        Plane::XZ { x, y, z }
     }
     fn new_yz(x: i32, y: Range, z: Range) -> Plane {
-        Plane {
-            x: Range::new(x, x),
-            y,
-            z,
-            plane_type: PlaneType::YZ
-        }
+        Plane::YZ { x, y, z }
     }
-    fn subtract(&self, other: &Plane) -> Vec<Plane> {
-        let planes = Vec::with_capacity(3);
-        match self.plane_type {
-            PlaneType::XY => {
-                let x_splits = self.x.split(&other.x);
-                let y_splits = self.y.split(&other.y);
-                for x in x_splits {
-                    for y in y_splits {
-                        if other.x.contains(&x) && other.y.contains(&y) {
-                            continue;
-                        }
-                        planes.push(Plane::new_xy(x, y, self.z.from));
-                    }
-                }
-            },
-            PlaneType::XZ => {
-                let x_splits = self.x.split(&other.x);
-                let z_splits = self.z.split(&other.z);
-                for x in x_splits {
-                    for z in z_splits {
-                        if other.x.contains(&x) && other.z.contains(&z) {
-                            continue;
-                        }
-                        planes.push(Plane::new_xz(x, self.y.from, z));
-                    }
-                }
-            },
-            PlaneType::YZ => {
-                let y_splits = self.y.split(&other.y);
-                let z_splits = self.z.split(&other.z);
-                for y in y_splits {
-                    for z in z_splits {
-                        if other.z.contains(&z) && other.y.contains(&y) {
-                            continue;
-                        }
-                        planes.push(Plane::new_yz(self.x.from, y, z));
-                    }
-                }
-            }
-        }
-        planes
-    }
-    fn overlaps(&self, other: &Plane) -> bool {
-        match self.plane_type {
-            PlaneType::XY => self.z.from == other.z.from && 
-                self.x.overlaps(&other.x, true) &&
-                self.y.overlaps(&other.y, true),
-            PlaneType::XZ => self.y.from == other.y.from && 
-                self.x.overlaps(&other.x, true) &&
-                self.z.overlaps(&other.z, true),
-            PlaneType::YZ => self.x.from == other.x.from && 
-                self.z.overlaps(&other.z, true) &&
-                self.y.overlaps(&other.y, true)
-        }
-    }
-    fn is_constrained_to(&self, cube: &Cuboid) -> bool {
-        match self.plane_type {
-            PlaneType::XY => self.x == cube.dimensions[0]  && self.y == cube.dimensions[1],
-            PlaneType::XZ => self.x == cube.dimensions[0]  && self.z == cube.dimensions[2],
-            PlaneType::YZ => self.y == cube.dimensions[1]  && self.z == cube.dimensions[2]
-        }
-    }
-    fn constrain(&self, cube: &Cuboid) -> Plane {
-        match self.plane_type {
-            PlaneType::XY => Plane::new_xy(
-                self.x.constrain(&cube.dimensions[0]), 
-                self.y.constrain(&cube.dimensions[1]),
-                self.z.from),
-            PlaneType::XZ => Plane::new_xz(
-                self.x.constrain(&cube.dimensions[0]), 
-                self.y.from,
-                self.z.constrain(&cube.dimensions[2])),
-            PlaneType::YZ => Plane::new_yz(
-                self.x.from, 
-                self.y.constrain(&cube.dimensions[1]),
-                self.z.constrain(&cube.dimensions[2]))
+    fn get_area(&self) -> u64 {
+        match self {
+            Plane::XY { x, y, .. } => x.length() * y.length(),
+            Plane::XZ { x, z, .. } => x.length() * z.length(),
+            Plane::YZ { y, z, .. } => y.length() * z.length()
         }
     }
 }
 
 #[derive(PartialEq, Hash, Debug)]
 struct Cuboid {
-    dimensions: Vec<Range>,
-    xy: BTreeSet<Plane>,
-    xz: BTreeSet<Plane>,
-    yz: BTreeSet<Plane>
+    dimensions: Vec<Range>
 }
 
 impl Display for Cuboid {
@@ -240,10 +129,7 @@ impl Cuboid {
     }
     fn from_dims(x: Range, y: Range, z: Range) -> Cuboid {
         Cuboid { 
-            dimensions: vec![x, y, z], 
-            xy: vec![Plane::new_xy(x, y, z.from), Plane::new_xy(x, y, z.to)],
-            xz: vec![Plane::new_xz(x, y.from, z), Plane::new_xz(x, y.to, z)],
-            yz: vec![Plane::new_yz(x.from, y, z), Plane::new_yz(x.to, y, z)]
+            dimensions: vec![x, y, z]
         }
     }
     fn contains(&self, other: &Cuboid) -> bool {
@@ -260,8 +146,22 @@ impl Cuboid {
     }
     fn inner_volume(&self) -> u64 {
         self.dimensions.iter()
-            .map(|range| range.inner_length())
-            .product()
+            .map(|range| max(range.length() - 1, 0))
+            .product::<u64>()
+    }
+    fn get_planes(&self) -> Vec<Plane> {
+        let x = &self.dimensions[0];
+        let y = &self.dimensions[1];
+        let z = &self.dimensions[2];
+
+        let mut planes = Vec::with_capacity(6);
+        planes.push(Plane::new_xy(*x, *y, z.from));
+        planes.push(Plane::new_xy(*x, *y, z.to));
+        planes.push(Plane::new_xz(*x, y.from, *z));
+        planes.push(Plane::new_xz(*x, y.to, *z));
+        planes.push(Plane::new_yz(x.from, *y, *z));
+        planes.push(Plane::new_yz(x.to, *y, *z));
+        planes
     }
     fn add_points_to(&self, points: &mut BTreeSet<(i32, i32, i32)>) {
         let x_range = &self.dimensions[0];
@@ -276,11 +176,6 @@ impl Cuboid {
             }
         }
     }
-    fn contains_point(&self, (x, y, z): &(i32, i32, i32)) -> bool {
-        self.dimensions[0].contains_point(*x) &&
-        self.dimensions[1].contains_point(*y) &&
-        self.dimensions[2].contains_point(*z)
-    }
     fn remove_points_from(&self, points: &mut BTreeSet<(i32, i32, i32)>) {
         let x_range = &self.dimensions[0];
         let y_range = &self.dimensions[1];
@@ -294,43 +189,23 @@ impl Cuboid {
             }
         }
     }
-    fn exclude_planes(planes: &mut BTreeSet<Plane>, others: &BTreeSet<Plane>) {
-        let new_planes = BTreeSet::new();
-        while let Some(my_plane) = planes.take() {
-            let mut overlapped = false;
-            others.iter()
-                .filter(|other| my_plane.overlaps(other))
-                .flat_map(|other| {
-                    let subtracted = my_plane.subtract(other);
-                    overlapped = true;
-                    subtracted
-                })
-                .for_each(|plane| new_planes.push(plane));
-            if !overlapped {
-                new_planes.push(my_plane);
-            }
-        }
-        *planes = new_planes;
-    }
-    fn exclude_all_planes(&mut self, other: &Cuboid) {
-        Cuboid::exclude_planes(&mut self.xy, &other.xy);
-        Cuboid::exclude_planes(&mut self.xz, &other.xz);
-        Cuboid::exclude_planes(&mut self.yz, &other.yz);
-    }
-    fn add_planes(to: &mut BTreeSet<Plane>, from: &BTreeSet<Plane>, cube: &Cuboid) {
-        let mut has_incomplete_plane = from.iter()
-            .find(|plane| **plane.is_constrained_to(&constraint))
-            .is_none();
-        if has_incomplete_plane {
-            from.iter()
-                .flat_map(|plane| plane.constrain(&cube))
-                .for_each(|plane| to.push(plane));
+    fn adjust_touching_plane(&mut self, plane: &Plane) {
+        let (range, compare) = match plane {
+            Plane::XY { z, .. } => (&mut self.dimensions[2], z),
+            Plane::XZ { y, .. } => (&mut self.dimensions[1], y),
+            Plane::YZ { x, .. } => (&mut self.dimensions[0], x)
+        };
+
+        match range.from == *compare {
+            true => range.from += 1,
+            false => range.to -= 1
         }
     }
-    fn add_all_planes(&mut self, other: &Cuboid) {
-        Cuboid::add_planes(&mut self.xy, &other.xy, self);
-        Cuboid::add_planes(&mut self.xz, &other.xz, self);
-        Cuboid::add_planes(&mut self.yz, &other.yz, self);
+    fn adjust_touching_planes(&mut self, all: &mut HashSet<Plane>) {
+        self.get_planes()
+            .drain(0..)
+            .filter(|plane| !all.insert(plane.clone()))
+            .for_each(|plane| self.adjust_touching_plane(&plane));
     }
     fn split(&self, other: &Cuboid) -> (Vec<Cuboid>, Vec<Cuboid>) {
 
@@ -355,6 +230,8 @@ impl Cuboid {
             .map(|(a, b)| a.split(&b))
             .collect::<Vec<_>>();
         
+        let mut planes = HashSet::new();
+        
         let mut my_cuboids = Vec::new();
         let mut other_cuboids = Vec::new();
         for x in splits[0].iter() {
@@ -362,13 +239,10 @@ impl Cuboid {
                 for z in splits[2].iter() {
                     let mut cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
                     if self.contains(&cuboid) {
-                        let new_excluded = filtered_excluded.iter()
-                            .filter(|point| cuboid.contains_point(point))
-                            .copied()
-                            .collect::<BTreeSet<_>>();
-                        cuboid.excluded = new_excluded;
+                        cuboid.adjust_touching_planes(&mut planes);
                         my_cuboids.push(cuboid);
                     } else if other.contains(&cuboid) {
+                        cuboid.adjust_touching_planes(&mut planes);
                         other_cuboids.push(cuboid);
                     }
                 }
@@ -377,24 +251,34 @@ impl Cuboid {
 
         (my_cuboids, other_cuboids)
     }
+
     fn remove(&self, other: &Cuboid) -> Vec<Cuboid> {
         let splits = self.dimensions.iter()
             .zip(other.dimensions.iter())
             .map(|(a, b)| a.split(&b))
             .collect::<Vec<_>>();
         
+        let mut exclude_planes = HashSet::new();
         let mut new_cuboids = Vec::new();
         for x in splits[0].iter() {
             for y in splits[1].iter() {
                 for z in splits[2].iter() {
-                    let mut cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
-                    if self.contains(&cuboid) && !other.contains(&cuboid) {
-                        cuboid.exclude_all_planes(&other);
-                        new_cuboids.push(cuboid)
+                    let cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
+                    if self.contains(&cuboid) {
+                        if other.contains(&cuboid) {
+                            other.get_planes()
+                                .drain(0..)
+                                .for_each(|plane| { exclude_planes.insert(plane); });
+                        } else {
+                            new_cuboids.push(cuboid)
+                        }
                     }
                 }
             }
         }
+
+        new_cuboids.iter_mut().for_each(|cube| 
+            cube.adjust_touching_planes(&mut exclude_planes));
 
         new_cuboids
     }
@@ -462,16 +346,13 @@ impl Reactor {
         for left_cube in left_cubes.iter_mut() {
             let mut new_right_cubes = Vec::new();
             while let Some(right_cube) = right_cubes.pop() {
-                if left_cube.overlaps(&right_cube, false) {
+                if left_cube.overlaps(&right_cube) {
                     let (split_left, split_right) = left_cube.split(&right_cube);
                     new_left = Some(split_left);
                     split_right.into_iter().for_each(|cube| new_right_cubes.push(cube));
                     split = true;
                     break;
                 } else {
-                    if left_cube.overlaps(&right_cube, true) {
-                        left_cube.add_all_planes(&right_cube);
-                    }
                     new_right_cubes.push(right_cube);
                 }
             }
@@ -494,7 +375,7 @@ impl Reactor {
                 left_cubes.remove(left_index);
             } else {
                 left_cubes[left_index] = split_left.pop().unwrap();
-                split_left.drain(0..split_left.len())
+                split_left.drain(0..)
                     .for_each(|cube| left_cubes.push(cube));
             }
             true
@@ -510,11 +391,13 @@ impl Reactor {
                 // keep splitting the new cubes until we have not split anymore
             }
             // add all the new cubes
-            new_cubes.into_iter().for_each(|cube| self.cubes.push(cube));
+            new_cubes.into_iter().for_each(|cube| {
+                self.cubes.push(cube)
+            });
         } else {
             let mut new_cubes = Vec::<Cuboid>::new();
             while let Some(cube) = self.cubes.pop() {
-                if cube.overlaps(&new_cuboid, true) {
+                if cube.overlaps(&new_cuboid) {
                     let these_new_cubes = cube.remove(&new_cuboid);
                     these_new_cubes.into_iter()
                         .for_each(|cube| new_cubes.push(cube));
@@ -528,21 +411,20 @@ impl Reactor {
     }
 
     fn calc_lit_count(&self) -> u64 {
-        let mut lit_edge_points = BTreeSet::new();
-        let mut inner_volume = 0;
-        let mut index = 0;
-        let count = self.cubes.len();
+        let mut planes = HashSet::new();
+        let mut total_volume = 0;
         for cube in self.cubes.iter() {
-            index += 1;
-            let this_inner = cube.inner_volume(); 
-            inner_volume += this_inner;
-            // edges overlap, so we have to distinct them
-            cube.add_edge_points(&mut lit_edge_points);
-            cube.excluded.iter().for_each(|point| { lit_edge_points.remove(point); });
-            print!("\rCalculating lit for {} of {} = {}      ", index, count, inner_volume + lit_edge_points.len() as u64);
+            let this_volume = cube.inner_volume();
+            cube.get_planes().into_iter()
+                .for_each(|plane| { planes.insert(plane); });
+            total_volume += this_volume;
         }
-        println!("");
-        inner_volume + lit_edge_points.len() as u64
+        
+        let plane_sum = planes.iter()
+            .map(|plane| plane.get_area())
+            .sum::<u64>();
+        
+        total_volume + plane_sum
     }
 }
 
@@ -554,6 +436,7 @@ fn part_one(file_name: &str) {
         .flat_map(|line| line.ok())
         .map(|line| parse_line(line))
         .flat_map(|instruction| bound_instruction(instruction))
+        .take(4)
         .for_each(|(on, cuboid)| {
             match on {
                 true => cuboid.add_points_to(&mut all_points),
@@ -588,8 +471,8 @@ fn part_two(file_name: &str) {
 }
 
 fn main() {
-    // part_one("input.txt");
-    part_two("input.txt");
+    part_one("input.txt");
+    // part_two("input.txt");
 
     println!("Done!");
 }
