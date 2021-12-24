@@ -45,7 +45,7 @@ impl Range {
         }
     }
     fn length(&self) -> u64 {
-        max(0, (self.to - self.from) + 1) as u64
+        max(0, (self.to - self.from) - 1) as u64
     }
     fn contains(&self, other: &Range) -> bool {
         self.from <= other.from && self.to >= other.to
@@ -74,6 +74,23 @@ impl Range {
             prev = next;
         }
         ranges
+    }
+}
+
+#[derive(PartialEq, Hash, Debug, Eq, Clone, Copy)]
+enum Edge {
+    Vertical { x: i32, y: i32, z: Range },
+    HorizontalX { x: Range, y: i32, z: i32 },
+    HorizontalY { x: i32, y: Range, z: i32 }
+}
+
+impl Edge {
+    fn length(&self) -> u64 {
+        match self {
+            Edge::Vertical { z, .. } => z.length(),
+            Edge::HorizontalY { y, .. } => y.length(),
+            Edge::HorizontalX { x, .. } => x.length()
+        }
     }
 }
 
@@ -149,19 +166,51 @@ impl Cuboid {
             .map(|range| max(range.length() - 1, 0))
             .product::<u64>()
     }
-    fn get_planes(&self) -> Vec<Plane> {
+    fn add_corners(&self, corners: &mut HashSet<(i32, i32, i32)>) {
         let x = &self.dimensions[0];
         let y = &self.dimensions[1];
         let z = &self.dimensions[2];
 
-        let mut planes = Vec::with_capacity(6);
-        planes.push(Plane::new_xy(*x, *y, z.from));
-        planes.push(Plane::new_xy(*x, *y, z.to));
-        planes.push(Plane::new_xz(*x, y.from, *z));
-        planes.push(Plane::new_xz(*x, y.to, *z));
-        planes.push(Plane::new_yz(x.from, *y, *z));
-        planes.push(Plane::new_yz(x.to, *y, *z));
-        planes
+        corners.insert((x.from, y.from, z.from));
+        corners.insert((x.from, y.from, z.to));
+        corners.insert((x.from, y.to, z.from));
+        corners.insert((x.from, y.to, z.to));
+        corners.insert((x.to, y.from, z.from));
+        corners.insert((x.to, y.from, z.to));
+        corners.insert((x.to, y.to, z.from));
+        corners.insert((x.to, y.to, z.to));
+    }
+    fn add_edges(&self, edges: &mut HashSet<Edge>) {
+        let x = &self.dimensions[0];
+        let y = &self.dimensions[1];
+        let z = &self.dimensions[2];
+
+        edges.insert(Edge::Vertical { x: x.from, y: y.from, z: *z });
+        edges.insert(Edge::Vertical { x: x.from, y: y.to, z: *z });
+        edges.insert(Edge::Vertical { x: x.to, y: y.from, z: *z });
+        edges.insert(Edge::Vertical { x: x.to, y: y.to, z: *z });
+
+        edges.insert(Edge::HorizontalX { x: *x, y: y.from, z: z.from });
+        edges.insert(Edge::HorizontalX { x: *x, y: y.to, z: z.from });
+        edges.insert(Edge::HorizontalX { x: *x, y: y.from, z: z.to });
+        edges.insert(Edge::HorizontalX { x: *x, y: y.to, z: z.to });
+
+        edges.insert(Edge::HorizontalY { x: x.from, y: *y, z: z.from });
+        edges.insert(Edge::HorizontalY { x: x.from, y: *y, z: z.to });
+        edges.insert(Edge::HorizontalY { x: x.to, y: *y, z: z.from });
+        edges.insert(Edge::HorizontalY { x: x.to, y: *y, z: z.to });
+    }
+    fn add_planes(&self, planes: &mut HashSet<Plane>) {
+        let x = &self.dimensions[0];
+        let y = &self.dimensions[1];
+        let z = &self.dimensions[2];
+
+        planes.insert(Plane::new_xy(*x, *y, z.from));
+        planes.insert(Plane::new_xy(*x, *y, z.to));
+        planes.insert(Plane::new_xz(*x, y.from, *z));
+        planes.insert(Plane::new_xz(*x, y.to, *z));
+        planes.insert(Plane::new_yz(x.from, *y, *z));
+        planes.insert(Plane::new_yz(x.to, *y, *z));
     }
     fn add_points_to(&self, points: &mut BTreeSet<(i32, i32, i32)>) {
         let x_range = &self.dimensions[0];
@@ -189,24 +238,6 @@ impl Cuboid {
             }
         }
     }
-    fn adjust_touching_plane(&mut self, plane: &Plane) {
-        let (range, compare) = match plane {
-            Plane::XY { z, .. } => (&mut self.dimensions[2], z),
-            Plane::XZ { y, .. } => (&mut self.dimensions[1], y),
-            Plane::YZ { x, .. } => (&mut self.dimensions[0], x)
-        };
-
-        match range.from == *compare {
-            true => range.from += 1,
-            false => range.to -= 1
-        }
-    }
-    fn adjust_touching_planes(&mut self, all: &mut HashSet<Plane>) {
-        self.get_planes()
-            .drain(0..)
-            .filter(|plane| !all.insert(plane.clone()))
-            .for_each(|plane| self.adjust_touching_plane(&plane));
-    }
     fn split(&self, other: &Cuboid) -> (Vec<Cuboid>, Vec<Cuboid>) {
 
         /*
@@ -230,19 +261,15 @@ impl Cuboid {
             .map(|(a, b)| a.split(&b))
             .collect::<Vec<_>>();
         
-        let mut planes = HashSet::new();
-        
         let mut my_cuboids = Vec::new();
         let mut other_cuboids = Vec::new();
         for x in splits[0].iter() {
             for y in splits[1].iter() {
                 for z in splits[2].iter() {
-                    let mut cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
+                    let cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
                     if self.contains(&cuboid) {
-                        cuboid.adjust_touching_planes(&mut planes);
                         my_cuboids.push(cuboid);
                     } else if other.contains(&cuboid) {
-                        cuboid.adjust_touching_planes(&mut planes);
                         other_cuboids.push(cuboid);
                     }
                 }
@@ -258,27 +285,17 @@ impl Cuboid {
             .map(|(a, b)| a.split(&b))
             .collect::<Vec<_>>();
         
-        let mut exclude_planes = HashSet::new();
         let mut new_cuboids = Vec::new();
         for x in splits[0].iter() {
             for y in splits[1].iter() {
                 for z in splits[2].iter() {
                     let cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
                     if self.contains(&cuboid) {
-                        if other.contains(&cuboid) {
-                            other.get_planes()
-                                .drain(0..)
-                                .for_each(|plane| { exclude_planes.insert(plane); });
-                        } else {
-                            new_cuboids.push(cuboid)
-                        }
+                        new_cuboids.push(cuboid)
                     }
                 }
             }
         }
-
-        new_cuboids.iter_mut().for_each(|cube| 
-            cube.adjust_touching_planes(&mut exclude_planes));
 
         new_cuboids
     }
@@ -346,7 +363,7 @@ impl Reactor {
         for left_cube in left_cubes.iter_mut() {
             let mut new_right_cubes = Vec::new();
             while let Some(right_cube) = right_cubes.pop() {
-                if left_cube.overlaps(&right_cube) {
+                if left_cube.overlaps(&right_cube, false) {
                     let (split_left, split_right) = left_cube.split(&right_cube);
                     new_left = Some(split_left);
                     split_right.into_iter().for_each(|cube| new_right_cubes.push(cube));
@@ -397,7 +414,7 @@ impl Reactor {
         } else {
             let mut new_cubes = Vec::<Cuboid>::new();
             while let Some(cube) = self.cubes.pop() {
-                if cube.overlaps(&new_cuboid) {
+                if cube.overlaps(&new_cuboid, true) {
                     let these_new_cubes = cube.remove(&new_cuboid);
                     these_new_cubes.into_iter()
                         .for_each(|cube| new_cubes.push(cube));
@@ -412,19 +429,26 @@ impl Reactor {
 
     fn calc_lit_count(&self) -> u64 {
         let mut planes = HashSet::new();
-        let mut total_volume = 0;
+        let mut edges = HashSet::new();
+        let mut corners = HashSet::new();
+
+        let mut inner_volume_total = 0;
         for cube in self.cubes.iter() {
             let this_volume = cube.inner_volume();
-            cube.get_planes().into_iter()
-                .for_each(|plane| { planes.insert(plane); });
-            total_volume += this_volume;
+            cube.add_planes(&mut planes);
+            cube.add_edges(&mut edges);
+            cube.add_corners(&mut corners);
+            inner_volume_total += this_volume;
         }
         
         let plane_sum = planes.iter()
             .map(|plane| plane.get_area())
             .sum::<u64>();
+        let edge_sum = edges.iter()
+            .map(|edge| edge.length())
+            .sum::<u64>();
         
-        total_volume + plane_sum
+        inner_volume_total + plane_sum + edge_sum + corners.len() as u64
     }
 }
 
