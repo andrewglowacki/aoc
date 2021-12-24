@@ -1,5 +1,3 @@
-use std::collections::HashMap;
-use std::collections::HashSet;
 use std::fmt::Formatter;
 use std::fmt::Display;
 use std::cmp::max;
@@ -38,85 +36,11 @@ impl Range {
         let to = range_str[to_start..].parse::<i32>().unwrap();
         Range::new(from, to)
     }
-    fn overlaps(&self, other: &Range, or_touches: bool) -> bool {
-        match or_touches {
-            true => self.from <= other.to && self.to >= other.from,
-            false => self.from < other.to && self.to > other.from
-        }
+    fn overlaps(&self, other: &Range) -> bool {
+        self.from <= other.to && self.to >= other.from
     }
     fn length(&self) -> u64 {
-        max(0, (self.to - self.from) - 1) as u64
-    }
-    fn contains(&self, other: &Range) -> bool {
-        self.from <= other.from && self.to >= other.to
-    }
-    fn split(&self, other: &Range) -> Vec<Range> {
-        let mut points = BTreeSet::new();
-        points.insert(self.from);
-        points.insert(self.to);
-        points.insert(other.from);
-        points.insert(other.to);
-        
-        /*
-         * Turn:
-         * |-----|
-         *    |------|
-         * Into:
-         * |--|  |---|
-         *    |--|
-         */
-
-        let mut ranges = Vec::with_capacity(points.len() - 1);
-        let mut points = points.into_iter();
-        let mut prev = points.next().unwrap();
-        while let Some(next) = points.next() {
-            ranges.push(Range::new(prev, next));
-            prev = next;
-        }
-        ranges
-    }
-}
-
-#[derive(PartialEq, Hash, Debug, Eq, Clone, Copy)]
-enum Edge {
-    Vertical { x: i32, y: i32, z: Range },
-    HorizontalX { x: Range, y: i32, z: i32 },
-    HorizontalY { x: i32, y: Range, z: i32 }
-}
-
-impl Edge {
-    fn length(&self) -> u64 {
-        match self {
-            Edge::Vertical { z, .. } => z.length(),
-            Edge::HorizontalY { y, .. } => y.length(),
-            Edge::HorizontalX { x, .. } => x.length()
-        }
-    }
-}
-
-#[derive(PartialEq, Hash, Debug, Eq, Clone, Copy)]
-enum Plane {
-    XY { x: Range, y: Range, z: i32 },
-    XZ { x: Range, y: i32, z: Range },
-    YZ { x: i32, y: Range, z: Range }
-}
-
-impl Plane {
-    fn new_xy(x: Range, y: Range, z: i32) -> Plane {
-        Plane::XY { x, y, z }
-    }
-    fn new_xz(x: Range, y: i32, z: Range) -> Plane {
-        Plane::XZ { x, y, z }
-    }
-    fn new_yz(x: i32, y: Range, z: Range) -> Plane {
-        Plane::YZ { x, y, z }
-    }
-    fn get_area(&self) -> u64 {
-        match self {
-            Plane::XY { x, y, .. } => x.length() * y.length(),
-            Plane::XZ { x, z, .. } => x.length() * z.length(),
-            Plane::YZ { y, z, .. } => y.length() * z.length()
-        }
+        max(0, (self.to - self.from) + 1) as u64
     }
 }
 
@@ -149,68 +73,16 @@ impl Cuboid {
             dimensions: vec![x, y, z]
         }
     }
-    fn contains(&self, other: &Cuboid) -> bool {
+    fn overlaps(&self, other: &Cuboid) -> bool {
         self.dimensions.iter()
             .zip(other.dimensions.iter())
-            .find(|(a,b)| !a.contains(b))
+            .find(|(a, b)| !a.overlaps(b))
             .is_none()
     }
-    fn overlaps(&self, other: &Cuboid, or_touches: bool) -> bool {
+    fn volume(&self) -> u64 {
         self.dimensions.iter()
-            .zip(other.dimensions.iter())
-            .find(|(a, b)| !a.overlaps(b, or_touches))
-            .is_none()
-    }
-    fn inner_volume(&self) -> u64 {
-        self.dimensions.iter()
-            .map(|range| max(range.length() - 1, 0))
+            .map(|range| range.length())
             .product::<u64>()
-    }
-    fn add_corners(&self, corners: &mut HashSet<(i32, i32, i32)>) {
-        let x = &self.dimensions[0];
-        let y = &self.dimensions[1];
-        let z = &self.dimensions[2];
-
-        corners.insert((x.from, y.from, z.from));
-        corners.insert((x.from, y.from, z.to));
-        corners.insert((x.from, y.to, z.from));
-        corners.insert((x.from, y.to, z.to));
-        corners.insert((x.to, y.from, z.from));
-        corners.insert((x.to, y.from, z.to));
-        corners.insert((x.to, y.to, z.from));
-        corners.insert((x.to, y.to, z.to));
-    }
-    fn add_edges(&self, edges: &mut HashSet<Edge>) {
-        let x = &self.dimensions[0];
-        let y = &self.dimensions[1];
-        let z = &self.dimensions[2];
-
-        edges.insert(Edge::Vertical { x: x.from, y: y.from, z: *z });
-        edges.insert(Edge::Vertical { x: x.from, y: y.to, z: *z });
-        edges.insert(Edge::Vertical { x: x.to, y: y.from, z: *z });
-        edges.insert(Edge::Vertical { x: x.to, y: y.to, z: *z });
-
-        edges.insert(Edge::HorizontalX { x: *x, y: y.from, z: z.from });
-        edges.insert(Edge::HorizontalX { x: *x, y: y.to, z: z.from });
-        edges.insert(Edge::HorizontalX { x: *x, y: y.from, z: z.to });
-        edges.insert(Edge::HorizontalX { x: *x, y: y.to, z: z.to });
-
-        edges.insert(Edge::HorizontalY { x: x.from, y: *y, z: z.from });
-        edges.insert(Edge::HorizontalY { x: x.from, y: *y, z: z.to });
-        edges.insert(Edge::HorizontalY { x: x.to, y: *y, z: z.from });
-        edges.insert(Edge::HorizontalY { x: x.to, y: *y, z: z.to });
-    }
-    fn add_planes(&self, planes: &mut HashSet<Plane>) {
-        let x = &self.dimensions[0];
-        let y = &self.dimensions[1];
-        let z = &self.dimensions[2];
-
-        planes.insert(Plane::new_xy(*x, *y, z.from));
-        planes.insert(Plane::new_xy(*x, *y, z.to));
-        planes.insert(Plane::new_xz(*x, y.from, *z));
-        planes.insert(Plane::new_xz(*x, y.to, *z));
-        planes.insert(Plane::new_yz(x.from, *y, *z));
-        planes.insert(Plane::new_yz(x.to, *y, *z));
     }
     fn add_points_to(&self, points: &mut BTreeSet<(i32, i32, i32)>) {
         let x_range = &self.dimensions[0];
@@ -238,66 +110,37 @@ impl Cuboid {
             }
         }
     }
-    fn split(&self, other: &Cuboid) -> (Vec<Cuboid>, Vec<Cuboid>) {
 
-        /*
-         * Split overlapping cubes resulting in:
-         * _________    __________
-         * | _____ |    |_|____|_|
-         * | |   | | => | |    | |
-         * | |___| |    |_|____|_|
-         * |_______|    |_|____|_|
-         * 
-         * or:
-         * ________         ____________
-         * |   ____|___     |___|___|___|
-         * |   |       | => |   |   |   |
-         * |___|       |    |___|___|___|
-         *     |_______|    |___|___|___|
-         */
+    fn subtract(&self, other: &Cuboid, add_to: &mut Vec<Cuboid>) {
+        let mut my_x = self.dimensions[0].clone();
+        let my_y = self.dimensions[1];
+        let mut my_z = self.dimensions[2].clone();
+        let other_x = &other.dimensions[0];
+        let other_y = &other.dimensions[1];
+        let other_z = &other.dimensions[2];
 
-        let splits = self.dimensions.iter()
-            .zip(other.dimensions.iter())
-            .map(|(a, b)| a.split(&b))
-            .collect::<Vec<_>>();
-        
-        let mut my_cuboids = Vec::new();
-        let mut other_cuboids = Vec::new();
-        for x in splits[0].iter() {
-            for y in splits[1].iter() {
-                for z in splits[2].iter() {
-                    let cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
-                    if self.contains(&cuboid) {
-                        my_cuboids.push(cuboid);
-                    } else if other.contains(&cuboid) {
-                        other_cuboids.push(cuboid);
-                    }
-                }
-            }
+        if my_z.to > other_z.to {
+            add_to.push(Cuboid::from_dims(my_x, my_y, Range::new(other_z.to + 1, my_z.to)));
+            my_z.to = other_z.to;
         }
-
-        (my_cuboids, other_cuboids)
-    }
-
-    fn remove(&self, other: &Cuboid) -> Vec<Cuboid> {
-        let splits = self.dimensions.iter()
-            .zip(other.dimensions.iter())
-            .map(|(a, b)| a.split(&b))
-            .collect::<Vec<_>>();
-        
-        let mut new_cuboids = Vec::new();
-        for x in splits[0].iter() {
-            for y in splits[1].iter() {
-                for z in splits[2].iter() {
-                    let cuboid = Cuboid::from_dims(x.clone(), y.clone(), z.clone());
-                    if self.contains(&cuboid) {
-                        new_cuboids.push(cuboid)
-                    }
-                }
-            }
+        if my_z.from < other_z.from {
+            add_to.push(Cuboid::from_dims(my_x, my_y, Range::new(my_z.from, other_z.from - 1)));
+            my_z.from = other_z.from;
         }
-
-        new_cuboids
+        if my_x.to > other_x.to {
+            add_to.push(Cuboid::from_dims(Range::new(other_x.to + 1, my_x.to), my_y, my_z));
+            my_x.to = other_x.to;
+        }
+        if my_x.from < other_x.from {
+            add_to.push(Cuboid::from_dims(Range::new(my_x.from, other_x.from - 1), my_y, my_z));
+            my_x.from = other_x.from;
+        }
+        if my_y.to > other_y.to {
+            add_to.push(Cuboid::from_dims(my_x, Range::new(other_y.to + 1, my_y.to), my_z));
+        }
+        if my_y.from < other_y.from {
+            add_to.push(Cuboid::from_dims(my_x, Range::new(my_y.from, other_y.from - 1), my_z));
+        }
     }
 }
 
@@ -354,101 +197,52 @@ impl Reactor {
             cubes: Vec::new()
         }
     }
-    fn split_completely(left_cubes: &mut Vec<Cuboid>, right_cubes: &mut Vec<Cuboid>) -> bool {
-        let mut split = false;
+    fn remove_old_from_new(old_cubes: &mut Vec<Cuboid>, new_cube: Cuboid) {
+        let mut new_cubes = vec![new_cube];
+        
+        for old_cube in old_cubes.iter() {
+            let mut split_new_cubes = Vec::new();
 
-        let mut new_left = None;
-        let mut left_index = 0;
-
-        for left_cube in left_cubes.iter_mut() {
-            let mut new_right_cubes = Vec::new();
-            while let Some(right_cube) = right_cubes.pop() {
-                if left_cube.overlaps(&right_cube, false) {
-                    let (split_left, split_right) = left_cube.split(&right_cube);
-                    new_left = Some(split_left);
-                    split_right.into_iter().for_each(|cube| new_right_cubes.push(cube));
-                    split = true;
-                    break;
+            // subtract this old cube from all of the new cubes
+            for new_cube in new_cubes {
+                if old_cube.overlaps(&new_cube) {
+                    new_cube.subtract(old_cube, &mut split_new_cubes);
                 } else {
-                    new_right_cubes.push(right_cube);
+                    split_new_cubes.push(new_cube);
                 }
             }
 
-            // add remaining right cubes that we didn't use
-            while let Some(right_cube) = right_cubes.pop() {
-                new_right_cubes.push(right_cube);
-            }
-
-            *right_cubes = new_right_cubes;
-            
-            if split {
-                break;
-            }
-            left_index += 1;
+            new_cubes = split_new_cubes;
         }
 
-        if let Some(mut split_left) = new_left {
-            if split_left.len() == 0 {
-                left_cubes.remove(left_index);
-            } else {
-                left_cubes[left_index] = split_left.pop().unwrap();
-                split_left.drain(0..)
-                    .for_each(|cube| left_cubes.push(cube));
-            }
-            true
-        } else {
-            false
-        }
+        // add the new cubes
+        new_cubes.into_iter().for_each(|cube| old_cubes.push(cube));
+
     }
-    fn set_cubes(&mut self, on: bool, new_cuboid: Cuboid) {
 
+    fn set_cubes(&mut self, on: bool, new_cuboid: Cuboid) {
         if on {
-            let mut new_cubes = vec![new_cuboid];
-            while Reactor::split_completely(&mut self.cubes, &mut new_cubes) { 
-                // keep splitting the new cubes until we have not split anymore
-            }
-            // add all the new cubes
-            new_cubes.into_iter().for_each(|cube| {
-                self.cubes.push(cube)
-            });
+            Reactor::remove_old_from_new(&mut self.cubes, new_cuboid);
         } else {
             let mut new_cubes = Vec::<Cuboid>::new();
             while let Some(cube) = self.cubes.pop() {
-                if cube.overlaps(&new_cuboid, true) {
-                    let these_new_cubes = cube.remove(&new_cuboid);
-                    these_new_cubes.into_iter()
-                        .for_each(|cube| new_cubes.push(cube));
+                if cube.overlaps(&new_cuboid) {
+                    cube.subtract(&new_cuboid, &mut new_cubes);
                 } else {
                     new_cubes.push(cube);
                 }
             }
             self.cubes = new_cubes;
         }
-
     }
 
     fn calc_lit_count(&self) -> u64 {
-        let mut planes = HashSet::new();
-        let mut edges = HashSet::new();
-        let mut corners = HashSet::new();
-
-        let mut inner_volume_total = 0;
+        let mut volume_total = 0;
         for cube in self.cubes.iter() {
-            let this_volume = cube.inner_volume();
-            cube.add_planes(&mut planes);
-            cube.add_edges(&mut edges);
-            cube.add_corners(&mut corners);
-            inner_volume_total += this_volume;
+            let this_volume = cube.volume();
+            volume_total += this_volume;
         }
-        
-        let plane_sum = planes.iter()
-            .map(|plane| plane.get_area())
-            .sum::<u64>();
-        let edge_sum = edges.iter()
-            .map(|edge| edge.length())
-            .sum::<u64>();
-        
-        inner_volume_total + plane_sum + edge_sum + corners.len() as u64
+        volume_total
     }
 }
 
@@ -460,15 +254,12 @@ fn part_one(file_name: &str) {
         .flat_map(|line| line.ok())
         .map(|line| parse_line(line))
         .flat_map(|instruction| bound_instruction(instruction))
-        .take(4)
         .for_each(|(on, cuboid)| {
             match on {
                 true => cuboid.add_points_to(&mut all_points),
                 false => cuboid.remove_points_from(&mut all_points)
             };
-            println!("Setting {} to {}", cuboid, on);
             reactor.set_cubes(on, cuboid);
-            println!("Lit: brute: {} real: {}", all_points.len(), reactor.calc_lit_count());
         });
     
     let lit = reactor.calc_lit_count();
@@ -484,7 +275,6 @@ fn part_two(file_name: &str) {
         .flat_map(|line| line.ok())
         .map(|line| parse_line(line))
         .for_each(|(on, cuboid)| {
-            println!("Setting #{} {} to {}", index, cuboid, on);
             reactor.set_cubes(on, cuboid);
             index += 1;
         });
@@ -496,7 +286,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    // part_two("input.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
