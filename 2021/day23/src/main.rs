@@ -191,13 +191,25 @@ impl Burrow {
                     if let Some(from_index) = (0..4).filter(|j| i != *j)
                         .find(|j| {
                             let room = &self.rooms[*j];
-                            !room.is_empty() && room.get_next() == owner
+                            if !room.is_empty() && room.get_next() == owner {
+                                // verify the hallway between the rooms is empty
+                                match i < *j {
+                                    true => self.hallway[2 + i..2 + j]
+                                        .iter().find(|item| item.is_some())
+                                        .is_none(),
+                                    false => self.hallway[2 + j..2 + i]
+                                        .iter().find(|item| item.is_some())
+                                        .is_none()
+                                }
+                            } else {
+                                false
+                            }
                         })
                     {
                         // move directly from one room to the other
                         
-                        let from_moves = self.rows - (self.rooms[from_index].wrong.len() + self.rooms[from_index].correct);
-                        let to_moves = (self.rows - self.rooms[i].correct) + 1;
+                        let from_moves = (self.rows - (self.rooms[from_index].wrong.len() + self.rooms[from_index].correct)) + 1;
+                        let to_moves = self.rows - self.rooms[i].correct;
                         let base_cost = (from_moves + to_moves) * per_move_cost;
                         let hall_cost = calc_cost((from_index + 1) * 2, (i + 1) * 2, per_move_cost);
                         let cost = base_cost + hall_cost;
@@ -211,14 +223,14 @@ impl Burrow {
                     }
                     else if self.in_hallway[i] > 0
                     {
-                        let to_moves = (self.rows - self.rooms[i].correct) + 1;
+                        let to_moves = self.rows - self.rooms[i].correct;
                         let base_cost = to_moves * per_move_cost;
 
-                        let left_hall_index = i + 2;
+                        let left_hall_index = i + 1;
                         if let Some(index) = self.find_next_in_hall(left_hall_index, false) {
                             if *self.hallway[index].as_ref().unwrap() == owner {
                                 self.hallway[index] = None;
-                                let cost = base_cost + calc_cost(index, (i + 1) * 2, per_move_cost);
+                                let cost = base_cost + calc_cost(real_hall_pos(index), (i + 1) * 2, per_move_cost);
                                 self.cost += cost;
                                 self.rooms[i].add();
                                 self.in_hallway[i] -= 1;
@@ -233,7 +245,7 @@ impl Burrow {
                         if let Some(index) = self.find_next_in_hall(right_hall_index, true) {
                             if *self.hallway[index].as_ref().unwrap() == owner {
                                 self.hallway[index] = None;
-                                let cost = base_cost + calc_cost(index, (i + 1) * 2, per_move_cost);
+                                let cost = base_cost + calc_cost(real_hall_pos(index), (i + 1) * 2, per_move_cost);
                                 self.cost += cost;
                                 self.rooms[i].add();
                                 self.in_hallway[i] -= 1;
@@ -250,7 +262,7 @@ impl Burrow {
     }
 
     fn move_back(&mut self, to_move: &Vec<(i32, Amphipod, usize)>) {
-        for (index, amphipod, cost) in to_move {
+        for (index, amphipod, cost) in to_move.iter().rev() {
             let amp_index = amphipod.index();
             self.rooms[amp_index].remove();
             if *index < 0 {
@@ -266,15 +278,24 @@ impl Burrow {
     }
 
     fn get_open_positions(&self, from: usize) -> Range<usize> {
-        let start = match self.find_next_in_hall(from, false) {
+        let start = match self.find_next_in_hall(from - 1, false) {
             Some(index) => index + 1,
             None => 0
         };
-        let end = match self.find_next_in_hall(from + 1, true) {
+        let end = match self.find_next_in_hall(from, true) {
             Some(index) => index,
             None => HALL_SIZE
         };
         start..end
+    }
+}
+
+fn real_hall_pos(pos: usize) -> usize {
+    match pos {
+        x if x < 2 => x,
+        x if x >= 2 && x < 5 => ((x - 2) * 2) + 3,
+        x if x >= 5 => x + 4,
+        _ => panic!("Invalid hall pos: {}", pos)
     }
 }
 
@@ -339,12 +360,17 @@ fn _print(burrow: &Burrow) {
     println!("");
 }
 
-fn next_move(burrow: &mut Burrow) {
+fn next_move(burrow: &mut Burrow, level: usize) {
     let orig_cost = burrow.cost;
-    let to_burrow = burrow.move_to_room();
-
-    println!("---- after move to room, cost: {} ----", burrow.cost);
-    _print(&burrow);
+    if orig_cost > burrow.lowest_cost {
+        // println!("[{}] Not attempting any further moves, cost to high: {} > {}", level, orig_cost, burrow.lowest_cost);
+        return;
+    }
+    let to_room_hist = burrow.move_to_room();
+    // if to_room_hist.len() > 0 {
+    //     println!("---- [{}] after move to room, cost: {} from: {:?} ----", level, burrow.cost, to_room_hist);
+    //     _print(&burrow);
+    // }
 
     // move from closed rooms to the hallway
     let mut closed_count = 0;
@@ -354,7 +380,7 @@ fn next_move(burrow: &mut Burrow) {
         } else {
             closed_count += 1;
             let next = &burrow.rooms[i].get_next();
-            let positions = burrow.get_open_positions(next.index());
+            let positions = burrow.get_open_positions(i + 2);
             let room = &mut burrow.rooms[i];
             room.remove_next();
             burrow.in_hallway[next.index()] += 1;
@@ -362,19 +388,18 @@ fn next_move(burrow: &mut Burrow) {
             let base_cost = (burrow.rows - (room.wrong.len() + room.correct)) * per_pos_cost;
             for to_pos in positions {
                 let cur_pos = (i * 2) + 2;
-                let cost = base_cost + calc_cost(cur_pos, to_pos, per_pos_cost);
+                let cost = base_cost + calc_cost(cur_pos, real_hall_pos(to_pos), per_pos_cost);
                 burrow.cost += cost;
                 burrow.hallway[to_pos] = Some(*next);
-                println!("---- after move to hallway - cost: {} ----", burrow.cost);
-                _print(&burrow);
-                next_move(burrow);
+                // println!("---- [{}] after move to hallway from {} to {} - cost: {} ----", level, cur_pos, to_pos, burrow.cost);
+                // _print(&burrow);
+                next_move(burrow, level + 1);
                 burrow.hallway[to_pos] = None;
                 burrow.cost -= cost;
             }
             burrow.in_hallway[next.index()] -= 1;
             burrow.rooms[i].wrong.push(*next);
         }
-        break;
     }
 
     if closed_count == 0 {
@@ -382,38 +407,54 @@ fn next_move(burrow: &mut Burrow) {
             .find(|item| item.is_some())
             .is_none();
         if none_in_hall && burrow.cost < burrow.lowest_cost {
-            println!("setting lowest cost to {} from {}", burrow.cost, burrow.lowest_cost);
+            // println!("[{}] setting lowest cost to {} from {}", level, burrow.cost, burrow.lowest_cost);
             burrow.lowest_cost = burrow.cost;
         }
     }
 
-    burrow.move_back(&to_burrow);
+    burrow.move_back(&to_room_hist);
 
-    println!("End of tries, cost is now: {} - was {}", burrow.cost, orig_cost);
+    // println!("[{}] End of tries, cost is now: {} - was {}", level, burrow.cost, orig_cost);
 }
 
 fn part_one(file_name: &str) {
     let mut burrow = Burrow::parse(file_name);
     burrow.move_bottom_to_correct();
 
-    println!("---- initial ----");
-    _print(&burrow);
+    // println!("---- initial ----");
+    // _print(&burrow);
 
-    next_move(&mut burrow);
+    next_move(&mut burrow, 0);
 
     println!("Part 1: {}", burrow.lowest_cost);
 }
 
 fn part_two(file_name: &str) {
     let mut burrow = Burrow::parse(file_name);
+
+    burrow.rows = 4;
+    let new_rows = vec![
+        vec![Desert, Copper, Bronze, Amber],
+        vec![Desert, Bronze, Amber, Copper],
+    ];
+
+    for row in new_rows {
+        for i in 0..ROOMS {
+            let amphipod = row[i];
+            burrow.rooms[i].wrong.insert(1, amphipod);
+        }
+    }
+
     burrow.move_bottom_to_correct();
-    
-    println!("Part 2: {}", "incomplete");
+
+    next_move(&mut burrow, 0);
+
+    println!("Part 2: {}", burrow.lowest_cost);
 }
 
 fn main() {
-    part_one("sample.txt");
-    // part_two("input.txt");
+    part_one("input.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
