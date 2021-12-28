@@ -1,3 +1,4 @@
+use std::collections::BTreeSet;
 use std::fmt::Formatter;
 use std::fmt::Display;
 use std::fs::File;
@@ -44,6 +45,200 @@ impl Operator {
             println!("{}  {}", indent, op);
             b.print(indent.clone() + "  ");
             println!("{})", indent);
+        }
+    }
+    fn combine_operator_values<F>(a: &Operator, b: &Operator, combiner: F) -> BTreeSet<i64>
+        where F: Fn(i64, i64) -> i64 
+    {
+        let a_values = a.get_possible_values();
+        let b_values = b.get_possible_values();
+        let mut results = BTreeSet::new();
+        for a_value in a_values {
+            for b_value in b_values.iter() {
+                results.insert(combiner(a_value, *b_value));
+            }
+        }
+        results
+    }
+    fn get_possible_values_generic<F>(a: &Operand, b: &Operand, combiner: F) -> BTreeSet<i64> 
+        where F: Fn(i64, i64) -> i64 
+    {
+        match (a, b) {
+            (CONST(a), OPERATOR(b)) => {
+                b.get_possible_values().iter()
+                    .map(|v| combiner(*a, *v))
+                    .collect::<BTreeSet<_>>()
+            },
+            (OPERATOR(a), CONST(b)) => {
+                a.get_possible_values().iter()
+                    .map(|v| combiner(*v, *b))
+                    .collect::<BTreeSet<_>>()
+            },
+            (OPERATOR(a), OPERATOR(b)) => Operator::combine_operator_values(a, b, combiner),
+            u => panic!("Unexpected pattern: {:?}", u)
+        }
+    }
+    fn get_possible_values(&self) -> BTreeSet<i64> {
+        match self {
+            INP(_) => (1..10).into_iter().collect::<BTreeSet<_>>(),
+            ADD(a, b) => Operator::get_possible_values_generic(a, b, |a, b| a + b),
+            MUL(a, b) => Operator::get_possible_values_generic(a, b, |a, b| a * b),
+            DIV(a, b) => Operator::get_possible_values_generic(a, b, |a, b| a / b),
+            MOD(a, b) => Operator::get_possible_values_generic(a, b, |a, b| a % b),
+            EQL(_, _) => {
+                let mut values = BTreeSet::new();
+                values.insert(0);
+                values.insert(1);
+                values
+            }
+        }
+    }
+    fn merge_two_operator_values<F>(a: &Operator, b: &Operator, get_b_value: F) -> BTreeSet<Vec<(usize, usize)>>
+        where F: Fn(i64) -> i64 
+    {
+        a.get_possible_values().into_iter()
+            .map(|value| (value, get_b_value(value)))
+            .flat_map(|(a_val, b_val)| {
+                let mut a_inputs = a.find_input_values_for(a_val);
+                let b_inputs = b.find_input_values_for(b_val);
+                a_inputs.retain(|value| b_inputs.contains(value));
+                a_inputs
+            })
+            .collect::<BTreeSet<_>>()
+    }
+
+    fn find_input_values_for(&self, value: i64) -> BTreeSet<Vec<(usize, usize)>> {
+        match self {
+            INP(index) => {
+                match value > 0 && value < 10 {
+                    true => { 
+                        let mut values = BTreeSet::new();
+                        values.insert(vec![(*index, value as usize)]); 
+                        values
+                    },
+                    false => BTreeSet::new()
+                }
+            },
+            ADD(a, b) => {
+                match (a, b) {
+                    (CONST(a), OPERATOR(b)) => b.find_input_values_for(value - a),
+                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(value - b),
+                    (OPERATOR(a), OPERATOR(b)) => Operator::merge_two_operator_values(a, b, |a| value - a),
+                    u => panic!("Unexpected pattern: {:?}", u)
+                }
+            },
+            MUL(a, b) => {
+                match (a, b) {
+                    (CONST(a), OPERATOR(b)) => b.find_input_values_for(value / a),
+                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(value / b),
+                    (OPERATOR(a), OPERATOR(b)) => Operator::merge_two_operator_values(a, b, |a| value / a),
+                    u => panic!("Unexpected pattern: {:?}", u)
+                }
+            }
+            DIV(a, b) => {
+                match (a, b) {
+                    // A / b = value | A = value*b | A / value = b
+                    (CONST(a), OPERATOR(b)) => b.find_input_values_for(a / value),
+                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(b / value),
+                    (OPERATOR(a), OPERATOR(b)) => Operator::merge_two_operator_values(a, b, |a| a / value),
+                    u => panic!("Unexpected pattern: {:?}", u)
+                }
+            },
+            MOD(a, b) => {
+                match (a, b) {
+                    (CONST(a), OPERATOR(b)) => {
+                        b.get_possible_values().into_iter()
+                            .filter(|check| a % check == value)
+                            .flat_map(|value| b.find_input_values_for(value))
+                            .collect::<BTreeSet<_>>()
+                    },
+                    (OPERATOR(a), CONST(b)) => {
+                        a.get_possible_values().into_iter()
+                            .filter(|check| check % b == value)
+                            .flat_map(|value| a.find_input_values_for(value))
+                            .collect::<BTreeSet<_>>()
+                    },
+                    (OPERATOR(a), OPERATOR(b)) => {
+                        let a_values = a.get_possible_values();
+                        let b_values = b.get_possible_values();
+                        a_values.iter()
+                            .flat_map(|a_val| {
+                                let a_inputs = a.find_input_values_for(*a_val);
+                                let mut results = BTreeSet::<Vec<(usize, usize)>>::new();
+                                for b_val in b_values.iter() {
+                                    if a_val % b_val == value {
+                                        let b_inputs = b.find_input_values_for(*b_val);
+                                        b_inputs.into_iter()
+                                            .filter(|b_input| a_inputs.contains(b_input))
+                                            .for_each(|common| { results.insert(common); });
+                                    }
+                                }
+                                results
+                            })
+                            .collect::<BTreeSet<_>>()
+                    }
+                    u => panic!("Unexpected pattern: {:?}", u)
+                }
+            },
+            EQL(a, b) => {
+                match (a, b) {
+                    (CONST(a), OPERATOR(b)) => {
+                        match value == 1 {
+                            true => b.find_input_values_for(*a),
+                            false => {
+                                let values = b.get_possible_values();
+                                values.into_iter()
+                                    .filter(|value| value != a )
+                                    .flat_map(|value| b.find_input_values_for(value))
+                                    .collect::<BTreeSet<_>>()
+                            }
+                        }
+                    },
+                    (OPERATOR(a), CONST(b)) => {
+                        match value == 1 {
+                            true => a.find_input_values_for(*b),
+                            false => {
+                                let values = a.get_possible_values();
+                                values.into_iter()
+                                    .filter(|value| value != b )
+                                    .flat_map(|value| a.find_input_values_for(value))
+                                    .collect::<BTreeSet<_>>()
+                            }
+                        }
+                    },
+                    (OPERATOR(a), OPERATOR(b)) => {
+                        let a_values = a.get_possible_values();
+                        let b_values = b.get_possible_values();
+                        match value == 1 {
+                            true => {
+                                a_values.intersection(&b_values)
+                                    .flat_map(|value| {
+                                        let mut a_inputs = a.find_input_values_for(*value);
+                                        let b_inputs = b.find_input_values_for(*value);
+                                        a_inputs.retain(|input| b_inputs.contains(input));
+                                        a_inputs
+                                    })
+                                    .collect::<BTreeSet<_>>()
+                            },
+                            false => {
+                                let mut results = BTreeSet::new();
+                                for a_val in a_values {
+                                    let a_inputs = a.find_input_values_for(a_val);
+                                    for b_val in b_values.iter() {
+                                        if *b_val != a_val {
+                                            b.find_input_values_for(value).into_iter()
+                                                .filter(|input| a_inputs.contains(input))
+                                                .for_each(|input| { results.insert(input); });
+                                        }
+                                    }
+                                }
+                                results
+                            }
+                        }
+                    },
+                    u => panic!("Unexpected pattern: {:?}", u)
+                }
+            }
         }
     }
 }
@@ -193,10 +388,13 @@ fn part_one(file_name: &str) {
     let mut monad = Monad::new();
     monad.parse(file_name);
 
-    println!("z:");
-    monad.variables[3].print(String::from(""));
+    println!("Finding inputs...");
+    let values = match &monad.variables[3] {
+        OPERATOR(operator) => operator.find_input_values_for(0),
+        x => panic!("Unexpected top level variable: {:?}", x)
+    };
     
-    println!("Part 1: {}", "incomplete");
+    println!("Part 1: {:?}", values);
 }
 
 fn part_two(file_name: &str) {
