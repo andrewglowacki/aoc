@@ -1,393 +1,227 @@
-use std::collections::HashMap;
-use std::rc::Rc;
-use std::collections::BTreeMap;
-use std::collections::BTreeSet;
 use std::fmt::Formatter;
 use std::fmt::Display;
+use std::collections::LinkedList;
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
 
 type Input = Lines<BufReader<File>>;
 
-#[derive(Debug)]
-enum Operator {
-    INP(usize, usize),
-    ADD(usize, Operand, Operand),
-    MUL(usize, Operand, Operand),
-    DIV(usize, Operand, Operand),
-    MOD(usize, Operand, Operand),
-    EQL(usize, Operand, Operand)
-}
+const MODEL_LEN: usize = 14;
 
-impl Operator {
-    fn eval(&self, input: &Vec<i64>) -> i64 {
-        match self {
-            INP(_, a) => input[*a],
-            ADD(_, a, b) => a.get(input) + b.get(input),
-            MUL(_, a, b) => a.get(input) * b.get(input),
-            DIV(_, a, b) => a.get(input) / b.get(input),
-            MOD(_, a, b) => a.get(input) % b.get(input),
-            EQL(_, a, b) => (a.get(input) == b.get(input)) as i64
-        }
-    }
-    fn print(&self, indent: String) {
-        if let INP(id, a) = self {
-            println!("{}input[{}] #{}", indent, a, id);
-        } else {
-            let (a, b, op, id) = match self {
-                ADD(id, a, b) => (a, b, "add", id),
-                MUL(id, a, b) => (a, b, "mul", id),
-                DIV(id, a, b) => (a, b, "div", id),
-                MOD(id, a, b) => (a, b, "mod", id),
-                EQL(id, a, b) => (a, b, "eql", id),
-                _ => panic!("Unknown operator")
-            };
-            println!("{}( #{}", indent, id);
-            a.print(indent.clone() + "  ");
-            println!("{}  {} #{}", indent, op, id);
-            b.print(indent.clone() + "  ");
-            println!("{}) #{}", indent, id);
-        }
-    }
-    fn get_type(&self) -> &'static str {
-        match self {
-            INP(_, _) => "inp",
-            ADD(_, _, _) => "add",
-            MUL(_, _, _) => "mul",
-            DIV(_, _, _) => "div",
-            MOD(_, _, _) => "mod",
-            EQL(_, _, _) => "eql"
-        }
-    }
-    fn id(&self) -> usize {
-        match self {
-            INP(id, _) => *id,
-            ADD(id, _, _) => *id,
-            MUL(id, _, _) => *id,
-            DIV(id, _, _) => *id,
-            MOD(id, _, _) => *id,
-            EQL(id, _, _) => *id
-        }
-    }
-    fn combine_inputs(a_inputs: &Vec<BTreeMap<u8, u8>>, b_inputs: &Vec<BTreeMap<u8, u8>>) -> Vec<BTreeMap<u8, u8>> {
-        if a_inputs.is_empty() || b_inputs.is_empty() {
-            return Vec::with_capacity(0);
-        }
-        let mut results = Vec::new();
-        for a_input in a_inputs {
-            for b_input in b_inputs {
-                let mut new_input = BTreeMap::new();
-                let mut matches = true;
-                for (index, a_value) in a_input.iter() {
-                    if let Some(b_value) = b_input.get(&index) {
-                        if a_value != b_value {
-                            matches = false;
-                            break;
-                        }
-                    }
-                    // add inputs in a but not b, or ones that are in both
-                    new_input.insert(*index, *a_value);
-                }
-                if !matches {
-                    continue;
-                }
-                // add inputs in b but not a
-                for (index, b_value) in b_input.iter() {
-                    if !a_input.contains_key(index) {
-                        new_input.insert(*index, *b_value);
-                    }
-                }
-                results.push(new_input);
-            }
-        }
-        results
-    }
-    fn combine_operator_values<F>(monad: &mut Monad, a: &Operator, b: &Operator, combiner: F) -> BTreeSet<i64>
-        where F: Fn(i64, i64) -> i64 
-    {
-        let a_values = a.get_possible_values(monad);
-        let b_values = b.get_possible_values(monad);
-        let mut results = BTreeSet::new();
-        for a_value in a_values {
-            for b_value in b_values.iter() {
-                results.insert(combiner(a_value, *b_value));
-            }
-        }
-        results
-    }
-    fn get_possible_values_generic<F>(monad: &mut Monad, id: &usize, a: &Operand, b: &Operand, combiner: F) -> BTreeSet<i64> 
-        where F: Fn(i64, i64) -> i64 
-    {
-        if let Some(values) = monad.get_output_values(id) {
-            return values;
-        }
-        let values = match (a, b) {
-            (CONST(a), OPERATOR(b)) => {
-                b.get_possible_values(monad).iter()
-                    .map(|v| combiner(*a, *v))
-                    .collect::<BTreeSet<_>>()
-            },
-            (OPERATOR(a), CONST(b)) => {
-                a.get_possible_values(monad).iter()
-                    .map(|v| combiner(*v, *b))
-                    .collect::<BTreeSet<_>>()
-            },
-            (OPERATOR(a), OPERATOR(b)) => Operator::combine_operator_values(monad, a, b, combiner),
-            u => panic!("Unexpected pattern: {:?}", u)
-        };
-        monad.set_output_values(*id, values.clone());
-        values
-    }
-    fn get_possible_values(&self, monad: &mut Monad) -> BTreeSet<i64> {
-        match self {
-            INP(_, _) => (1..10).into_iter().collect::<BTreeSet<_>>(),
-            ADD(id, a, b) => Operator::get_possible_values_generic(monad, id, a, b, |a, b| a + b),
-            MUL(id, a, b) => Operator::get_possible_values_generic(monad, id, a, b, |a, b| a * b),
-            DIV(id, a, b) => Operator::get_possible_values_generic(monad, id, a, b, |a, b| a / b),
-            MOD(id, a, b) => Operator::get_possible_values_generic(monad, id, a, b, |a, b| a % b),
-            EQL(_, _, _) => {
-                let mut values = BTreeSet::new();
-                values.insert(0);
-                values.insert(1);
-                values
-            }
-        }
-    }
-    fn merge_two_operator_values<F>(monad: &mut Monad, a: &Operator, b: &Operator, get_b_value: F) -> Vec<BTreeMap<u8, u8>>
-        where F: Fn(i64) -> i64 
-    {
-        a.get_possible_values(monad).into_iter()
-            .map(|value| (value, get_b_value(value)))
-            .flat_map(|(a_val, b_val)| {
-                let a_inputs = a.find_input_values_for(monad, a_val);
-                let b_inputs = b.find_input_values_for(monad, b_val);
-                Operator::combine_inputs(&a_inputs, &b_inputs)
-            })
-            .collect::<Vec<_>>()
-    }
-
-    fn find_input_values_for(&self, monad: &mut Monad, value: i64) -> Vec<BTreeMap<u8, u8>> {
-        if let Some(values) = monad.get_input_values(self, value) {
-            return values;
-        }
-        let values = match self {
-            INP(_, index) => {
-                match value > 0 && value < 10 {
-                    true => { 
-                        let mut values = BTreeMap::new();
-                        values.insert(*index as u8, value as u8); 
-                        vec![values]
-                    },
-                    false => Vec::with_capacity(0)
-                }
-            },
-            ADD(_, a, b) => {
-                match (a, b) {
-                    (CONST(a), OPERATOR(b)) => b.find_input_values_for(monad, value - a),
-                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(monad, value - b),
-                    (OPERATOR(a), OPERATOR(b)) => Operator::merge_two_operator_values(monad, a, b, |a| value - a),
-                    u => panic!("Unexpected pattern: {:?}", u)
-                }
-            },
-            MUL(_, a, b) => {
-                match (a, b) {
-                    (CONST(a), OPERATOR(b)) => b.find_input_values_for(monad, value / a),
-                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(monad, value / b),
-                    (OPERATOR(a), OPERATOR(b)) => {
-                        a.get_possible_values(monad).into_iter()
-                            .flat_map(|a_val| {
-                                let a_inputs = a.find_input_values_for(monad, a_val);
-                                match a_val == 0 {
-                                    true => b.get_possible_values(monad).into_iter()
-                                        .filter(|b_val| b_val * a_val == value)
-                                        .flat_map(|b_val| Operator::combine_inputs(&a_inputs, &b.find_input_values_for(monad, b_val)))
-                                        .collect::<Vec<_>>(),
-                                    false => Operator::combine_inputs(&a_inputs, &b.find_input_values_for(monad, value / a_val))
-                                }
-                            })
-                            .collect::<Vec<_>>()
-                    },
-                    u => panic!("Unexpected pattern: {:?}", u)
-                }
-            }
-            DIV(_, a, b) => {
-                match (a, b) {
-                    // A / b = value | A = value*b | A / value = b
-                    (CONST(a), OPERATOR(b)) => {
-                        if value == 0 {
-                            // not possible to get a result of zero with a non-zero numerator
-                            Vec::with_capacity(0)
-                        } else {
-                            b.find_input_values_for(monad, a / value)
-                        }
-                    },
-                    // a / B = value | a = value * B
-                    (OPERATOR(a), CONST(b)) => a.find_input_values_for(monad, b * value),
-                    (OPERATOR(a), OPERATOR(b)) => {
-                        b.get_possible_values(monad).into_iter()
-                            .flat_map(|b_val| {
-                                let b_inputs = b.find_input_values_for(monad, b_val);
-                                let a_inputs = a.find_input_values_for(monad, b_val * value);
-                                Operator::combine_inputs(&a_inputs, &b_inputs)
-                            })
-                            .collect::<Vec<_>>()
-                    },
-                    u => panic!("Unexpected pattern: {:?}", u)
-                }
-            },
-            MOD(_, a, b) => {
-                match (a, b) {
-                    (CONST(a), OPERATOR(b)) => {
-                        b.get_possible_values(monad).into_iter()
-                            .filter(|check| a % check == value)
-                            .flat_map(|value| b.find_input_values_for(monad, value))
-                            .collect::<Vec<_>>()
-                    },
-                    (OPERATOR(a), CONST(b)) => {
-                        a.get_possible_values(monad).into_iter()
-                            .filter(|check| check % b == value)
-                            .flat_map(|value| a.find_input_values_for(monad, value))
-                            .collect::<Vec<_>>()
-                    },
-                    (OPERATOR(a), OPERATOR(b)) => {
-                        let a_values = a.get_possible_values(monad);
-                        let b_values = b.get_possible_values(monad);
-                        a_values.iter()
-                            .flat_map(|a_val| {
-                                let a_inputs = a.find_input_values_for(monad, *a_val);
-                                b_values.iter()
-                                    .filter(|b_val| a_val % *b_val == value)
-                                    .flat_map(|b_val| {
-                                        let b_inputs = b.find_input_values_for(monad, *b_val);
-                                        Operator::combine_inputs(&a_inputs, &b_inputs)
-                                    })
-                                    .collect::<Vec<_>>()
-                            })
-                            .collect::<Vec<_>>()
-                    }
-                    u => panic!("Unexpected pattern: {:?}", u)
-                }
-            },
-            EQL(_, a, b) => {
-                match (a, b) {
-                    (CONST(a), OPERATOR(b)) => {
-                        match value == 1 {
-                            true => b.find_input_values_for(monad, *a),
-                            false => {
-                                let values = b.get_possible_values(monad);
-                                values.into_iter()
-                                    .filter(|value| value != a )
-                                    .flat_map(|value| b.find_input_values_for(monad, value))
-                                    .collect::<Vec<_>>()
-                            }
-                        }
-                    },
-                    (OPERATOR(a), CONST(b)) => {
-                        match value == 1 {
-                            true => a.find_input_values_for(monad, *b),
-                            false => {
-                                let values = a.get_possible_values(monad);
-                                values.into_iter()
-                                    .filter(|value| value != b )
-                                    .flat_map(|value| a.find_input_values_for(monad, value))
-                                    .collect::<Vec<_>>()
-                            }
-                        }
-                    },
-                    (OPERATOR(a), OPERATOR(b)) => {
-                        let a_values = a.get_possible_values(monad);
-                        let b_values = b.get_possible_values(monad);
-                        match value == 1 {
-                            true => {
-                                a_values.intersection(&b_values)
-                                    .flat_map(|value| {
-                                        let a_inputs = a.find_input_values_for(monad, *value);
-                                        let b_inputs = b.find_input_values_for(monad, *value);
-                                        Operator::combine_inputs(&a_inputs, &b_inputs)
-                                    })
-                                    .collect::<Vec<_>>()
-                            },
-                            false => {
-                                a_values.iter()
-                                    .flat_map(|a_val| {
-                                        let a_inputs = a.find_input_values_for(monad, *a_val);
-                                        b_values.iter()
-                                            .filter(|b_val| *b_val != a_val)
-                                            .flat_map(|b_val| {
-                                                let b_inputs = b.find_input_values_for(monad, *b_val);
-                                                Operator::combine_inputs(&a_inputs, &b_inputs)
-                                            })
-                                            .collect::<Vec<_>>()
-                                    })
-                                    .collect::<Vec<_>>()
-                            }
-                        }
-                    },
-                    u => panic!("Unexpected pattern: {:?}", u)
-                }
-            }
-        };
-        monad.set_input_values(self, value, values.to_vec());
-        values
-    }
-}
-
-impl Display for Operator {
-    fn fmt(&self, fmt: &mut Formatter) -> Result<(), std::fmt::Error> {
-        match self {
-            INP(_, a) => write!(fmt, "input[{}]", a),
-            ADD(_, a, b) => write!(fmt, "({} + {})", a, b),
-            MUL(_, a, b) => write!(fmt, "({} * {})", a, b),
-            DIV(_, a, b) => write!(fmt, "({} / {})", a, b),
-            MOD(_, a, b) => write!(fmt, "({} % {})", a, b),
-            EQL(_, a, b) => write!(fmt, "({} = {})", a, b),
-        }
-    }
-}
-
-#[derive(Debug, Clone)]
 enum Operand {
-    CONST(i64),
-    OPERATOR(Rc<Operator>)
-}
-
-impl Operand {
-    fn print(&self, indent: String) {
-        match self {
-            CONST(value) => println!("{}{}", indent, value),
-            OPERATOR(operator) => operator.print(indent)
-        };
-    }
+    VAR(usize),
+    CONST(i64)
 }
 
 impl Display for Operand {
-    fn fmt(&self, fmt: &mut Formatter) -> Result<(), std::fmt::Error> {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
         match self {
-            CONST(value) => write!(fmt, "{}", *value),
-            OPERATOR(operator) => write!(fmt, "{}", *operator)
-        }
-    }
-}
-
-impl Operand {
-    fn get(&self, input: &Vec<i64>) -> i64 {
-        match self {
-            CONST(value) => *value,
-            OPERATOR(operator) => operator.eval(input)
+            VAR(index) => write!(fmt, "{}", (('w' as u8) + *index as u8) as char),
+            CONST(value) => write!(fmt, "{}", value)
         }
     }
 }
 
 use Operand::*;
-use Operator::*;
+
+impl Operand {
+    fn get(&self, memory: &Memory) -> i64 {
+        match self {
+            VAR(index) => memory.variables[*index],
+            CONST(value) => *value
+        }
+    }
+}
+
+struct Memory {
+    input: Vec<i64>,
+    variables: Vec<i64>,
+    snapshots: Vec<Vec<i64>>
+}
+
+impl Memory {
+    fn new() -> Memory {
+        let variables = (0..4).map(|_| 0)
+            .collect::<Vec<_>>();
+
+        let input = (0..MODEL_LEN).map(|_| 0)
+            .collect::<Vec<_>>();
+
+        Memory {
+            variables,
+            input,
+            snapshots: Vec::new()
+        }
+    }
+
+    fn snapshot(&mut self) {
+        self.snapshots.push(self.variables.to_vec());
+    }
+
+    fn pop_snapshot(&mut self) {
+        self.variables = self.snapshots.pop().unwrap();
+    }
+
+    fn clear(&mut self) {
+        self.input.clear();
+        self.variables.iter_mut()
+            .for_each(|v| *v = 0);
+    }
+}
+
+fn parse_operation(line: String, input_count: &mut usize) -> Box::<dyn Operation> {
+    let pieces = line.split_ascii_whitespace()
+        .collect::<Vec<_>>();
+    let a = pieces[1].chars().next().unwrap();
+    let a = a as usize - 'w' as usize;
+    if pieces[0] == "inp" {
+        let index = *input_count;
+        *input_count += 1;
+        Box::new(Inp { read_into: a, index })
+    } else {
+        let b = match pieces[2].parse::<i64>() {
+            Ok(result) => CONST(result),
+            _ => {
+                let v = pieces[2].chars().next().unwrap();
+                let v = v as usize - 'w' as usize;
+                VAR(v)
+            }
+        };
+        match pieces[0] {
+            "add" => Box::new(Add { a, b }),
+            "mul" => Box::new(Mul { a, b }),
+            "div" => Box::new(Div { a, b }),
+            "mod" => Box::new(Mod { a, b }),
+            "eql" => Box::new(Eql { a, b }),
+            _ => panic!("Invalid operator: {}", pieces[0])
+        }
+    }
+}
+
+trait Operation {
+    fn execute(&self, memory: &mut Memory);
+    fn print(&self);
+}
+
+struct Inp {
+    read_into: usize,
+    index: usize
+}
+impl Operation for Inp {
+    fn execute(&self, memory: &mut Memory) {
+        memory.variables[self.read_into] = memory.input[self.index];
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Inp {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "{} = input[{}]", (('w' as u8) + (self.read_into as u8)) as char, self.index)
+    }
+}
+struct Add {
+    a: usize,
+    b: Operand
+}
+impl Operation for Add {
+    fn execute(&self, memory: &mut Memory) {
+        let a = memory.variables[self.a];
+        let b = self.b.get(memory);
+        memory.variables[self.a] = a + b;
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Add {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "add {} {}", (('w' as u8) + (self.a as u8)) as char, self.b)
+    }
+}
+struct Mul {
+    a: usize,
+    b: Operand
+}
+impl Operation for Mul {
+    fn execute(&self, memory: &mut Memory) {
+        let a = memory.variables[self.a];
+        let b = self.b.get(memory);
+        memory.variables[self.a] = a * b;
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Mul {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "mul {} {}", (('w' as u8) + (self.a as u8)) as char, self.b)
+    }
+}
+struct Div {
+    a: usize,
+    b: Operand
+}
+impl Operation for Div {
+    fn execute(&self, memory: &mut Memory) {
+        let a = memory.variables[self.a];
+        let b = self.b.get(memory);
+        memory.variables[self.a] = a / b;
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Div {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "div {} {}", (('w' as u8) + (self.a as u8)) as char, self.b)
+    }
+}
+struct Mod {
+    a: usize,
+    b: Operand
+}
+impl Operation for Mod {
+    fn execute(&self, memory: &mut Memory) {
+        let a = memory.variables[self.a];
+        let b = self.b.get(memory);
+        memory.variables[self.a] = a % b;
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Mod {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "mod {} {}", (('w' as u8) + (self.a as u8)) as char, self.b)
+    }
+}
+struct Eql {
+    a: usize,
+    b: Operand
+}
+impl Operation for Eql {
+    fn execute(&self, memory: &mut Memory) {
+        let a = memory.variables[self.a];
+        let b = self.b.get(memory);
+        memory.variables[self.a] = match a == b {
+            true => 1,
+            false => 0
+        };
+    }
+    fn print(&self) {
+        println!("{}", self);
+    }
+}
+impl Display for Eql {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(fmt, "eql {} {}", (('w' as u8) + (self.a as u8)) as char, self.b)
+    }
+}
 
 struct Monad {
-    operator_count: usize,
-    input_count: usize,
-    variables: Vec<Operand>,
-    pre_computed_input_values: HashMap<(usize, i64), Vec<BTreeMap<u8, u8>>>,
-    pre_computed_output_values: HashMap<usize, BTreeSet<i64>>
+    groups: Vec<Vec<Box<dyn Operation>>>
 }
 
 fn get_file_lines(file_name: &str) -> Input {
@@ -397,127 +231,62 @@ fn get_file_lines(file_name: &str) -> Input {
 }
 
 impl Monad {
-    fn new() -> Monad {
-        Monad {
-            operator_count: 0,
-            input_count: 0,
-            variables: (0..4).map(|_| CONST(0))
-                .collect::<Vec<_>>(),
-            pre_computed_input_values: HashMap::new(),
-            pre_computed_output_values: HashMap::new()
+    fn parse(file_name: &str) -> Monad {
+        let mut input_count = 0;
+        let mut groups = Vec::new();
+        let mut current = Vec::<Box<dyn Operation>>::new();
+        for line in get_file_lines(file_name).flat_map(|line| line.ok()) {
+            let cur_input_count = input_count;
+            let operation = parse_operation(line, &mut input_count);
+            if cur_input_count != input_count && cur_input_count > 0 {
+                println!("Parsed {} operations for group {}", current.len(), groups.len());
+                groups.push(current);
+                current = Vec::new();
+            }
+            current.push(operation);
         }
+        groups.push(current);
+        Monad { groups }
     }
-    
-    fn get_output_values(&self, id: &usize) -> Option<BTreeSet<i64>> {
-        if let Some(inputs) = self.pre_computed_output_values.get(&id) {
-            Some(inputs.clone())
-        } else {
-            None
-        }
-    }
-
-    fn set_output_values(&mut self, id: usize, values: BTreeSet<i64>) {
-        print!("Adding {} output values for {} count is {} - sample: ", values.len(), id, self.pre_computed_output_values.len());
-        println!("{:?} - {:?}", values.iter().take(3).collect::<Vec<_>>(), values.iter().rev().take(3).collect::<Vec<_>>());
-        self.pre_computed_output_values.insert(id, values);
-    }
-
-    fn get_input_values(&self, operator: &Operator, value: i64) -> Option<Vec<BTreeMap<u8, u8>>> {
-        if let Some(inputs) = self.pre_computed_input_values.get(&(operator.id(), value)) {
-            Some(inputs.to_vec())
-        } else {
-            None
-        }
-    }
-
-    fn set_input_values(&mut self, operator: &Operator, value: i64, values: Vec<BTreeMap<u8, u8>>) {
-        println!("Adding {} input values for ({}, {}) count is {}", values.len(), operator.id(), value, self.pre_computed_input_values.len());
-        self.pre_computed_input_values.insert((operator.id(), value), values);
-    }
-
-    fn parse(&mut self, file_name: &str) {
-        get_file_lines(file_name)
-            .flat_map(|line| line.ok())
-            .for_each(|line| {
-                print!("parsing {}", line);
-                let id = self.parse_operator(line);
-                println!(" - {}", id);
-            });
-    }
-    fn parse_operator(&mut self, line: String) -> usize {
-        let pieces = line.split_ascii_whitespace()
-            .collect::<Vec<_>>();
-        let a = pieces[1].chars().next().unwrap();
-        let var_index = a as usize - 'w' as usize;
-        if pieces[0] == "inp" {
-            let input = INP(self.operator_count, self.input_count);
-            self.variables[var_index] = OPERATOR(Rc::new(input));
-            self.input_count += 1;
-            self.operator_count += 1;
-            self.operator_count - 1
-        } else {
-            let a = self.variables[var_index].clone();
-            let b = match pieces[2].parse::<i64>() {
-                Ok(result) => CONST(result),
-                _ => {
-                    let v = pieces[2].chars().next().unwrap();
-                    let v = v as usize - 'w' as usize;
-                    self.variables[v].clone()
-                }
-            };
-
-            let result = match (pieces[0], &a, &b) {
-                (_, CONST(_), CONST(_)) => 
-                    CONST(Monad::binary_operator(pieces[0], a, b, 0).eval(&Vec::with_capacity(0))),
-                ("mul", CONST(0), _) => CONST(0),
-                ("mul", _, CONST(0)) => CONST(0),
-                ("mul", CONST(1), b) => b.clone(),
-                ("mul", a, CONST(1)) => a.clone(),
-                ("div", CONST(0), _) => CONST(0),
-                ("div", a, CONST(1)) => a.clone(),
-                ("add", CONST(0), b) => b.clone(),
-                ("add", a, CONST(0)) => a.clone(),
-                ("eql", OPERATOR(l), CONST(r)) if (*r >= 10 || *r <= 0) && l.get_type() == "inp" => CONST(0),
-                ("eql", CONST(l), OPERATOR(r)) if (*l >= 10 || *l <= 0) && r.get_type() == "inp" => CONST(0),
-                _ => {
-                    let id = self.operator_count;
-                    self.operator_count += 1;
-                    OPERATOR(Rc::new(Monad::binary_operator(pieces[0], a, b, id)))
-                }
-            };
-            if let OPERATOR(operator) = result {
-                let id = operator.id();
-                self.variables[var_index] = OPERATOR(operator);
-                id
+    fn find_largest_model(&self, group: usize, memory: &mut Memory) -> bool {
+        // println!("[{}] initial variables are: {:?}", group, memory.variables);
+        let operations = &self.groups[group];
+        let snapshot = memory.variables.to_vec();
+        for i in 1..10 {
+            let num = 10 - i;
+            if group < 7 {
+                println!("[{}] num: {} variables are: {:?}", group, num, memory.variables);
+            }
+            memory.input[group] = num;
+            for operation in operations {
+                operation.execute(memory);
+            }
+            if group + 1 >= MODEL_LEN {
+                return memory.variables[3] == 0;
+            } else if self.find_largest_model(group + 1, memory) {
+                return true;
             } else {
-                self.variables[var_index] = result;
-                usize::MAX
+                // println!("[{}] Before pop: {:?}", group, memory.variables);
+                for i in 0..4 {
+                    memory.variables[i] = snapshot[i];
+                }
+                // println!("[{}] After pop: {:?}", group, memory.variables);
             }
         }
-    }
-    fn binary_operator(symbol: &str, a: Operand, b: Operand, id: usize) -> Operator {
-        match symbol {
-            "add" => ADD(id, a, b),
-            "mul" => MUL(id, a, b),
-            "div" => DIV(id, a, b),
-            "mod" => MOD(id, a, b),
-            "eql" => EQL(id, a, b),
-            _ => panic!("Invalid operator: {}", symbol)
-        }
+        false
     }
 }
 
 fn part_one(file_name: &str) {
-    let mut monad = Monad::new();
-    monad.parse(file_name);
+    let monad = Monad::parse(file_name);
+    let mut memory = Memory::new();
 
-    println!("Finding inputs...");
-    let values = match monad.variables[3].clone() {
-        OPERATOR(operator) => operator.find_input_values_for(&mut monad, 0),
-        x => panic!("Unexpected top level variable: {:?}", x)
-    };
+    assert_eq!(true, monad.find_largest_model(0, &mut memory));
     
-    println!("Part 1: {:?}", values);
+    let largest_model = memory.input.iter()
+        .fold(0, |acc, num| (acc * 10) + num);
+
+    println!("Part 1: {}", largest_model);
 }
 
 fn part_two(file_name: &str) {
