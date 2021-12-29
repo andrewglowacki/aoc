@@ -1,8 +1,6 @@
-use std::collections::HashMap;
 use std::rc::Rc;
 use std::collections::BTreeMap;
 use std::collections::BTreeSet;
-use std::fmt::Write;
 use std::fmt::Formatter;
 use std::fmt::Display;
 use std::fs::File;
@@ -29,6 +27,15 @@ enum RefOperand {
     Ref(usize)
 }
 
+impl Display for RefOperand {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        match self {
+            RefConst(value) => write!(fmt, "{}", value),
+            Ref(index) => write!(fmt, "#{}", index)
+        }
+    }
+}
+
 #[derive(Clone)]
 enum RefOperator {
     RefInp(usize),
@@ -37,6 +44,19 @@ enum RefOperator {
     RefDiv(RefOperand, RefOperand),
     RefMod(RefOperand, RefOperand),
     RefEql(RefOperand, RefOperand)
+}
+
+impl Display for RefOperator {
+    fn fmt(&self, fmt: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        match self {
+            RefInp(index) => write!(fmt, "input[{}]", index),
+            RefAdd(a, b) => write!(fmt, "add {} {}", a, b),
+            RefMul(a, b) => write!(fmt, "mul {} {}", a, b),
+            RefDiv(a, b) => write!(fmt, "div {} {}", a, b),
+            RefMod(a, b) => write!(fmt, "mod {} {}", a, b),
+            RefEql(a, b) => write!(fmt, "eql {} {}", a, b),
+        }
+    }
 }
 
 use RefOperand::*;
@@ -75,15 +95,18 @@ impl Deconstruction {
             _ => panic!("Invalid combo")
         }
     }
-    fn evaluate(&self) -> Vec<i64> {
+    fn find_next_digit(&self, input: &Vec<i64>, largest: bool) -> i64 {
         let mut results = Vec::<BTreeSet<i64>>::new();
         let mut values = 0;
         for operator in self.operators.iter() {
-            println!("Executing {} of {} with {} values thus far", results.len() + 1, self.operators.len(), values);
+            // print!("\rEvaluating #{} {} - {} values thus far   ", results.len(), operator, values);
             let these_results = match operator {
-                RefInp(_) => {
-                    (0..10).into_iter().skip(1)
-                        .collect::<BTreeSet<_>>()
+                RefInp(index) => {
+                    match *index < input.len() {
+                        true => BTreeSet::from([input[*index]]),
+                        false => (0..10).into_iter().skip(1)
+                            .collect::<BTreeSet<_>>()
+                    }
                 },
                 RefAdd(a, b) => Deconstruction::execute(&results, a, b, |a, b| a + b),
                 RefMul(a, b) => Deconstruction::execute(&results, a, b, |a, b| a * b),
@@ -92,10 +115,12 @@ impl Deconstruction {
                 RefEql(a, b) => Deconstruction::execute(&results, a, b, |a, b| match a == b { true => 1, false => 0 })
             };
             values += these_results.len();
+            println!("[{}] #{} {} had {} results ({} thus far) - first/last: {:?} --- {:?}", input.len(), results.len(), operator, these_results.len(), values, 
+                these_results.iter().take(3).collect::<Vec<_>>(), these_results.iter().rev().take(3).collect::<Vec<_>>());
             results.push(these_results);
         }
 
-        self.find_greatest_inputs(results)
+        self.find_greatest_digit(results, input.len(), largest)
     }
 
     fn retain_results_match<F>(my_id: usize, results: &mut Vec<BTreeSet<i64>>, a: &RefOperand, b: &RefOperand, combiner: F)
@@ -110,6 +135,9 @@ impl Deconstruction {
                 })
                 .copied()
                 .collect::<BTreeSet<_>>();
+                println!("Reduced {} from {} to {} first/last: {:?}..{:?} --> {:?}..{:?}", r, results[*r].len(), new_results.len(), 
+                    results[*r].iter().take(3).collect::<Vec<_>>(), results[*r].iter().rev().take(3).collect::<Vec<_>>(),
+                    new_results.iter().take(3).collect::<Vec<_>>(), new_results.iter().rev().take(3).collect::<Vec<_>>());
                 results[*r] = new_results;
             },
             (Ref(r), RefConst(c)) => {
@@ -120,6 +148,9 @@ impl Deconstruction {
                 })
                 .copied()
                 .collect::<BTreeSet<_>>();
+                println!("Reduced {} from {} to {} first/last: {:?}..{:?} --> {:?}..{:?}", r, results[*r].len(), new_results.len(), 
+                    results[*r].iter().take(3).collect::<Vec<_>>(), results[*r].iter().rev().take(3).collect::<Vec<_>>(),
+                    new_results.iter().take(3).collect::<Vec<_>>(), new_results.iter().rev().take(3).collect::<Vec<_>>());
                 results[*r] = new_results;
             },
             (Ref(a), Ref(b)) => {
@@ -145,8 +176,12 @@ impl Deconstruction {
                 .copied()
                 .collect::<BTreeSet<_>>();
 
-                println!("For {} reduced a {} from {} to {}", my_id, a, results[*a].len(), new_a_results.len());
-                println!("For {} reduced b {} from {} to {}", my_id, b, results[*b].len(), new_b_results.len());
+                println!("Reduced {} from {} to {} first/last: {:?}..{:?} --> {:?}..{:?}", a, results[*a].len(), new_a_results.len(), 
+                    a_results.iter().take(3).collect::<Vec<_>>(), a_results.iter().rev().take(3).collect::<Vec<_>>(),
+                    new_a_results.iter().take(3).collect::<Vec<_>>(), new_a_results.iter().rev().take(3).collect::<Vec<_>>());
+                println!("Reduced {} from {} to {} first/last: {:?}..{:?} --> {:?}..{:?}", b, results[*b].len(), new_b_results.len(), 
+                    b_results.iter().take(3).collect::<Vec<_>>(), b_results.iter().rev().take(3).collect::<Vec<_>>(),
+                    new_b_results.iter().take(3).collect::<Vec<_>>(), new_b_results.iter().rev().take(3).collect::<Vec<_>>());
                 results[*a] = new_a_results;
                 results[*b] = new_b_results;
             },
@@ -154,16 +189,33 @@ impl Deconstruction {
         }
     }
 
-    fn find_greatest_inputs(&self, mut results: Vec<BTreeSet<i64>>) -> Vec<i64> {
+    fn find_greatest_digit(&self, mut results: Vec<BTreeSet<i64>>, at_index: usize, largest: bool) -> i64 {
         let mut index = results.len() - 1;
+        if !results[index].contains(&0) {
+            println!("[{}] No path to zero", at_index);
+            return -1;
+        }
         assert_eq!(true, results[index].contains(&0));
         results[index].clear();
         results[index].insert(0);
-        let mut inputs = Vec::new();
+        // let mut inputs = Vec::new();
         for operator in self.operators.iter().rev() {
-            println!("Retaining results for {}", index);
+            println!("[{}] for #{} {} - must match first/last: {:?}...{:?}", at_index, index, operator, 
+                results[index].iter().take(3).collect::<Vec<_>>(), 
+                results[index].iter().rev().take(3).collect::<Vec<_>>());
             match operator {
-                RefInp(_) => { inputs.push(*results[index].iter().max().unwrap()); },
+                RefInp(this_index) => { 
+                    // println!("For {} Inputs is currently: {:?} adding max of: {:?}", index, inputs, results[index]);
+                    if *this_index == at_index {
+                        return match largest {
+                            true => results[index].iter().copied().max().unwrap_or(-1),
+                            false => results[index].iter().copied().min().unwrap_or(-1)
+                        };
+                    } else if results[index].is_empty() {
+                        println!("[{}] No path to zero - empty possible inputs at {}", at_index, this_index);
+                        return -1;
+                    }
+                },
                 RefAdd(a, b) => Deconstruction::retain_results_match(index, &mut results, a, b, |a, b| a + b),
                 RefMul(a, b) => Deconstruction::retain_results_match(index, &mut results, a, b, |a, b| a * b),
                 RefDiv(a, b) => Deconstruction::retain_results_match(index, &mut results, a, b, |a, b| a / b),
@@ -172,13 +224,14 @@ impl Deconstruction {
             }
             index -= 1;
         }
-        inputs.reverse();
-        inputs
+        // println!("");
+        panic!("Index not found: {}", at_index)
     }
 }
 
 impl Operator {
     fn eval(&self, input: &Vec<i64>) -> i64 {
+        println!("evaluating {}", self.id());
         match self {
             INP(_, a) => input[*a],
             ADD(_, a, b) => a.get(input) + b.get(input),
@@ -186,25 +239,6 @@ impl Operator {
             DIV(_, a, b) => a.get(input) / b.get(input),
             MOD(_, a, b) => a.get(input) % b.get(input),
             EQL(_, a, b) => (a.get(input) == b.get(input)) as i64
-        }
-    }
-    fn print(&self, indent: String) {
-        if let INP(id, a) = self {
-            println!("{}input[{}] #{}", indent, a, id);
-        } else {
-            let (a, b, op, id) = match self {
-                ADD(id, a, b) => (a, b, "add", id),
-                MUL(id, a, b) => (a, b, "mul", id),
-                DIV(id, a, b) => (a, b, "div", id),
-                MOD(id, a, b) => (a, b, "mod", id),
-                EQL(id, a, b) => (a, b, "eql", id),
-                _ => panic!("Unknown operator")
-            };
-            println!("{}( #{}", indent, id);
-            a.print(indent.clone() + "  ");
-            println!("{}  {} #{}", indent, op, id);
-            b.print(indent.clone() + "  ");
-            println!("{}) #{}", indent, id);
         }
     }
     fn deconstruct(&self, output: &mut BTreeMap<usize, RefOperator>) {
@@ -249,19 +283,6 @@ impl Operator {
     }
 }
 
-impl Display for Operator {
-    fn fmt(&self, fmt: &mut Formatter) -> Result<(), std::fmt::Error> {
-        match self {
-            INP(_, a) => write!(fmt, "input[{}]", a),
-            ADD(_, a, b) => write!(fmt, "({} + {})", a, b),
-            MUL(_, a, b) => write!(fmt, "({} * {})", a, b),
-            DIV(_, a, b) => write!(fmt, "({} / {})", a, b),
-            MOD(_, a, b) => write!(fmt, "({} % {})", a, b),
-            EQL(_, a, b) => write!(fmt, "({} = {})", a, b),
-        }
-    }
-}
-
 #[derive(Debug, Clone)]
 enum Operand {
     CONST(i64),
@@ -269,25 +290,10 @@ enum Operand {
 }
 
 impl Operand {
-    fn print(&self, indent: String) {
-        match self {
-            CONST(value) => println!("{}{}", indent, value),
-            OPERATOR(operator) => operator.print(indent)
-        };
-    }
     fn to_ref(&self) -> RefOperand {
         match self {
             CONST(value) => RefConst(*value),
             OPERATOR(operator) => Ref(operator.id())
-        }
-    }
-}
-
-impl Display for Operand {
-    fn fmt(&self, fmt: &mut Formatter) -> Result<(), std::fmt::Error> {
-        match self {
-            CONST(value) => write!(fmt, "{}", *value),
-            OPERATOR(operator) => write!(fmt, "{}", *operator)
         }
     }
 }
@@ -374,7 +380,7 @@ impl Monad {
                     let id = self.operator_count;
                     self.operator_count += 1;
                     OPERATOR(Rc::new(Monad::binary_operator(pieces[0], a, b, id)))
-                }
+               }
             };
             if let OPERATOR(operator) = result {
                 let id = operator.id();
@@ -410,20 +416,62 @@ fn part_one(file_name: &str) {
         panic!("Invalid operator variable");
     };
 
-    let results = deconstruction.evaluate();
+    let mut digits = Vec::new();
+    while digits.len() < MODEL_DIGITS {
+        println!("Finding digit {} thus far: {:?}", digits.len(), digits);
+        let digit = deconstruction.find_next_digit(&mut digits, true);
+        if digit <= 0 {
+            // backtrack
+            let mut last = digits.len() - 1;
+            digits[last] -= 1;
+            while digits[last] <= 0 {
+                digits.pop();
+                last = digits.len() - 1;
+                digits[last] -= 1;
+            }
+        } else {
+            digits.push(digit);
+        }
+    }
 
-    println!("Part 1: {:?}", results);
+    println!("Part 1: {:?}", digits);
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let mut monad = Monad::new();
+    monad.parse(file_name);
+
+    let deconstruction = if let OPERATOR(operator) = &monad.variables[3] {
+        let mut output = BTreeMap::new();
+        operator.deconstruct(&mut output);
+        Deconstruction::new(output)
+    } else {
+        panic!("Invalid operator variable");
+    };
+
+    let mut digits = Vec::new();
+    while digits.len() < MODEL_DIGITS {
+        println!("Finding digit {} thus far: {:?}", digits.len(), digits);
+        let digit = deconstruction.find_next_digit(&mut digits, false);
+        if digit <= 0 {
+            // backtrack
+            let mut last = digits.len() - 1;
+            digits[last] += 1;
+            while digits[last] > 9 {
+                digits.pop();
+                last = digits.len() - 1;
+                digits[last] += 1;
+            }
+        } else {
+            digits.push(digit);
+        }
+    }
     
-    println!("Part 2: {}", "incomplete");
+    println!("Part 2: {:?}", digits);
 }
 
 fn main() {
-    part_one("input.txt");
+    // part_one("input.txt");
     part_two("input.txt");
 
     println!("Done!");
