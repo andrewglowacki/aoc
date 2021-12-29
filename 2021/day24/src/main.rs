@@ -55,7 +55,11 @@ impl Deconstruction {
     fn execute<F>(results: &Vec<BTreeSet<i64>>, a: &RefOperand, b: &RefOperand, combiner: F) -> BTreeSet<i64> 
         where F: Fn(i64, i64) -> i64 {
         match (a, b) {
-            (RefConst(c), Ref(r)) | (Ref(r), RefConst(c)) => {
+            (RefConst(c), Ref(r)) => {
+                results[*r].iter().map(|v| combiner(*c, *v))
+                    .collect::<BTreeSet<_>>()
+            },
+            (Ref(r), RefConst(c)) => {
                 results[*r].iter().map(|v| combiner(*v, *c))
                     .collect::<BTreeSet<_>>()
             },
@@ -98,7 +102,17 @@ impl Deconstruction {
         where F: Fn(i64, i64) -> i64 
     {
         match (a, b) {
-            (RefConst(c), Ref(r)) | (Ref(r), RefConst(c)) => {
+            (RefConst(c), Ref(r)) => {
+                let my_results = &results[my_id];
+                let new_results = results[*r].iter().filter(|value| {
+                    let combined = combiner(*c, **value);
+                    my_results.contains(&combined)
+                })
+                .copied()
+                .collect::<BTreeSet<_>>();
+                results[*r] = new_results;
+            },
+            (Ref(r), RefConst(c)) => {
                 let my_results = &results[my_id];
                 let new_results = results[*r].iter().filter(|value| {
                     let combined = combiner(**value, *c);
