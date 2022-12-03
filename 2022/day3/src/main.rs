@@ -1,4 +1,3 @@
-use std::collections::{BTreeSet, HashSet};
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -11,16 +10,23 @@ fn get_file_lines(file_name: &str) -> Input {
     BufReader::new(file).lines()
 }
 
-fn determine_mis_packed(line: String) -> char {
-    let mut left = BTreeSet::new();
+fn to_number(line: String) -> u64 {
+    line.chars()
+        .map(|item| 1 << (get_priority(item) - 1))
+        .fold(0, |result, item| result | item)
+}
+
+fn determine_mis_packed(line: String) -> u32 {
     let size = line.len() / 2;
 
-    let mut items = line.chars();
-    for _ in 0..size {
-        left.insert(items.next().unwrap());
-    }
+    let left = line[0..size].to_owned();
+    let right = line[size..].to_owned();
 
-    items.find(|item| left.contains(item)).unwrap()
+    let left = to_number(left);
+    let right = to_number(right);
+
+    let result = left & right;
+    result.trailing_zeros() + 1
 }
 
 fn get_priority(item: char) -> u32 {
@@ -34,27 +40,23 @@ fn part_one(file_name: &str) {
     let total: u32 = get_file_lines(file_name)
         .flat_map(|line| line.ok())
         .map(|line| determine_mis_packed(line))
-        .map(|item| get_priority(item))
         .sum();
     
     println!("Part 1: {}", total);
 }
 
-fn determine_badge(one: String, two: String, three: String) -> char {
-    let one = one.chars()
-        .collect::<BTreeSet<_>>();
-    let two = two.chars()
-        .collect::<HashSet<_>>();
-    let three = three.chars()
-        .collect::<HashSet<_>>();
+fn determine_badge(one: String, two: String, three: String) -> u32 {
+    let one = to_number(one);
+    let two = to_number(two);
+    let three = to_number(three);
 
-    one.into_iter().find(|item| two.contains(item) && three.contains(item)).unwrap()
+    let result = one & two & three;
+    result.trailing_zeros() + 1
 }
 
 fn part_two(file_name: &str) {
     let mut lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok())
-        .peekable();
+        .flat_map(|line| line.ok());
     
     let mut total = 0;
 
@@ -62,8 +64,7 @@ fn part_two(file_name: &str) {
         let two = lines.next().unwrap();
         let three = lines.next().unwrap();
 
-        let badge = determine_badge(one, two, three);
-        total += get_priority(badge);
+        total += determine_badge(one, two, three);
     }
 
     println!("Part 2: {}", total);
