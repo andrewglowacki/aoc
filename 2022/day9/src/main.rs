@@ -25,7 +25,8 @@ impl Point {
         }
     }
     
-    fn set(&mut self, x: i32, y: i32) {
+    fn set(&mut self, point: (i32, i32)) {
+        let (x, y) = point;
         self.x = x;
         self.y = y;
     }
@@ -48,79 +49,121 @@ impl Point {
 }
 
 struct RopeBridge {
-    head: Point,
-    tail: Point,
+    points: Vec<Point>,
     visited: HashSet<(i32, i32)>
 }
 
+struct MoveResult {
+    tail: (i32, i32),
+    head: (i32, i32),
+    visited: Vec<(i32, i32)>
+}
+
 impl RopeBridge {
-    fn new() -> RopeBridge {
+    fn new(size: usize) -> RopeBridge {
         let mut visited = HashSet::new();
 
         visited.insert((0, 0));
 
+        let mut points = Vec::new();
+        
+        for _ in 0..size {
+            points.push(Point::new());
+        }
+
         RopeBridge {
-            head: Point::new(),
-            tail: Point::new(),
+            points,
             visited
         }
     }
 
-    fn move_head<M, F, P>(&mut self, moving: M, fixed: F, point_maker: P, amount: i32)
-        where M: Fn(&Point) -> i32,
-            F: Fn(&Point) -> i32,
-            P: Fn(i32, i32) -> (i32, i32)
+    fn move_head<P>( 
+        tail: &Point,
+        moving_tail: i32, 
+        moving_head: i32, 
+        fixed_head: i32, 
+        point_maker: P, 
+        amount: i32) -> MoveResult
+        where P: Fn(i32, i32) -> (i32, i32)
     {
         let points = if amount > 0 {
-            (moving(&self.head)..moving(&self.head) + amount).into_iter()
-                .filter(|i| *i > moving(&self.tail))
-                .map(|i| point_maker(i, fixed(&self.head)))
+            (moving_head..moving_head + amount).into_iter()
+                .filter(|i| *i > moving_tail)
+                .map(|i| point_maker(i, fixed_head))
                 .collect::<Vec<_>>()
         } else {
             let amount = amount + 1;
-            (moving(&self.head) + amount..moving(&self.head)).into_iter()
-                .filter(|i| *i < moving(&self.tail))
-                .map(|i| point_maker(i, fixed(&self.head)))
+            (moving_head + amount..moving_head + 1).into_iter()
+                .filter(|i| *i < moving_tail)
+                .map(|i| point_maker(i, fixed_head))
                 .rev()
                 .collect::<Vec<_>>()
         };
 
-        if let Some((x, y)) = points.last() {
-            self.tail.set(*x, *y);
-        }
-        points.iter().for_each(|point| { 
-            self.visited.insert(*point); 
-        });
+        let new_tail = match points.last() {
+            Some((x, y)) => (*x, *y),
+            _ => (tail.x, tail.y)
+        };
         
-        let (x, y) = point_maker(moving(&self.head) + amount, fixed(&self.head));
-        self.head.set(x, y);
+        let new_head = point_maker(moving_head + amount, fixed_head);
+
+        MoveResult { 
+            tail: new_tail, 
+            head: new_head,
+            visited: points
+        }
     }
     
-    fn move_x(&mut self, amount: i32) {
-        self.move_head(Point::x, Point::y, |x, y| (x, y), amount);
+    fn move_x(tail: &Point, head: &Point, amount: i32) -> MoveResult {
+        RopeBridge::move_head(tail, tail.x, head.x, head.y, |x, y| (x, y), amount)
     }
 
-    fn move_y(&mut self, amount: i32) {
-        self.move_head(Point::y, Point::x, |y, x| (x, y), amount);
+    fn move_y(tail: &Point, head: &Point, amount: i32) -> MoveResult {
+        RopeBridge::move_head(tail, tail.y, head.y, head.x, |y, x| (x, y), amount)
     }
 
     fn perform_move(&mut self, instruction: &str) {
         let direction = instruction.chars().next().unwrap();
         let amount = instruction[2..].parse::<i32>().unwrap();
-        
-        match direction {
-            'U' => self.move_y(-amount),
-            'D' => self.move_y(amount),
-            'L' => self.move_x(-amount),
-            'R' => self.move_x(amount),
+
+        let (move_x, new_amount) = match direction {
+            'U' => (false, -amount),
+            'D' => (false, amount),
+            'L' => (true, -amount),
+            'R' => (true, amount),
             _ => panic!("Invalid move direction in: {}", instruction)
         };
+
+        let amount = new_amount;
+
+        let mut last_visited = Vec::new();
+        let mut prev_tail = Point::new();
+        prev_tail.set((self.points[0].x, self.points[0].y));
+        
+        for i in 1..self.points.len() {
+            let result = match move_x {
+                false => RopeBridge::move_y(&self.points[i], &prev_tail, amount),
+                true => RopeBridge::move_x(&self.points[i], &prev_tail, amount)
+            };
+    
+            prev_tail.set((self.points[i].x, self.points[i].y));
+            self.points[i].set(result.tail);
+            if i == 1 {
+                self.points[0].set(result.head);
+            }
+
+            last_visited = result.visited;
+        }
+        
+        last_visited.into_iter().for_each(|point| {
+            self.visited.insert(point);
+        });
         
     }
 }
 
 fn part_one(file_name: &str) {
-    let mut bridge = RopeBridge::new();
+    let mut bridge = RopeBridge::new(2);
 
     get_file_lines(file_name)
         .flat_map(|line| line.ok())
@@ -130,6 +173,8 @@ fn part_one(file_name: &str) {
 }
 
 fn part_two(file_name: &str) {
+    let mut bridge = RopeBridge::new(10);
+
     let lines = get_file_lines(file_name)
         .flat_map(|line| line.ok());
     
@@ -141,299 +186,4 @@ fn main() {
     // part_two("input.txt");
 
     println!("Done!");
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    fn visited(bridge: &RopeBridge) -> Vec<(i32, i32)> {
-        let mut points = bridge.visited.iter()
-            .map(|item| *item)
-            .collect::<Vec<_>>();
-        points.sort();
-        points
-    }
-
-    #[test]
-    fn point_test() {
-        let mut point = Point::new();
-        assert_eq!(0, point.x());
-        assert_eq!(0, point.y());
-        
-        point.move_x(3);
-        assert_eq!(3, point.x());
-        assert_eq!(0, point.y());
-
-        point.move_x(-1);
-        assert_eq!(2, point.x());
-        assert_eq!(0, point.y());
-
-        point.move_y(5);
-        assert_eq!(2, point.x());
-        assert_eq!(5, point.y());
-        
-        point.move_y(-2);
-        assert_eq!(2, point.x());
-        assert_eq!(3, point.y());
-
-        point.set(-6, 9);
-        assert_eq!(-6, point.x());
-        assert_eq!(9, point.y());
-    }
-
-    #[test]
-    fn bridge_default() {
-        let bridge = RopeBridge::new();
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(0, bridge.head.x());
-        assert_eq!(0, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_right_no_movement() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("R 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(1, bridge.head.x());
-        assert_eq!(0, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_left_no_movement() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("L 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(-1, bridge.head.x());
-        assert_eq!(0, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_up_no_movement() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(0, bridge.head.x());
-        assert_eq!(-1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_down_no_movement() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(0, bridge.head.x());
-        assert_eq!(1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_right_same_line() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("R 3");
-
-        assert_eq!(vec![(0, 0), (1, 0), (2, 0)], visited(&bridge));
-        assert_eq!(3, bridge.head.x());
-        assert_eq!(0, bridge.head.y());
-        assert_eq!(2, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_left_same_line() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("L 3");
-
-        assert_eq!(vec![(-2, 0), (-1, 0), (0, 0)], visited(&bridge));
-        assert_eq!(-3, bridge.head.x());
-        assert_eq!(0, bridge.head.y());
-        assert_eq!(-2, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_up_same_line() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 3");
-
-        assert_eq!(vec![(0, -2), (0, -1), (0, 0)], visited(&bridge));
-        assert_eq!(0, bridge.head.x());
-        assert_eq!(-3, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(-2, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_down_same_line() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 3");
-
-        assert_eq!(vec![(0, 0), (0, 1), (0, 2)], visited(&bridge));
-        assert_eq!(0, bridge.head.x());
-        assert_eq!(3, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(2, bridge.tail.y());
-    }
-
-    #[test]
-    fn move_up_right_one() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 1");
-        bridge.perform_move("R 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(1, bridge.head.x());
-        assert_eq!(-1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_up_left_one() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 1");
-        bridge.perform_move("L 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(-1, bridge.head.x());
-        assert_eq!(-1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-    #[test]
-    fn move_down_right_one() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 1");
-        bridge.perform_move("R 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(1, bridge.head.x());
-        assert_eq!(1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-    #[test]
-    fn move_down_left_one() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 1");
-        bridge.perform_move("L 1");
-
-        assert_eq!(vec![(0, 0)], visited(&bridge));
-        assert_eq!(-1, bridge.head.x());
-        assert_eq!(1, bridge.head.y());
-        assert_eq!(0, bridge.tail.x());
-        assert_eq!(0, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_up_right_three() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 1");
-        bridge.perform_move("R 3");
-
-        assert_eq!(vec![(0, 0), (1, -1), (2, -1)], visited(&bridge));
-        assert_eq!(3, bridge.head.x());
-        assert_eq!(-1, bridge.head.y());
-        assert_eq!(2, bridge.tail.x());
-        assert_eq!(-1, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_up_left_three() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 1");
-        bridge.perform_move("L 3");
-
-        assert_eq!(vec![(-2, -1), (-1, -1), (0, 0)], visited(&bridge));
-        assert_eq!(-3, bridge.head.x());
-        assert_eq!(-1, bridge.head.y());
-        assert_eq!(-2, bridge.tail.x());
-        assert_eq!(-1, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_down_right_three() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 1");
-        bridge.perform_move("R 3");
-
-        assert_eq!(vec![(0, 0), (1, 1), (2, 1)], visited(&bridge));
-        assert_eq!(3, bridge.head.x());
-        assert_eq!(1, bridge.head.y());
-        assert_eq!(2, bridge.tail.x());
-        assert_eq!(1, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_down_left_three() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 1");
-        bridge.perform_move("L 3");
-
-        assert_eq!(vec![(-2, 1), (-1, 1), (0, 0)], visited(&bridge));
-        assert_eq!(-3, bridge.head.x());
-        assert_eq!(1, bridge.head.y());
-        assert_eq!(-2, bridge.tail.x());
-        assert_eq!(1, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_up_right_down() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("U 3");
-        bridge.perform_move("R 1");
-        bridge.perform_move("D 6");
-
-        assert_eq!(vec![(0, -2), (0, -1), (0, 0), (1, -1), (1, 0), (1, 1), (1, 2)], visited(&bridge));
-        assert_eq!(1, bridge.head.x());
-        assert_eq!(3, bridge.head.y());
-        assert_eq!(1, bridge.tail.x());
-        assert_eq!(2, bridge.tail.y());
-    }
-    
-    #[test]
-    fn move_down_right_up() {
-        let mut bridge = RopeBridge::new();
-
-        bridge.perform_move("D 3");
-        bridge.perform_move("R 1");
-        bridge.perform_move("U 6");
-
-        assert_eq!(vec![(0, 0), (0, 1), (0, 2), (1, -2), (1, -1), (1, 0), (1, 1)], visited(&bridge));
-        assert_eq!(1, bridge.head.x());
-        assert_eq!(-3, bridge.head.y());
-        assert_eq!(1, bridge.tail.x());
-        assert_eq!(-2, bridge.tail.y());
-    }
-    
 }
