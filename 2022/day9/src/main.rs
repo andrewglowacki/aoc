@@ -19,44 +19,25 @@ struct Point {
 
 impl Point {
     fn new() -> Point {
+        Point::coords(0, 0)
+    }
+    fn coords(x: i32, y: i32) -> Point {
         Point {
-            x: 0,
-            y: 0
+            x,
+            y
         }
     }
+
+    fn translate(&mut self, x_amount: i32, y_amount: i32){
+        self.x += x_amount;
+        self.y += y_amount;
+    }
     
-    fn set(&mut self, point: (i32, i32)) {
-        let (x, y) = point;
-        self.x = x;
-        self.y = y;
-    }
-
-    fn x(&self) -> i32 {
-        self.x
-    }
-
-    fn y(&self) -> i32 {
-        self.y
-    }
-
-    fn move_x(&mut self, amount: i32) {
-        self.x += amount;
-    }
-    fn move_y(&mut self, amount: i32) {
-        self.y += amount;
-    }
-
 }
 
 struct RopeBridge {
     points: Vec<Point>,
     visited: HashSet<(i32, i32)>
-}
-
-struct MoveResult {
-    tail: (i32, i32),
-    head: (i32, i32),
-    visited: Vec<(i32, i32)>
 }
 
 impl RopeBridge {
@@ -77,87 +58,50 @@ impl RopeBridge {
         }
     }
 
-    fn move_head<P>( 
-        tail: &Point,
-        moving_tail: i32, 
-        moving_head: i32, 
-        fixed_head: i32, 
-        point_maker: P, 
-        amount: i32) -> MoveResult
-        where P: Fn(i32, i32) -> (i32, i32)
-    {
-        let points = if amount > 0 {
-            (moving_head..moving_head + amount).into_iter()
-                .filter(|i| *i > moving_tail)
-                .map(|i| point_maker(i, fixed_head))
-                .collect::<Vec<_>>()
-        } else {
-            let amount = amount + 1;
-            (moving_head + amount..moving_head + 1).into_iter()
-                .filter(|i| *i < moving_tail)
-                .map(|i| point_maker(i, fixed_head))
-                .rev()
-                .collect::<Vec<_>>()
-        };
-
-        let new_tail = match points.last() {
-            Some((x, y)) => (*x, *y),
-            _ => (tail.x, tail.y)
-        };
-        
-        let new_head = point_maker(moving_head + amount, fixed_head);
-
-        MoveResult { 
-            tail: new_tail, 
-            head: new_head,
-            visited: points
-        }
-    }
-    
-    fn move_x(tail: &Point, head: &Point, amount: i32) -> MoveResult {
-        RopeBridge::move_head(tail, tail.x, head.x, head.y, |x, y| (x, y), amount)
-    }
-
-    fn move_y(tail: &Point, head: &Point, amount: i32) -> MoveResult {
-        RopeBridge::move_head(tail, tail.y, head.y, head.x, |y, x| (x, y), amount)
-    }
-
     fn perform_move(&mut self, instruction: &str) {
         let direction = instruction.chars().next().unwrap();
-        let amount = instruction[2..].parse::<i32>().unwrap();
+        let mut amount = instruction[2..].parse::<i32>().unwrap();
 
-        let (move_x, new_amount) = match direction {
-            'U' => (false, -amount),
-            'D' => (false, amount),
-            'L' => (true, -amount),
-            'R' => (true, amount),
+        let (x_amount, y_amount) = match direction {
+            'U' => (0, -1),
+            'D' => (0, 1),
+            'L' => (-1, 0),
+            'R' => (1, 0),
             _ => panic!("Invalid move direction in: {}", instruction)
         };
-
-        let amount = new_amount;
-
-        let mut last_visited = Vec::new();
-        let mut prev_tail = Point::new();
-        prev_tail.set((self.points[0].x, self.points[0].y));
         
-        for i in 1..self.points.len() {
-            let result = match move_x {
-                false => RopeBridge::move_y(&self.points[i], &prev_tail, amount),
-                true => RopeBridge::move_x(&self.points[i], &prev_tail, amount)
-            };
-    
-            prev_tail.set((self.points[i].x, self.points[i].y));
-            self.points[i].set(result.tail);
-            if i == 1 {
-                self.points[0].set(result.head);
+        while amount > 0 {
+            
+            self.points[0].translate(x_amount, y_amount);
+
+            for i in 1..self.points.len() {
+                let x_diff = self.points[i - 1].x - self.points[i].x;
+                let y_diff = self.points[i - 1].y - self.points[i].y;
+                
+                let mut this_x_amount = match x_diff {
+                    2 => 1,
+                    -2 => -1,
+                    _ => 0
+                };
+                let mut this_y_amount = match y_diff {
+                    2 => 1,
+                    -2 => -1,
+                    _ => 0
+                };
+
+                if this_x_amount == 0 && x_diff != 0 && this_y_amount != 0 {
+                    this_x_amount = x_diff;
+                } else if this_y_amount == 0 && y_diff != 0 && this_x_amount != 0 {
+                    this_y_amount = y_diff;
+                }
+
+                self.points[i].translate(this_x_amount, this_y_amount);
             }
 
-            last_visited = result.visited;
+            amount -= 1;
+            let last = &self.points[self.points.len() - 1];
+            self.visited.insert((last.x, last.y));
         }
-        
-        last_visited.into_iter().for_each(|point| {
-            self.visited.insert(point);
-        });
         
     }
 }
@@ -175,15 +119,16 @@ fn part_one(file_name: &str) {
 fn part_two(file_name: &str) {
     let mut bridge = RopeBridge::new(10);
 
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .for_each(|line| bridge.perform_move(line.as_str()));
     
-    println!("Part 2: {}", "incomplete");
+    println!("Part 2: {}", bridge.visited.len());
 }
 
 fn main() {
     part_one("input.txt");
-    // part_two("input.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
