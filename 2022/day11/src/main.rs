@@ -20,7 +20,8 @@ struct Monkey {
     division_check: u64,
     true_monkey: usize,
     false_monkey: usize,
-    inspections: usize
+    inspections: usize,
+    mod_amount: u64
 }
 
 fn last_number(line: &String) -> u64 {
@@ -56,6 +57,7 @@ impl Monkey {
             mult_op,
             add_op,
             div_amount,
+            mod_amount: 0,
             division_check,
             true_monkey,
             false_monkey,
@@ -64,9 +66,13 @@ impl Monkey {
     }
 
     fn new_worry(&self, item: u64) -> u64 {
-        match self.mult_old {
+        let new_number = match self.mult_old {
             true => (item * item) / self.div_amount,
             false => ((item * self.mult_op) + self.add_op) / self.div_amount
+        };
+        match self.mod_amount > 0 {
+            true => new_number % self.mod_amount,
+            false => new_number
         }
     }
 
@@ -115,6 +121,15 @@ impl Monkeys {
             });
         }
     }
+
+    fn compute_mod_amount(&mut self) {
+        let mod_amount = self.monkeys.iter()
+            .map(|monkey| monkey.division_check)
+            .product::<u64>();
+        self.monkeys.iter_mut().for_each(|monkey| {
+            monkey.mod_amount = mod_amount;
+        });
+    }
 }
 
 fn part_one(file_name: &str) {
@@ -138,6 +153,8 @@ fn part_one(file_name: &str) {
 fn part_two(file_name: &str) {
     let mut monkeys = Monkeys::from_lines(file_name, 1);
 
+    monkeys.compute_mod_amount();
+
     for _ in 0..10000 {
         monkeys.play_round();
     }
@@ -155,7 +172,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
