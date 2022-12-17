@@ -169,7 +169,7 @@ impl Network {
         panic!("Shortest path not found from {} to {}", from, to);
     }
 
-    fn determine_max_pressure(&self) -> u32 {
+    fn determine_max_pressure(&self, minutes: u32, other_minutes: u32) -> u32 {
         let mut max = 0;
 
         let start = *self.ids.ids.get("AA").unwrap();
@@ -180,7 +180,7 @@ impl Network {
                 continue;
             }
             let rate = self.valves.get(&to).unwrap().rate;
-            let this_max = self.max_pressure_from(*to, distance, rate, 30, 0, max, 0, String::from(""));
+            let this_max = self.max_pressure_from(*to, start, distance, rate, minutes, other_minutes, 0, max, 0);
             max = max.max(this_max);
         }
 
@@ -189,14 +189,15 @@ impl Network {
 
     fn max_pressure_from(
         &self, 
-        to: u64, 
+        to: u64,
+        other_position: u64,  
         distance: u32,
         rate: u32,
         minutes: u32, 
+        other_minutes: u32,
         pressure_thus_far: u32,
         max_thus_far: u32,
-        opened: u64,
-        indent: String) -> u32 
+        opened: u64) -> u32 
     {
         let minutes = minutes - (distance + 1);
         let added = rate * minutes;
@@ -209,7 +210,25 @@ impl Network {
         let mut final_pressure_thus_far = pressure_thus_far;
 
         let opened = opened | to;
-        let by_distance = self.valve_by_distance.get(&to).unwrap();
+
+        let next_from;
+        let next_other_position;
+        let next_minutes;
+        let next_other_minutes;
+
+        if other_minutes > minutes {
+            next_from = other_position;
+            next_other_position = to;
+            next_minutes = other_minutes;
+            next_other_minutes = minutes;
+        } else {
+            next_from = to;
+            next_other_position = other_position;
+            next_minutes = minutes;
+            next_other_minutes = other_minutes;
+        }
+
+        let by_distance = self.valve_by_distance.get(&next_from).unwrap();
 
         by_distance.range(1..minutes - 1)
             .flat_map(|(dist, values)| values.iter().map(move |valve| (*dist, *valve)))
@@ -217,7 +236,7 @@ impl Network {
             .map(|(distance, next_to)| (distance, next_to, self.valves.get(&next_to).unwrap().rate))
             .filter(|(_, _, rate)| *rate > 0)
             .for_each(|(distance, next_to, rate)| {
-                let this_max = self.max_pressure_from(next_to, distance, rate, minutes, pressure_thus_far, max_thus_far, opened, indent.to_owned() + "  ");
+                let this_max = self.max_pressure_from(next_to, next_other_position, distance, rate, next_minutes, next_other_minutes, pressure_thus_far, max_thus_far, opened);
                 final_pressure_thus_far = final_pressure_thus_far.max(this_max);
                 max_thus_far = max_thus_far.max(final_pressure_thus_far);
             });
@@ -236,16 +255,23 @@ fn part_one(file_name: &str) {
     
     network.compute_distances();
 
-    let max = network.determine_max_pressure();
+    let max = network.determine_max_pressure(30, 0);
 
     println!("Part 1: {}", max);
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let mut network = Network::new();
+
+    get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .for_each(|line| network.add_valve(line));
     
-    println!("Part 2: {}", "incomplete");
+    network.compute_distances();
+    
+    let max = network.determine_max_pressure(26, 26);
+    
+    println!("Part 2: {}", max);
 }
 
 fn main() {
