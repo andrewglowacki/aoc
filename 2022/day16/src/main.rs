@@ -12,13 +12,15 @@ fn get_file_lines(file_name: &str) -> Input {
 }
 
 struct IdSource {
-    ids: HashMap<String, u64>
+    ids: HashMap<String, u64>,
+    id_to_name: HashMap<u64, String>
 }
 
 impl IdSource {
     fn new() -> IdSource {
         IdSource {
-            ids: HashMap::new()
+            ids: HashMap::new(),
+            id_to_name: HashMap::new()
         }
     }
     fn get(&mut self, name: &str) -> u64 {
@@ -27,6 +29,7 @@ impl IdSource {
         } else {
             let id = 1 << self.ids.len();
             self.ids.insert(name.to_owned(), id);
+            self.id_to_name.insert(id, name.to_owned());
             id
         }
     }
@@ -66,8 +69,8 @@ impl Valve {
 
 struct Network {
     valves: HashMap<u64, Valve>,
-    valves_by_rate: BTreeMap<u32, Vec<u64>>,
     distances: HashMap<(u64, u64), u32>,
+    valve_by_distance: HashMap<u64, BTreeMap<u32, Vec<u64>>>,
     ids: IdSource
 }
 
@@ -75,35 +78,48 @@ impl Network {
     fn new() -> Network {
         Network {
             valves: HashMap::new(),
-            valves_by_rate: BTreeMap::new(),
             distances: HashMap::new(),
-            ids: IdSource::new()
+            ids: IdSource::new(),
+            valve_by_distance: HashMap::new()
         }
     }
 
     fn add_valve(&mut self, line: String) {
         let valve = Valve::parse(line, &mut self.ids);
-        let rate = valve.rate;
-        let id = valve.id.to_owned();
         self.valves.insert(valve.id, valve);
+    }
+
+    fn add_valve_distance(&mut self, from: u64, to: u64, distance: u32) {
+        self.distances.insert((from, to), distance);
+
+        if !self.valve_by_distance.contains_key(&from) {
+            self.valve_by_distance.insert(from, BTreeMap::new());
+        }
         
-        if let Some(valves) = self.valves_by_rate.get_mut(&rate) {
-            valves.push(id);
+        let by_distance = self.valve_by_distance.get_mut(&from).unwrap();
+
+        if let Some(to_list) = by_distance.get_mut(&distance) {
+            to_list.push(to);
         } else {
-            self.valves_by_rate.insert(rate, vec![id]);
+            by_distance.insert(distance, vec![to]);
         }
     }
 
     fn compute_distances(&mut self) {
         let valves = self.valves.keys().collect::<Vec<_>>();
+        let mut distances = Vec::new();
         for i in 0..valves.len() - 1 {
-            let from = valves[i];
+            let from = *valves[i];
             for j in i + 1..valves.len() {
-                let to = valves[j];
-                let distance = self.compute_distance_to(*from, *to);
-                self.distances.insert((from.to_owned(), to.to_owned()), distance);
-                self.distances.insert((to.to_owned(), from.to_owned()), distance);
+                let to = *valves[j];
+                let distance = self.compute_distance_to(from, to);
+                distances.push((from, to, distance));
             }
+        }
+        
+        for (from, to, distance) in distances {
+            self.add_valve_distance(from, to, distance);
+            self.add_valve_distance(to, from, distance);
         }
     }
 
@@ -163,7 +179,8 @@ impl Network {
             if distance + 1 >= 30 {
                 continue;
             }
-            let this_max = self.max_pressure_from(*to, distance, 30, 0, max, 0);
+            let rate = self.valves.get(&to).unwrap().rate;
+            let this_max = self.max_pressure_from(*to, distance, rate, 30, 0, max, 0, String::from(""));
             max = max.max(this_max);
         }
 
@@ -174,14 +191,15 @@ impl Network {
         &self, 
         to: u64, 
         distance: u32,
+        rate: u32,
         minutes: u32, 
         pressure_thus_far: u32,
         max_thus_far: u32,
-        opened: u64) -> u32 
+        opened: u64,
+        indent: String) -> u32 
     {
         let minutes = minutes - (distance + 1);
-
-        let added = self.valves.get(&to).unwrap().rate * minutes;
+        let added = rate * minutes;
         if minutes == 1 {
             return added;
         }
@@ -191,17 +209,17 @@ impl Network {
         let mut final_pressure_thus_far = pressure_thus_far;
 
         let opened = opened | to;
-        self.valves_by_rate.iter()
-            .rev()
-            .flat_map(|(_, values)| values)
-            .filter(|next_to| opened & *next_to == 0)
-            .for_each(|next_to| {
-                let distance = self.get_distance(to, *next_to);
-                if distance + 1 < minutes {
-                    let this_max = self.max_pressure_from(*next_to, distance, minutes, pressure_thus_far, max_thus_far, opened);
-                    final_pressure_thus_far = final_pressure_thus_far.max(this_max);
-                    max_thus_far = max_thus_far.max(final_pressure_thus_far);
-                }
+        let by_distance = self.valve_by_distance.get(&to).unwrap();
+
+        by_distance.range(1..minutes - 1)
+            .flat_map(|(dist, values)| values.iter().map(move |valve| (*dist, *valve)))
+            .filter(|(_, next_to)| opened & *next_to == 0)
+            .map(|(distance, next_to)| (distance, next_to, self.valves.get(&next_to).unwrap().rate))
+            .filter(|(_, _, rate)| *rate > 0)
+            .for_each(|(distance, next_to, rate)| {
+                let this_max = self.max_pressure_from(next_to, distance, rate, minutes, pressure_thus_far, max_thus_far, opened, indent.to_owned() + "  ");
+                final_pressure_thus_far = final_pressure_thus_far.max(this_max);
+                max_thus_far = max_thus_far.max(final_pressure_thus_far);
             });
 
         final_pressure_thus_far
