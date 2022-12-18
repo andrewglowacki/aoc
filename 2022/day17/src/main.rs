@@ -227,7 +227,7 @@ fn run_simulation(part: usize, file_name: &str, count: usize) -> Rocks {
 }
 
 
-fn run_until_height(height: usize, file_name: &str, last_row: u8) {
+fn part_two(start: usize, end: usize, file_name: &str, start_row: u8, last_row: u8) {
     let pattern = get_file_lines(file_name)
         .flat_map(|line| line.ok())
         .next()
@@ -237,11 +237,64 @@ fn run_until_height(height: usize, file_name: &str, last_row: u8) {
     let shapes = Shapes::new();
     let mut rocks = Rocks::new(jets);
 
-    let dropped = rocks.drop_rocks_until(&shapes, |rocks, _| {
-        rocks.rows.len() != height || rocks.rows[rocks.rows.len() - 1] != last_row
-    });
+    let mut drop_start = 0;
+    let mut height_diff = Vec::new();
+    let mut started = false;
 
-    println!("dropped {}", dropped);
+    let mut jet_index = 0;
+    let mut dropped = 0;
+    
+    while end + 1 >= rocks.rows.len() {
+        let shape = shapes.get(dropped);
+        
+        // move with jet first
+        let mut y = rocks.rows.len() + 3;
+        let mut state = 2;
+        loop {
+            let jet = &rocks.jets[jet_index % rocks.jets.len()];
+            let next_state = shape.next_state(jet, state);
+            if next_state != state {
+                state = match rocks.overlaps(shape, y, next_state) {
+                    true => state,
+                    false => next_state
+                };
+            }
+            jet_index += 1;
+            
+            if y == 0 {
+                break;
+            } else if rocks.overlaps(shape, y - 1, state) {
+                break;
+            } else {
+                y -= 1;
+            }
+        }
+
+        rocks.add_shape(shape, y, state);
+        dropped += 1;
+
+        if started {
+            height_diff.push((rocks.rows.len() - start) - 1);
+        } else {
+            if start < rocks.rows.len() {
+                started = true;
+                drop_start = dropped;
+                height_diff.push(0);
+            }
+        }
+    }
+
+    let drop_start = drop_start as u64;
+    let dropped = dropped as u64;
+    let interval = dropped - drop_start;
+    let drop_end: u64 = 1000000000000 - (drop_start - 1);
+
+    let full_count = drop_end / interval;
+    let partial_count = drop_end % interval;
+    
+    let height = start as u64 + (full_count * ((end - start) + 1) as u64) + height_diff[partial_count as usize] as u64;
+
+    println!("drop repeat start/end {}/{} done at {} calc height: {}", drop_start, drop_end, dropped, height);
 }
 
 fn main() {
@@ -277,10 +330,11 @@ fn main() {
 
     let height = start + interval;
     let last_row = rocks.rows[height - 1];
+    let start_row = rocks.rows[start];
 
     println!("Detected repeat every {} starting at {}", interval, start);
 
-    run_until_height(height, part_2_file, last_row);
+    part_two(start, height - 1, part_2_file, start_row, last_row);
 
     println!("Done!");
 }
