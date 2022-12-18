@@ -131,24 +131,15 @@ impl Rocks {
             rows: Vec::new()
         }
     }
-    fn drop_rocks(&mut self, count: usize, shapes: &Shapes) {
+
+    fn drop_rocks_until<F>(&mut self, shapes: &Shapes, condition: F) -> usize
+        where F: Fn(&Rocks, usize) -> bool
+    {
         let mut jet_index = 0;
-        for i in 0..count {
+        let mut i = 0;
+        while condition(self, i) {
             let shape = shapes.get(i);
             
-            // println!("Initial state:");
-            // shape.states[2].iter().rev().for_each(|row| {
-            //     print!("|");
-            //     for i in 0..7 {
-            //         let shift = 6 - i;
-            //         print!("{}", match (row >> shift) & 1 > 0 {
-            //             true => '#',
-            //             false => '.'
-            //         });
-            //     }
-            //     println!("|");
-            // });
-
             // move with jet first
             let mut y = self.rows.len() + 3;
             let mut state = 2;
@@ -163,19 +154,6 @@ impl Rocks {
                 }
                 jet_index += 1;
                 
-                // println!("After jet move: {:?}", jet);
-                // shape.states[state].iter().rev().for_each(|row| {
-                //     print!("|");
-                //     for i in 0..7 {
-                //         let shift = 6 - i;
-                //         print!("{}", match (row >> shift) & 1 > 0 {
-                //             true => '#',
-                //             false => '.'
-                //         });
-                //     }
-                //     println!("|");
-                // });
-
                 if y == 0 {
                     break;
                 } else if self.overlaps(shape, y - 1, state) {
@@ -186,21 +164,9 @@ impl Rocks {
             }
 
             self.add_shape(shape, y, state);
-
-            // println!("After rock {}:", i + 1);
-            // self.rows.iter().rev().for_each(|row| {
-            //     print!("|");
-            //     for i in 0..7 {
-            //         let shift = 6 - i;
-            //         print!("{}", match (row >> shift) & 1 > 0 {
-            //             true => '#',
-            //             false => '.'
-            //         });
-            //     }
-            //     println!("|");
-            // });
-            // println!("+-------+");
+            i += 1;
         }
+        i
     }
 
     fn add_shape(&mut self, shape: &Shape, y: usize, current_state: usize) {
@@ -239,7 +205,7 @@ fn parse_jets(line: String) -> Vec<Jet> {
         .collect::<Vec<_>>()
 }
 
-fn run_simulation(part: usize, file_name: &str, count: usize) {
+fn run_simulation(part: usize, file_name: &str, count: usize) -> Rocks {
     let pattern = get_file_lines(file_name)
         .flat_map(|line| line.ok())
         .next()
@@ -249,16 +215,72 @@ fn run_simulation(part: usize, file_name: &str, count: usize) {
     let shapes = Shapes::new();
     let mut rocks = Rocks::new(jets);
 
-    rocks.drop_rocks(count, &shapes);
+    rocks.drop_rocks_until(&shapes, |_, dropped| dropped < count);
 
     let height = rocks.rows.len();
     
-    println!("Part {}: {}", part, height);
+    if part == 1 {
+        println!("Part 1: {}", height);
+    }
+
+    rocks
+}
+
+
+fn run_until_height(height: usize, file_name: &str, last_row: u8) {
+    let pattern = get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .next()
+        .unwrap();
+    
+    let jets = parse_jets(pattern);
+    let shapes = Shapes::new();
+    let mut rocks = Rocks::new(jets);
+
+    let dropped = rocks.drop_rocks_until(&shapes, |rocks, _| {
+        rocks.rows.len() != height || rocks.rows[rocks.rows.len() - 1] != last_row
+    });
+
+    println!("dropped {}", dropped);
 }
 
 fn main() {
-    run_simulation(1, "sample.txt", 2022);
-    // run_simulation(2, "input.txt", 1000000000000);
+    run_simulation(1, "input.txt", 2022);
+
+    let part_2_file = "input.txt";
+    let rocks = run_simulation(2, part_2_file, 100000);
+
+    // find a pattern
+    let mut pattern: Option<(usize, usize)> = None;
+    for i in 0..rocks.rows.len() {
+        let mut pattern_end: Option<usize> = None;
+        let start = rocks.rows[i];
+        for j in i + 13..rocks.rows.len() {
+            if rocks.rows[j] == start {
+                let len = j - i;
+                if j + len >= rocks.rows.len() {
+                    break;
+                }
+                if rocks.rows[i..j] == rocks.rows[j..j + len] {
+                    pattern_end = Some(j);
+                    break;
+                }
+            }
+        }
+        if let Some(end) = pattern_end {
+            pattern = Some((i, end - i));
+            break;
+        }
+    }
+
+    let (start, interval) = pattern.unwrap();
+
+    let height = start + interval;
+    let last_row = rocks.rows[height - 1];
+
+    println!("Detected repeat every {} starting at {}", interval, start);
+
+    run_until_height(height, part_2_file, last_row);
 
     println!("Done!");
 }
