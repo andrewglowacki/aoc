@@ -1,0 +1,4205 @@
+Part 1: 133174
+Moving from 50, 0 by 23 to 50, 0 - facing: 0
+Rotating: Left
+Moving from 50, 0 by 18 to 4, 150 - facing: 0
+Rotating: Left
+Moving from 4, 150 by 48 to 4, 150 - facing: 3
+Rotating: Right
+Moving from 4, 150 by 15 to 4, 150 - facing: 0
+Rotating: Right
+Moving from 4, 150 by 47 to 4, 153 - facing: 1
+Rotating: Right
+Moving from 4, 153 by 38 to 3, 153 - facing: 2
+Rotating: Right
+Moving from 3, 153 by 29 to 3, 152 - facing: 3
+Rotating: Left
+Moving from 3, 152 by 34 to 3, 152 - facing: 2
+Rotating: Left
+Moving from 3, 152 by 19 to 3, 165 - facing: 1
+Rotating: Left
+Moving from 3, 165 by 43 to 22, 165 - facing: 0
+Rotating: Right
+Moving from 22, 165 by 3 to 22, 166 - facing: 1
+Rotating: Left
+Moving from 22, 166 by 35 to 28, 166 - facing: 0
+Rotating: Right
+Moving from 28, 166 by 3 to 28, 169 - facing: 1
+Rotating: Left
+Moving from 28, 169 by 49 to 32, 169 - facing: 0
+Rotating: Left
+Moving from 32, 169 by 30 to 32, 162 - facing: 3
+Rotating: Left
+Moving from 32, 162 by 34 to 14, 162 - facing: 2
+Rotating: Right
+Moving from 14, 162 by 17 to 14, 157 - facing: 3
+Rotating: Left
+Moving from 14, 157 by 42 to 7, 157 - facing: 2
+Rotating: Left
+Moving from 7, 157 by 18 to 7, 159 - facing: 1
+Rotating: Left
+Moving from 7, 159 by 20 to 23, 159 - facing: 0
+Rotating: Right
+Moving from 23, 159 by 2 to 23, 161 - facing: 1
+Rotating: Left
+Moving from 23, 161 by 44 to 25, 161 - facing: 0
+Rotating: Right
+Moving from 25, 161 by 50 to 25, 168 - facing: 1
+Rotating: Left
+Moving from 25, 168 by 42 to 29, 168 - facing: 0
+Rotating: Right
+Moving from 29, 168 by 26 to 29, 179 - facing: 1
+Rotating: Left
+Moving from 29, 179 by 8 to 30, 179 - facing: 0
+Rotating: Left
+Moving from 30, 179 by 20 to 30, 174 - facing: 3
+Rotating: Left
+Moving from 30, 174 by 30 to 20, 174 - facing: 2
+Rotating: Right
+Moving from 20, 174 by 42 to 20, 156 - facing: 3
+Rotating: Left
+Moving from 20, 156 by 2 to 18, 156 - facing: 2
+Rotating: Left
+Moving from 18, 156 by 8 to 18, 164 - facing: 1
+Rotating: Right
+Moving from 18, 164 by 15 to 15, 164 - facing: 2
+Rotating: Right
+Moving from 15, 164 by 46 to 15, 156 - facing: 3
+Rotating: Left
+Moving from 15, 156 by 12 to 15, 156 - facing: 2
+Rotating: Right
+Moving from 15, 156 by 15 to 15, 156 - facing: 3
+Rotating: Right
+Moving from 15, 156 by 38 to 37, 156 - facing: 0
+Rotating: Left
+Moving from 37, 156 by 10 to 37, 146 - facing: 3
+Rotating: Right
+Moving from 37, 146 by 43 to 80, 146 - facing: 0
+Rotating: Left
+Moving from 80, 146 by 2 to 80, 144 - facing: 3
+Rotating: Right
+Moving from 80, 144 by 42 to 82, 144 - facing: 0
+Rotating: Right
+Moving from 82, 144 by 11 to 49, 177 - facing: 3
+Rotating: Right
+Moving from 49, 177 by 43 to 77, 146 - facing: 3
+Rotating: Right
+Moving from 77, 146 by 47 to 149, 3 - facing: 2
+Rotating: Left
+Moving from 149, 3 by 27 to 149, 13 - facing: 1
+Rotating: Right
+Moving from 149, 13 by 49 to 140, 13 - facing: 2
+Rotating: Left
+Moving from 140, 13 by 28 to 140, 25 - facing: 1
+Rotating: Right
+Moving from 140, 25 by 2 to 139, 25 - facing: 2
+Rotating: Right
+Moving from 139, 25 by 14 to 139, 24 - facing: 3
+Rotating: Left
+Moving from 139, 24 by 26 to 123, 24 - facing: 2
+Rotating: Left
+Moving from 123, 24 by 13 to 123, 26 - facing: 1
+Rotating: Left
+Moving from 123, 26 by 21 to 131, 26 - facing: 0
+Rotating: Right
+Moving from 131, 26 by 36 to 131, 29 - facing: 1
+Rotating: Right
+Moving from 131, 29 by 20 to 118, 29 - facing: 2
+Rotating: Right
+Moving from 118, 29 by 28 to 118, 28 - facing: 3
+Rotating: Right
+Moving from 118, 28 by 40 to 126, 28 - facing: 0
+Rotating: Left
+Moving from 126, 28 by 49 to 126, 19 - facing: 3
+Rotating: Left
+Moving from 126, 19 by 4 to 124, 19 - facing: 2
+Rotating: Right
+Moving from 124, 19 by 34 to 124, 18 - facing: 3
+Rotating: Right
+Moving from 124, 18 by 35 to 125, 18 - facing: 0
+Rotating: Right
+Moving from 125, 18 by 34 to 125, 32 - facing: 1
+Rotating: Left
+Moving from 125, 32 by 43 to 128, 32 - facing: 0
+Rotating: Left
+Moving from 128, 32 by 50 to 128, 15 - facing: 3
+Rotating: Left
+Moving from 128, 15 by 2 to 126, 15 - facing: 2
+Rotating: Left
+Moving from 126, 15 by 48 to 126, 17 - facing: 1
+Rotating: Right
+Moving from 126, 17 by 31 to 125, 17 - facing: 2
+Rotating: Right
+Moving from 125, 17 by 39 to 125, 20 - facing: 1
+Rotating: Right
+Moving from 125, 20 by 6 to 119, 20 - facing: 2
+Rotating: Left
+Moving from 119, 20 by 26 to 119, 23 - facing: 1
+Rotating: Right
+Moving from 119, 23 by 37 to 82, 23 - facing: 2
+Rotating: Right
+Moving from 82, 23 by 1 to 82, 22 - facing: 3
+Rotating: Right
+Moving from 82, 22 by 28 to 94, 22 - facing: 0
+Rotating: Left
+Moving from 94, 22 by 43 to 94, 19 - facing: 3
+Rotating: Left
+Moving from 94, 19 by 23 to 71, 19 - facing: 2
+Rotating: Right
+Moving from 71, 19 by 46 to 17, 171 - facing: 0
+Rotating: Left
+Moving from 17, 171 by 5 to 17, 170 - facing: 3
+Rotating: Right
+Moving from 17, 170 by 15 to 32, 170 - facing: 0
+Rotating: Left
+Moving from 32, 170 by 41 to 32, 162 - facing: 3
+Rotating: Right
+Moving from 32, 162 by 11 to 37, 162 - facing: 0
+Rotating: Right
+Moving from 37, 162 by 23 to 37, 162 - facing: 1
+Rotating: Left
+Moving from 37, 162 by 36 to 37, 162 - facing: 0
+Rotating: Right
+Moving from 37, 162 by 40 to 37, 162 - facing: 1
+Rotating: Left
+Moving from 37, 162 by 47 to 37, 162 - facing: 0
+Rotating: Left
+Moving from 37, 162 by 33 to 37, 162 - facing: 3
+Rotating: Right
+Moving from 37, 162 by 37 to 37, 162 - facing: 0
+Rotating: Left
+Moving from 37, 162 by 25 to 37, 162 - facing: 3
+Rotating: Right
+Moving from 37, 162 by 36 to 37, 162 - facing: 0
+Rotating: Left
+Moving from 37, 162 by 22 to 37, 162 - facing: 3
+Rotating: Left
+Moving from 37, 162 by 12 to 25, 162 - facing: 2
+Rotating: Left
+Moving from 25, 162 by 42 to 25, 168 - facing: 1
+Rotating: Right
+Moving from 25, 168 by 26 to 18, 168 - facing: 2
+Rotating: Left
+Moving from 18, 168 by 44 to 18, 170 - facing: 1
+Rotating: Left
+Moving from 18, 170 by 41 to 48, 170 - facing: 0
+Rotating: Right
+Moving from 48, 170 by 45 to 48, 180 - facing: 1
+Rotating: Right
+Moving from 48, 180 by 13 to 40, 180 - facing: 2
+Rotating: Right
+Moving from 40, 180 by 38 to 40, 170 - facing: 3
+Rotating: Left
+Moving from 40, 170 by 4 to 36, 170 - facing: 2
+Rotating: Right
+Moving from 36, 170 by 29 to 36, 155 - facing: 3
+Rotating: Left
+Moving from 36, 155 by 15 to 36, 155 - facing: 2
+Rotating: Left
+Moving from 36, 155 by 2 to 36, 157 - facing: 1
+Rotating: Left
+Moving from 36, 157 by 6 to 42, 157 - facing: 0
+Rotating: Left
+Moving from 42, 157 by 23 to 42, 141 - facing: 3
+Rotating: Right
+Moving from 42, 141 by 21 to 43, 141 - facing: 0
+Rotating: Left
+Moving from 43, 141 by 1 to 43, 140 - facing: 3
+Rotating: Left
+Moving from 43, 140 by 19 to 43, 140 - facing: 2
+Rotating: Left
+Moving from 43, 140 by 22 to 43, 141 - facing: 1
+Rotating: Right
+Moving from 43, 141 by 28 to 40, 141 - facing: 2
+Rotating: Right
+Moving from 40, 141 by 43 to 40, 112 - facing: 3
+Rotating: Right
+Moving from 40, 112 by 19 to 40, 112 - facing: 0
+Rotating: Left
+Moving from 40, 112 by 43 to 40, 112 - facing: 3
+Rotating: Right
+Moving from 40, 112 by 7 to 40, 112 - facing: 0
+Rotating: Right
+Moving from 40, 112 by 10 to 40, 122 - facing: 1
+Rotating: Right
+Moving from 40, 122 by 19 to 37, 122 - facing: 2
+Rotating: Left
+Moving from 37, 122 by 1 to 37, 123 - facing: 1
+Rotating: Left
+Moving from 37, 123 by 40 to 49, 123 - facing: 0
+Rotating: Right
+Moving from 49, 123 by 45 to 49, 160 - facing: 1
+Rotating: Left
+Moving from 49, 160 by 49 to 60, 111 - facing: 3
+Rotating: Left
+Moving from 60, 111 by 45 to 52, 111 - facing: 2
+Rotating: Right
+Moving from 52, 111 by 37 to 52, 109 - facing: 3
+Rotating: Right
+Moving from 52, 109 by 7 to 55, 109 - facing: 0
+Rotating: Right
+Moving from 55, 109 by 9 to 55, 112 - facing: 1
+Rotating: Right
+Moving from 55, 112 by 40 to 55, 112 - facing: 2
+Rotating: Right
+Moving from 55, 112 by 41 to 55, 108 - facing: 3
+Rotating: Left
+Moving from 55, 108 by 13 to 53, 108 - facing: 2
+Rotating: Right
+Moving from 53, 108 by 29 to 53, 102 - facing: 3
+Rotating: Right
+Moving from 53, 102 by 13 to 53, 102 - facing: 0
+Rotating: Right
+Moving from 53, 102 by 24 to 53, 112 - facing: 1
+Rotating: Right
+Moving from 53, 112 by 47 to 53, 112 - facing: 2
+Rotating: Right
+Moving from 53, 112 by 30 to 53, 102 - facing: 3
+Rotating: Left
+Moving from 53, 102 by 17 to 45, 102 - facing: 2
+Rotating: Right
+Moving from 45, 102 by 50 to 55, 95 - facing: 0
+Rotating: Left
+Moving from 55, 95 by 6 to 55, 94 - facing: 3
+Rotating: Left
+Moving from 55, 94 by 13 to 53, 94 - facing: 2
+Rotating: Left
+Moving from 53, 94 by 40 to 53, 100 - facing: 1
+Rotating: Left
+Moving from 53, 100 by 5 to 58, 100 - facing: 0
+Rotating: Left
+Moving from 58, 100 by 24 to 58, 86 - facing: 3
+Rotating: Left
+Moving from 58, 86 by 46 to 58, 86 - facing: 2
+Rotating: Right
+Moving from 58, 86 by 30 to 58, 86 - facing: 3
+Rotating: Left
+Moving from 58, 86 by 42 to 58, 86 - facing: 2
+Rotating: Right
+Moving from 58, 86 by 36 to 58, 86 - facing: 3
+Rotating: Left
+Moving from 58, 86 by 33 to 58, 86 - facing: 2
+Rotating: Left
+Moving from 58, 86 by 50 to 58, 111 - facing: 1
+Rotating: Right
+Moving from 58, 111 by 46 to 52, 111 - facing: 2
+Rotating: Right
+Moving from 52, 111 by 15 to 52, 109 - facing: 3
+Rotating: Left
+Moving from 52, 109 by 50 to 47, 109 - facing: 2
+Rotating: Left
+Moving from 47, 109 by 6 to 47, 115 - facing: 1
+Rotating: Right
+Moving from 47, 115 by 4 to 44, 115 - facing: 2
+Rotating: Right
+Moving from 44, 115 by 33 to 44, 108 - facing: 3
+Rotating: Right
+Moving from 44, 108 by 6 to 44, 108 - facing: 0
+Rotating: Left
+Moving from 44, 108 by 41 to 44, 108 - facing: 3
+Rotating: Left
+Moving from 44, 108 by 32 to 40, 108 - facing: 2
+Rotating: Right
+Moving from 40, 108 by 25 to 40, 108 - facing: 3
+Rotating: Left
+Moving from 40, 108 by 43 to 40, 108 - facing: 2
+Rotating: Left
+Moving from 40, 108 by 20 to 40, 110 - facing: 1
+Rotating: Left
+Moving from 40, 110 by 45 to 44, 110 - facing: 0
+Rotating: Right
+Moving from 44, 110 by 47 to 44, 139 - facing: 1
+Rotating: Right
+Moving from 44, 139 by 40 to 29, 139 - facing: 2
+Rotating: Right
+Moving from 29, 139 by 41 to 29, 139 - facing: 3
+Rotating: Left
+Moving from 29, 139 by 31 to 29, 139 - facing: 2
+Rotating: Left
+Moving from 29, 139 by 19 to 29, 148 - facing: 1
+Rotating: Right
+Moving from 29, 148 by 44 to 28, 148 - facing: 2
+Rotating: Right
+Moving from 28, 148 by 33 to 28, 140 - facing: 3
+Rotating: Right
+Moving from 28, 140 by 2 to 29, 140 - facing: 0
+Rotating: Right
+Moving from 29, 140 by 46 to 29, 148 - facing: 1
+Rotating: Left
+Moving from 29, 148 by 2 to 31, 148 - facing: 0
+Rotating: Left
+Moving from 31, 148 by 26 to 31, 134 - facing: 3
+Rotating: Right
+Moving from 31, 134 by 25 to 33, 134 - facing: 0
+Rotating: Right
+Moving from 33, 134 by 3 to 33, 135 - facing: 1
+Rotating: Left
+Moving from 33, 135 by 11 to 44, 135 - facing: 0
+Rotating: Left
+Moving from 44, 135 by 36 to 44, 108 - facing: 3
+Rotating: Left
+Moving from 44, 108 by 34 to 40, 108 - facing: 2
+Rotating: Right
+Moving from 40, 108 by 4 to 40, 108 - facing: 3
+Rotating: Right
+Moving from 40, 108 by 48 to 44, 108 - facing: 0
+Rotating: Left
+Moving from 44, 108 by 13 to 44, 108 - facing: 3
+Rotating: Left
+Moving from 44, 108 by 17 to 40, 108 - facing: 2
+Rotating: Left
+Moving from 40, 108 by 49 to 40, 110 - facing: 1
+Rotating: Left
+Moving from 40, 110 by 49 to 44, 110 - facing: 0
+Rotating: Right
+Moving from 44, 110 by 45 to 44, 139 - facing: 1
+Rotating: Left
+Moving from 44, 139 by 35 to 55, 139 - facing: 0
+Rotating: Right
+Moving from 55, 139 by 21 to 49, 145 - facing: 3
+Rotating: Left
+Moving from 49, 145 by 27 to 41, 145 - facing: 2
+Rotating: Right
+Moving from 41, 145 by 8 to 41, 143 - facing: 3
+Rotating: Right
+Moving from 41, 143 by 41 to 46, 143 - facing: 0
+Rotating: Left
+Moving from 46, 143 by 25 to 46, 139 - facing: 3
+Rotating: Left
+Moving from 46, 139 by 13 to 33, 139 - facing: 2
+Rotating: Right
+Moving from 33, 139 by 45 to 33, 137 - facing: 3
+Rotating: Left
+Moving from 33, 137 by 32 to 20, 137 - facing: 2
+Rotating: Right
+Moving from 20, 137 by 35 to 20, 122 - facing: 3
+Rotating: Right
+Moving from 20, 122 by 44 to 24, 122 - facing: 0
+Rotating: Right
+Moving from 24, 122 by 33 to 24, 135 - facing: 1
+Rotating: Right
+Moving from 24, 135 by 39 to 0, 135 - facing: 2
+Rotating: Right
+Moving from 0, 135 by 36 to 0, 120 - facing: 3
+Rotating: Left
+Moving from 0, 120 by 10 to 55, 29 - facing: 0
+Rotating: Right
+Moving from 55, 29 by 19 to 55, 35 - facing: 1
+Rotating: Right
+Moving from 55, 35 by 49 to 55, 35 - facing: 2
+Rotating: Right
+Moving from 55, 35 by 1 to 55, 34 - facing: 3
+Rotating: Right
+Moving from 55, 34 by 23 to 66, 34 - facing: 0
+Rotating: Left
+Moving from 66, 34 by 49 to 66, 34 - facing: 3
+Rotating: Left
+Moving from 66, 34 by 22 to 4, 115 - facing: 0
+Rotating: Left
+Moving from 4, 115 by 12 to 4, 107 - facing: 3
+Rotating: Right
+Moving from 4, 107 by 33 to 13, 107 - facing: 0
+Rotating: Right
+Moving from 13, 107 by 20 to 13, 127 - facing: 1
+Rotating: Right
+Moving from 13, 127 by 13 to 6, 127 - facing: 2
+Rotating: Right
+Moving from 6, 127 by 20 to 6, 126 - facing: 3
+Rotating: Right
+Moving from 6, 126 by 26 to 16, 126 - facing: 0
+Rotating: Right
+Moving from 16, 126 by 27 to 16, 128 - facing: 1
+Rotating: Left
+Moving from 16, 128 by 17 to 33, 128 - facing: 0
+Rotating: Left
+Moving from 33, 128 by 25 to 33, 120 - facing: 3
+Rotating: Right
+Moving from 33, 120 by 48 to 46, 120 - facing: 0
+Rotating: Left
+Moving from 46, 120 by 1 to 46, 119 - facing: 3
+Rotating: Left
+Moving from 46, 119 by 40 to 34, 119 - facing: 2
+Rotating: Left
+Moving from 34, 119 by 15 to 34, 120 - facing: 1
+Rotating: Left
+Moving from 34, 120 by 43 to 46, 120 - facing: 0
+Rotating: Right
+Moving from 46, 120 by 45 to 46, 128 - facing: 1
+Rotating: Right
+Moving from 46, 128 by 6 to 42, 128 - facing: 2
+Rotating: Right
+Moving from 42, 128 by 47 to 42, 115 - facing: 3
+Rotating: Right
+Moving from 42, 115 by 48 to 42, 115 - facing: 0
+Rotating: Left
+Moving from 42, 115 by 46 to 42, 115 - facing: 3
+Rotating: Right
+Moving from 42, 115 by 48 to 42, 115 - facing: 0
+Rotating: Right
+Moving from 42, 115 by 7 to 42, 122 - facing: 1
+Rotating: Left
+Moving from 42, 122 by 33 to 51, 122 - facing: 0
+Rotating: Left
+Moving from 51, 122 by 50 to 51, 121 - facing: 3
+Rotating: Right
+Moving from 51, 121 by 14 to 58, 121 - facing: 0
+Rotating: Right
+Moving from 58, 121 by 14 to 58, 122 - facing: 1
+Rotating: Right
+Moving from 58, 122 by 31 to 53, 122 - facing: 2
+Rotating: Right
+Moving from 53, 122 by 32 to 53, 118 - facing: 3
+Rotating: Right
+Moving from 53, 118 by 21 to 61, 118 - facing: 0
+Rotating: Right
+Moving from 61, 118 by 34 to 61, 121 - facing: 1
+Rotating: Left
+Moving from 61, 121 by 15 to 62, 121 - facing: 0
+Rotating: Left
+Moving from 62, 121 by 34 to 62, 119 - facing: 3
+Rotating: Left
+Moving from 62, 119 by 19 to 49, 119 - facing: 2
+Rotating: Right
+Moving from 49, 119 by 14 to 49, 105 - facing: 3
+Rotating: Left
+Moving from 49, 105 by 14 to 35, 105 - facing: 2
+Rotating: Left
+Moving from 35, 105 by 41 to 35, 105 - facing: 1
+Rotating: Right
+Moving from 35, 105 by 37 to 12, 105 - facing: 2
+Rotating: Right
+Moving from 12, 105 by 14 to 12, 100 - facing: 3
+Rotating: Left
+Moving from 12, 100 by 50 to 4, 100 - facing: 2
+Rotating: Right
+Moving from 4, 100 by 32 to 51, 54 - facing: 0
+Rotating: Left
+Moving from 51, 54 by 11 to 51, 51 - facing: 3
+Rotating: Right
+Moving from 51, 51 by 4 to 55, 51 - facing: 0
+Rotating: Left
+Moving from 55, 51 by 41 to 55, 40 - facing: 3
+Rotating: Left
+Moving from 55, 40 by 22 to 16, 109 - facing: 0
+Rotating: Left
+Moving from 16, 109 by 20 to 16, 102 - facing: 3
+Rotating: Left
+Moving from 16, 102 by 34 to 63, 47 - facing: 0
+Rotating: Right
+Moving from 63, 47 by 49 to 63, 63 - facing: 1
+Rotating: Right
+Moving from 63, 63 by 32 to 60, 63 - facing: 2
+Rotating: Right
+Moving from 60, 63 by 6 to 60, 57 - facing: 3
+Rotating: Left
+Moving from 60, 57 by 2 to 58, 57 - facing: 2
+Rotating: Left
+Moving from 58, 57 by 8 to 58, 65 - facing: 1
+Rotating: Left
+Moving from 58, 65 by 20 to 67, 65 - facing: 0
+Rotating: Left
+Moving from 67, 65 by 37 to 67, 58 - facing: 3
+Rotating: Right
+Moving from 67, 58 by 2 to 69, 58 - facing: 0
+Rotating: Left
+Moving from 69, 58 by 18 to 69, 55 - facing: 3
+Rotating: Right
+Moving from 69, 55 by 15 to 70, 55 - facing: 0
+Rotating: Left
+Moving from 70, 55 by 3 to 70, 52 - facing: 3
+Rotating: Right
+Moving from 70, 52 by 16 to 73, 52 - facing: 0
+Rotating: Left
+Moving from 73, 52 by 42 to 73, 51 - facing: 3
+Rotating: Left
+Moving from 73, 51 by 15 to 71, 51 - facing: 2
+Rotating: Left
+Moving from 71, 51 by 43 to 71, 54 - facing: 1
+Rotating: Left
+Moving from 71, 54 by 38 to 72, 54 - facing: 0
+Rotating: Right
+Moving from 72, 54 by 4 to 72, 58 - facing: 1
+Rotating: Right
+Moving from 72, 58 by 39 to 62, 58 - facing: 2
+Rotating: Right
+Moving from 62, 58 by 35 to 62, 41 - facing: 3
+Rotating: Left
+Moving from 62, 41 by 50 to 5, 108 - facing: 0
+Rotating: Right
+Moving from 5, 108 by 36 to 5, 114 - facing: 1
+Rotating: Left
+Moving from 5, 114 by 31 to 6, 114 - facing: 0
+Rotating: Right
+Moving from 6, 114 by 12 to 6, 117 - facing: 1
+Rotating: Left
+Moving from 6, 117 by 50 to 13, 117 - facing: 0
+Rotating: Right
+Moving from 13, 117 by 22 to 13, 139 - facing: 1
+Rotating: Left
+Moving from 13, 139 by 25 to 13, 139 - facing: 0
+Rotating: Right
+Moving from 13, 139 by 12 to 13, 139 - facing: 1
+Rotating: Right
+Moving from 13, 139 by 15 to 1, 139 - facing: 2
+Rotating: Left
+Moving from 1, 139 by 37 to 1, 139 - facing: 1
+Rotating: Left
+Moving from 1, 139 by 42 to 13, 139 - facing: 0
+Rotating: Right
+Moving from 13, 139 by 26 to 13, 139 - facing: 1
+Rotating: Left
+Moving from 13, 139 by 23 to 13, 139 - facing: 0
+Rotating: Right
+Moving from 13, 139 by 6 to 13, 139 - facing: 1
+Rotating: Left
+Moving from 13, 139 by 22 to 13, 139 - facing: 0
+Rotating: Right
+Moving from 13, 139 by 37 to 13, 139 - facing: 1
+Rotating: Right
+Moving from 13, 139 by 8 to 5, 139 - facing: 2
+Rotating: Left
+Moving from 5, 139 by 40 to 5, 147 - facing: 1
+Rotating: Right
+Moving from 5, 147 by 29 to 62, 2 - facing: 0
+Rotating: Left
+Moving from 62, 2 by 44 to 11, 162 - facing: 0
+Rotating: Left
+Moving from 11, 162 by 46 to 11, 145 - facing: 3
+Rotating: Right
+Moving from 11, 145 by 36 to 34, 145 - facing: 0
+Rotating: Left
+Moving from 34, 145 by 32 to 34, 139 - facing: 3
+Rotating: Left
+Moving from 34, 139 by 17 to 29, 139 - facing: 2
+Rotating: Left
+Moving from 29, 139 by 16 to 29, 148 - facing: 1
+Rotating: Left
+Moving from 29, 148 by 31 to 58, 148 - facing: 0
+Rotating: Right
+Moving from 58, 148 by 27 to 58, 148 - facing: 1
+Rotating: Right
+Moving from 58, 148 by 46 to 28, 148 - facing: 2
+Rotating: Left
+Moving from 28, 148 by 49 to 28, 163 - facing: 1
+Rotating: Right
+Moving from 28, 163 by 19 to 23, 163 - facing: 2
+Rotating: Right
+Moving from 23, 163 by 12 to 23, 156 - facing: 3
+Rotating: Left
+Moving from 23, 156 by 25 to 15, 156 - facing: 2
+Rotating: Left
+Moving from 15, 156 by 33 to 15, 171 - facing: 1
+Rotating: Right
+Moving from 15, 171 by 28 to 71, 12 - facing: 1
+Rotating: Left
+Moving from 71, 12 by 16 to 74, 12 - facing: 0
+Rotating: Left
+Moving from 74, 12 by 2 to 74, 10 - facing: 3
+Rotating: Right
+Moving from 74, 10 by 20 to 74, 10 - facing: 0
+Rotating: Right
+Moving from 74, 10 by 37 to 74, 21 - facing: 1
+Rotating: Left
+Moving from 74, 21 by 40 to 77, 21 - facing: 0
+Rotating: Left
+Moving from 77, 21 by 13 to 77, 21 - facing: 3
+Rotating: Right
+Moving from 77, 21 by 27 to 77, 21 - facing: 0
+Rotating: Right
+Moving from 77, 21 by 31 to 77, 25 - facing: 1
+Rotating: Right
+Moving from 77, 25 by 23 to 62, 25 - facing: 2
+Rotating: Left
+Moving from 62, 25 by 23 to 62, 39 - facing: 1
+Rotating: Left
+Moving from 62, 39 by 12 to 68, 39 - facing: 0
+Rotating: Right
+Moving from 68, 39 by 18 to 68, 53 - facing: 1
+Rotating: Left
+Moving from 68, 53 by 44 to 68, 53 - facing: 0
+Rotating: Right
+Moving from 68, 53 by 49 to 68, 53 - facing: 1
+Rotating: Right
+Moving from 68, 53 by 3 to 68, 53 - facing: 2
+Rotating: Right
+Moving from 68, 53 by 50 to 68, 35 - facing: 3
+Rotating: Right
+Moving from 68, 35 by 27 to 95, 35 - facing: 0
+Rotating: Right
+Moving from 95, 35 by 31 to 95, 37 - facing: 1
+Rotating: Right
+Moving from 95, 37 by 3 to 92, 37 - facing: 2
+Rotating: Right
+Moving from 92, 37 by 31 to 92, 21 - facing: 3
+Rotating: Right
+Moving from 92, 21 by 21 to 107, 21 - facing: 0
+Rotating: Right
+Moving from 107, 21 by 20 to 107, 27 - facing: 1
+Rotating: Right
+Moving from 107, 27 by 37 to 100, 27 - facing: 2
+Rotating: Left
+Moving from 100, 27 by 7 to 100, 34 - facing: 1
+Rotating: Left
+Moving from 100, 34 by 47 to 100, 34 - facing: 0
+Rotating: Right
+Moving from 100, 34 by 33 to 100, 36 - facing: 1
+Rotating: Right
+Moving from 100, 36 by 13 to 94, 36 - facing: 2
+Rotating: Left
+Moving from 94, 36 by 20 to 94, 39 - facing: 1
+Rotating: Left
+Moving from 94, 39 by 45 to 103, 39 - facing: 0
+Rotating: Left
+Moving from 103, 39 by 25 to 103, 14 - facing: 3
+Rotating: Left
+Moving from 103, 14 by 14 to 101, 14 - facing: 2
+Rotating: Right
+Moving from 101, 14 by 47 to 101, 9 - facing: 3
+Rotating: Right
+Moving from 101, 9 by 32 to 106, 9 - facing: 0
+Rotating: Left
+Moving from 106, 9 by 50 to 106, 9 - facing: 3
+Rotating: Left
+Moving from 106, 9 by 33 to 88, 9 - facing: 2
+Rotating: Right
+Moving from 88, 9 by 6 to 88, 3 - facing: 3
+Rotating: Left
+Moving from 88, 3 by 30 to 78, 3 - facing: 2
+Rotating: Left
+Moving from 78, 3 by 38 to 78, 6 - facing: 1
+Rotating: Left
+Moving from 78, 6 by 40 to 92, 6 - facing: 0
+Rotating: Right
+Moving from 92, 6 by 34 to 92, 11 - facing: 1
+Rotating: Right
+Moving from 92, 11 by 8 to 84, 11 - facing: 2
+Rotating: Right
+Moving from 84, 11 by 13 to 84, 11 - facing: 3
+Rotating: Right
+Moving from 84, 11 by 48 to 104, 11 - facing: 0
+Rotating: Left
+Moving from 104, 11 by 10 to 104, 1 - facing: 3
+Rotating: Right
+Moving from 104, 1 by 22 to 106, 1 - facing: 0
+Rotating: Left
+Moving from 106, 1 by 2 to 6, 199 - facing: 1
+Rotating: Left
+Moving from 6, 199 by 5 to 9, 199 - facing: 0
+Rotating: Right
+Moving from 9, 199 by 43 to 109, 12 - facing: 1
+Rotating: Right
+Moving from 109, 12 by 31 to 104, 12 - facing: 2
+Rotating: Left
+Moving from 104, 12 by 9 to 104, 14 - facing: 1
+Rotating: Right
+Moving from 104, 14 by 25 to 101, 14 - facing: 2
+Rotating: Right
+Moving from 101, 14 by 34 to 101, 9 - facing: 3
+Rotating: Left
+Moving from 101, 9 by 9 to 92, 9 - facing: 2
+Rotating: Right
+Moving from 92, 9 by 38 to 92, 2 - facing: 3
+Rotating: Right
+Moving from 92, 2 by 46 to 98, 2 - facing: 0
+Rotating: Right
+Moving from 98, 2 by 44 to 98, 6 - facing: 1
+Rotating: Left
+Moving from 98, 6 by 24 to 101, 6 - facing: 0
+Rotating: Right
+Moving from 101, 6 by 16 to 101, 7 - facing: 1
+Rotating: Left
+Moving from 101, 7 by 24 to 125, 7 - facing: 0
+Rotating: Left
+Moving from 125, 7 by 35 to 125, 26 - facing: 1
+Rotating: Left
+Moving from 125, 26 by 49 to 131, 26 - facing: 0
+Rotating: Right
+Moving from 131, 26 by 9 to 131, 29 - facing: 1
+Rotating: Left
+Moving from 131, 29 by 3 to 134, 29 - facing: 0
+Rotating: Right
+Moving from 134, 29 by 16 to 134, 30 - facing: 1
+Rotating: Left
+Moving from 134, 30 by 15 to 149, 30 - facing: 0
+Rotating: Right
+Moving from 149, 30 by 18 to 149, 30 - facing: 1
+Rotating: Left
+Moving from 149, 30 by 39 to 82, 119 - facing: 2
+Rotating: Left
+Moving from 82, 119 by 6 to 82, 125 - facing: 1
+Rotating: Right
+Moving from 82, 125 by 23 to 81, 125 - facing: 2
+Rotating: Right
+Moving from 81, 125 by 7 to 81, 120 - facing: 3
+Rotating: Left
+Moving from 81, 120 by 38 to 71, 120 - facing: 2
+Rotating: Left
+Moving from 71, 120 by 17 to 71, 128 - facing: 1
+Rotating: Right
+Moving from 71, 128 by 34 to 69, 128 - facing: 2
+Rotating: Right
+Moving from 69, 128 by 25 to 69, 125 - facing: 3
+Rotating: Right
+Moving from 69, 125 by 35 to 75, 125 - facing: 0
+Rotating: Right
+Moving from 75, 125 by 28 to 75, 125 - facing: 1
+Rotating: Right
+Moving from 75, 125 by 1 to 74, 125 - facing: 2
+Rotating: Left
+Moving from 74, 125 by 30 to 49, 174 - facing: 3
+Rotating: Left
+Moving from 49, 174 by 48 to 44, 174 - facing: 2
+Rotating: Left
+Moving from 44, 174 by 13 to 44, 187 - facing: 1
+Rotating: Right
+Moving from 44, 187 by 21 to 43, 187 - facing: 2
+Rotating: Right
+Moving from 43, 187 by 27 to 43, 183 - facing: 3
+Rotating: Left
+Moving from 43, 183 by 22 to 43, 183 - facing: 2
+Rotating: Left
+Moving from 43, 183 by 17 to 43, 195 - facing: 1
+Rotating: Right
+Moving from 43, 195 by 40 to 35, 195 - facing: 2
+Rotating: Right
+Moving from 35, 195 by 27 to 35, 191 - facing: 3
+Rotating: Left
+Moving from 35, 191 by 9 to 26, 191 - facing: 2
+Rotating: Right
+Moving from 26, 191 by 27 to 26, 176 - facing: 3
+Rotating: Left
+Moving from 26, 176 by 4 to 22, 176 - facing: 2
+Rotating: Right
+Moving from 22, 176 by 7 to 22, 169 - facing: 3
+Rotating: Right
+Moving from 22, 169 by 20 to 24, 169 - facing: 0
+Rotating: Right
+Moving from 24, 169 by 14 to 24, 183 - facing: 1
+Rotating: Right
+Moving from 24, 183 by 39 to 22, 183 - facing: 2
+Rotating: Left
+Moving from 22, 183 by 13 to 22, 196 - facing: 1
+Rotating: Left
+Moving from 22, 196 by 2 to 24, 196 - facing: 0
+Rotating: Right
+Moving from 24, 196 by 31 to 24, 196 - facing: 1
+Rotating: Left
+Moving from 24, 196 by 1 to 25, 196 - facing: 0
+Rotating: Right
+Moving from 25, 196 by 31 to 125, 27 - facing: 1
+Rotating: Left
+Moving from 125, 27 by 44 to 148, 27 - facing: 0
+Rotating: Left
+Moving from 148, 27 by 31 to 148, 11 - facing: 3
+Rotating: Left
+Moving from 148, 11 by 35 to 141, 11 - facing: 2
+Rotating: Left
+Moving from 141, 11 by 7 to 141, 18 - facing: 1
+Rotating: Left
+Moving from 141, 18 by 49 to 142, 18 - facing: 0
+Rotating: Right
+Moving from 142, 18 by 21 to 142, 18 - facing: 1
+Rotating: Right
+Moving from 142, 18 by 14 to 128, 18 - facing: 2
+Rotating: Left
+Moving from 128, 18 by 20 to 128, 38 - facing: 1
+Rotating: Left
+Moving from 128, 38 by 33 to 137, 38 - facing: 0
+Rotating: Right
+Moving from 137, 38 by 43 to 137, 39 - facing: 1
+Rotating: Left
+Moving from 137, 39 by 41 to 138, 39 - facing: 0
+Rotating: Right
+Moving from 138, 39 by 16 to 138, 46 - facing: 1
+Rotating: Right
+Moving from 138, 46 by 19 to 134, 46 - facing: 2
+Rotating: Left
+Moving from 134, 46 by 9 to 94, 84 - facing: 2
+Rotating: Left
+Moving from 94, 84 by 40 to 94, 104 - facing: 1
+Rotating: Left
+Moving from 94, 104 by 27 to 128, 45 - facing: 2
+Rotating: Left
+Moving from 128, 45 by 48 to 128, 48 - facing: 1
+Rotating: Right
+Moving from 128, 48 by 49 to 121, 48 - facing: 2
+Rotating: Right
+Moving from 121, 48 by 44 to 121, 28 - facing: 3
+Rotating: Right
+Moving from 121, 28 by 2 to 123, 28 - facing: 0
+Rotating: Right
+Moving from 123, 28 by 12 to 123, 40 - facing: 1
+Rotating: Right
+Moving from 123, 40 by 16 to 107, 40 - facing: 2
+Rotating: Left
+Moving from 107, 40 by 10 to 99, 57 - facing: 2
+Rotating: Right
+Moving from 99, 57 by 26 to 99, 51 - facing: 3
+Rotating: Left
+Moving from 99, 51 by 40 to 92, 51 - facing: 2
+Rotating: Left
+Moving from 92, 51 by 45 to 92, 52 - facing: 1
+Rotating: Right
+Moving from 92, 52 by 32 to 92, 52 - facing: 2
+Rotating: Right
+Moving from 92, 52 by 19 to 92, 51 - facing: 3
+Rotating: Right
+Moving from 92, 51 by 10 to 101, 49 - facing: 3
+Rotating: Right
+Moving from 101, 49 by 24 to 121, 49 - facing: 0
+Rotating: Right
+Moving from 121, 49 by 36 to 90, 71 - facing: 2
+Rotating: Right
+Moving from 90, 71 by 41 to 90, 62 - facing: 3
+Rotating: Right
+Moving from 90, 62 by 5 to 92, 62 - facing: 0
+Rotating: Left
+Moving from 92, 62 by 8 to 92, 54 - facing: 3
+Rotating: Right
+Moving from 92, 54 by 41 to 93, 54 - facing: 0
+Rotating: Right
+Moving from 93, 54 by 30 to 93, 60 - facing: 1
+Rotating: Left
+Moving from 93, 60 by 27 to 110, 46 - facing: 3
+Rotating: Left
+Moving from 110, 46 by 22 to 100, 46 - facing: 2
+Rotating: Left
+Moving from 100, 46 by 20 to 100, 49 - facing: 1
+Rotating: Left
+Moving from 100, 49 by 47 to 121, 49 - facing: 0
+Rotating: Right
+Moving from 121, 49 by 30 to 90, 71 - facing: 2
+Rotating: Left
+Moving from 90, 71 by 26 to 90, 73 - facing: 1
+Rotating: Right
+Moving from 90, 73 by 17 to 73, 73 - facing: 2
+Rotating: Right
+Moving from 73, 73 by 37 to 73, 66 - facing: 3
+Rotating: Right
+Moving from 73, 66 by 16 to 76, 66 - facing: 0
+Rotating: Left
+Moving from 76, 66 by 3 to 76, 63 - facing: 3
+Rotating: Right
+Moving from 76, 63 by 19 to 84, 63 - facing: 0
+Rotating: Left
+Moving from 84, 63 by 13 to 84, 50 - facing: 3
+Rotating: Right
+Moving from 84, 50 by 37 to 85, 50 - facing: 0
+Rotating: Left
+Moving from 85, 50 by 26 to 85, 50 - facing: 3
+Rotating: Right
+Moving from 85, 50 by 16 to 85, 50 - facing: 0
+Rotating: Right
+Moving from 85, 50 by 33 to 85, 56 - facing: 1
+Rotating: Right
+Moving from 85, 56 by 46 to 83, 56 - facing: 2
+Rotating: Right
+Moving from 83, 56 by 25 to 83, 53 - facing: 3
+Rotating: Left
+Moving from 83, 53 by 41 to 82, 53 - facing: 2
+Rotating: Left
+Moving from 82, 53 by 25 to 82, 55 - facing: 1
+Rotating: Left
+Moving from 82, 55 by 2 to 84, 55 - facing: 0
+Rotating: Left
+Moving from 84, 55 by 27 to 84, 41 - facing: 3
+Rotating: Right
+Moving from 84, 41 by 7 to 91, 41 - facing: 0
+Rotating: Left
+Moving from 91, 41 by 49 to 91, 34 - facing: 3
+Rotating: Right
+Moving from 91, 34 by 29 to 96, 34 - facing: 0
+Rotating: Left
+Moving from 96, 34 by 42 to 96, 34 - facing: 3
+Rotating: Left
+Moving from 96, 34 by 1 to 95, 34 - facing: 2
+Rotating: Right
+Moving from 95, 34 by 47 to 95, 32 - facing: 3
+Rotating: Right
+Moving from 95, 32 by 27 to 113, 32 - facing: 0
+Rotating: Left
+Moving from 113, 32 by 33 to 113, 30 - facing: 3
+Rotating: Left
+Moving from 113, 30 by 20 to 107, 30 - facing: 2
+Rotating: Right
+Moving from 107, 30 by 26 to 107, 29 - facing: 3
+Rotating: Left
+Moving from 107, 29 by 36 to 79, 29 - facing: 2
+Rotating: Left
+Moving from 79, 29 by 15 to 79, 44 - facing: 1
+Rotating: Right
+Moving from 79, 44 by 41 to 67, 44 - facing: 2
+Rotating: Left
+Moving from 67, 44 by 27 to 67, 45 - facing: 1
+Rotating: Right
+Moving from 67, 45 by 17 to 64, 45 - facing: 2
+Rotating: Right
+Moving from 64, 45 by 27 to 64, 22 - facing: 3
+Rotating: Right
+Moving from 64, 22 by 42 to 65, 22 - facing: 0
+Rotating: Left
+Moving from 65, 22 by 15 to 65, 8 - facing: 3
+Rotating: Left
+Moving from 65, 8 by 14 to 59, 8 - facing: 2
+Rotating: Right
+Moving from 59, 8 by 30 to 21, 159 - facing: 0
+Rotating: Right
+Moving from 21, 159 by 1 to 21, 160 - facing: 1
+Rotating: Left
+Moving from 21, 160 by 25 to 34, 160 - facing: 0
+Rotating: Right
+Moving from 34, 160 by 15 to 34, 172 - facing: 1
+Rotating: Right
+Moving from 34, 172 by 2 to 32, 172 - facing: 2
+Rotating: Right
+Moving from 32, 172 by 16 to 32, 162 - facing: 3
+Rotating: Left
+Moving from 32, 162 by 1 to 31, 162 - facing: 2
+Rotating: Left
+Moving from 31, 162 by 2 to 31, 164 - facing: 1
+Rotating: Left
+Moving from 31, 164 by 5 to 36, 164 - facing: 0
+Rotating: Right
+Moving from 36, 164 by 29 to 36, 174 - facing: 1
+Rotating: Left
+Moving from 36, 174 by 13 to 42, 174 - facing: 0
+Rotating: Right
+Moving from 42, 174 by 30 to 42, 182 - facing: 1
+Rotating: Left
+Moving from 42, 182 by 11 to 42, 182 - facing: 0
+Rotating: Left
+Moving from 42, 182 by 26 to 42, 167 - facing: 3
+Rotating: Left
+Moving from 42, 167 by 26 to 30, 167 - facing: 2
+Rotating: Left
+Moving from 30, 167 by 39 to 30, 167 - facing: 1
+Rotating: Right
+Moving from 30, 167 by 41 to 30, 167 - facing: 2
+Rotating: Left
+Moving from 30, 167 by 50 to 30, 167 - facing: 1
+Rotating: Right
+Moving from 30, 167 by 32 to 30, 167 - facing: 2
+Rotating: Right
+Moving from 30, 167 by 25 to 30, 160 - facing: 3
+Rotating: Left
+Moving from 30, 160 by 8 to 22, 160 - facing: 2
+Rotating: Right
+Moving from 22, 160 by 1 to 22, 159 - facing: 3
+Rotating: Right
+Moving from 22, 159 by 10 to 23, 159 - facing: 0
+Rotating: Right
+Moving from 23, 159 by 6 to 23, 163 - facing: 1
+Rotating: Left
+Moving from 23, 163 by 8 to 31, 163 - facing: 0
+Rotating: Left
+Moving from 31, 163 by 45 to 31, 150 - facing: 3
+Rotating: Left
+Moving from 31, 150 by 36 to 24, 150 - facing: 2
+Rotating: Right
+Moving from 24, 150 by 28 to 24, 137 - facing: 3
+Rotating: Left
+Moving from 24, 137 by 26 to 20, 137 - facing: 2
+Rotating: Right
+Moving from 20, 137 by 40 to 20, 122 - facing: 3
+Rotating: Right
+Moving from 20, 122 by 31 to 24, 122 - facing: 0
+Rotating: Right
+Moving from 24, 122 by 46 to 24, 135 - facing: 1
+Rotating: Left
+Moving from 24, 135 by 28 to 24, 135 - facing: 0
+Rotating: Right
+Moving from 24, 135 by 36 to 24, 135 - facing: 1
+Rotating: Right
+Moving from 24, 135 by 39 to 0, 135 - facing: 2
+Rotating: Left
+Moving from 0, 135 by 19 to 0, 138 - facing: 1
+Rotating: Left
+Moving from 0, 138 by 41 to 4, 138 - facing: 0
+Rotating: Left
+Moving from 4, 138 by 23 to 4, 129 - facing: 3
+Rotating: Right
+Moving from 4, 129 by 12 to 15, 129 - facing: 0
+Rotating: Right
+Moving from 15, 129 by 25 to 15, 135 - facing: 1
+Rotating: Right
+Moving from 15, 135 by 48 to 0, 135 - facing: 2
+Rotating: Right
+Moving from 0, 135 by 11 to 0, 124 - facing: 3
+Rotating: Left
+Moving from 0, 124 by 10 to 56, 25 - facing: 0
+Rotating: Right
+Moving from 56, 25 by 6 to 56, 28 - facing: 1
+Rotating: Right
+Moving from 56, 28 by 5 to 54, 28 - facing: 2
+Rotating: Right
+Moving from 54, 28 by 23 to 54, 25 - facing: 3
+Rotating: Right
+Moving from 54, 25 by 47 to 56, 25 - facing: 0
+Rotating: Right
+Moving from 56, 25 by 34 to 56, 28 - facing: 1
+Rotating: Left
+Moving from 56, 28 by 34 to 68, 28 - facing: 0
+Rotating: Left
+Moving from 68, 28 by 8 to 68, 20 - facing: 3
+Rotating: Right
+Moving from 68, 20 by 12 to 76, 20 - facing: 0
+Rotating: Right
+Moving from 76, 20 by 48 to 76, 22 - facing: 1
+Rotating: Left
+Moving from 76, 22 by 48 to 94, 22 - facing: 0
+Rotating: Right
+Moving from 94, 22 by 27 to 94, 32 - facing: 1
+Rotating: Right
+Moving from 94, 32 by 40 to 90, 32 - facing: 2
+Rotating: Left
+Moving from 90, 32 by 45 to 90, 60 - facing: 1
+Rotating: Right
+Moving from 90, 60 by 28 to 88, 60 - facing: 2
+Rotating: Left
+Moving from 88, 60 by 8 to 88, 68 - facing: 1
+Rotating: Left
+Moving from 88, 68 by 11 to 97, 68 - facing: 0
+Rotating: Right
+Moving from 97, 68 by 45 to 97, 94 - facing: 1
+Rotating: Left
+Moving from 97, 94 by 34 to 97, 94 - facing: 0
+Rotating: Right
+Moving from 97, 94 by 39 to 97, 94 - facing: 1
+Rotating: Right
+Moving from 97, 94 by 4 to 93, 94 - facing: 2
+Rotating: Right
+Moving from 93, 94 by 41 to 93, 86 - facing: 3
+Rotating: Left
+Moving from 93, 86 by 4 to 89, 86 - facing: 2
+Rotating: Right
+Moving from 89, 86 by 37 to 89, 83 - facing: 3
+Rotating: Left
+Moving from 89, 83 by 15 to 88, 83 - facing: 2
+Rotating: Left
+Moving from 88, 83 by 23 to 88, 94 - facing: 1
+Rotating: Right
+Moving from 88, 94 by 28 to 76, 94 - facing: 2
+Rotating: Right
+Moving from 76, 94 by 1 to 76, 93 - facing: 3
+Rotating: Left
+Moving from 76, 93 by 34 to 76, 93 - facing: 2
+Rotating: Right
+Moving from 76, 93 by 41 to 76, 93 - facing: 3
+Rotating: Right
+Moving from 76, 93 by 46 to 89, 93 - facing: 0
+Rotating: Right
+Moving from 89, 93 by 11 to 89, 104 - facing: 1
+Rotating: Left
+Moving from 89, 104 by 46 to 89, 104 - facing: 0
+Rotating: Left
+Moving from 89, 104 by 29 to 89, 83 - facing: 3
+Rotating: Left
+Moving from 89, 83 by 33 to 88, 83 - facing: 2
+Rotating: Right
+Moving from 88, 83 by 49 to 88, 71 - facing: 3
+Rotating: Right
+Moving from 88, 71 by 14 to 88, 71 - facing: 0
+Rotating: Left
+Moving from 88, 71 by 22 to 88, 71 - facing: 3
+Rotating: Right
+Moving from 88, 71 by 14 to 88, 71 - facing: 0
+Rotating: Right
+Moving from 88, 71 by 32 to 88, 94 - facing: 1
+Rotating: Left
+Moving from 88, 94 by 45 to 91, 94 - facing: 0
+Rotating: Left
+Moving from 91, 94 by 23 to 91, 84 - facing: 3
+Rotating: Left
+Moving from 91, 84 by 1 to 91, 84 - facing: 2
+Rotating: Right
+Moving from 91, 84 by 35 to 91, 84 - facing: 3
+Rotating: Right
+Moving from 91, 84 by 2 to 93, 84 - facing: 0
+Rotating: Right
+Moving from 93, 84 by 12 to 93, 84 - facing: 1
+Rotating: Right
+Moving from 93, 84 by 43 to 91, 84 - facing: 2
+Rotating: Left
+Moving from 91, 84 by 2 to 91, 86 - facing: 1
+Rotating: Right
+Moving from 91, 86 by 8 to 87, 86 - facing: 2
+Rotating: Left
+Moving from 87, 86 by 13 to 87, 99 - facing: 1
+Rotating: Left
+Moving from 87, 99 by 22 to 97, 99 - facing: 0
+Rotating: Right
+Moving from 97, 99 by 27 to 97, 99 - facing: 1
+Rotating: Right
+Moving from 97, 99 by 31 to 66, 99 - facing: 2
+Rotating: Left
+Moving from 66, 99 by 36 to 66, 99 - facing: 1
+Rotating: Right
+Moving from 66, 99 by 4 to 66, 99 - facing: 2
+Rotating: Left
+Moving from 66, 99 by 1 to 66, 99 - facing: 1
+Rotating: Right
+Moving from 66, 99 by 13 to 66, 99 - facing: 2
+Rotating: Right
+Moving from 66, 99 by 38 to 66, 99 - facing: 3
+Rotating: Left
+Moving from 66, 99 by 40 to 66, 99 - facing: 2
+Rotating: Left
+Moving from 66, 99 by 40 to 66, 99 - facing: 1
+Rotating: Right
+Moving from 66, 99 by 36 to 66, 99 - facing: 2
+Rotating: Left
+Moving from 66, 99 by 33 to 66, 99 - facing: 1
+Rotating: Left
+Moving from 66, 99 by 21 to 87, 99 - facing: 0
+Rotating: Left
+Moving from 87, 99 by 39 to 87, 84 - facing: 3
+Rotating: Right
+Moving from 87, 84 by 39 to 89, 84 - facing: 0
+Rotating: Right
+Moving from 89, 84 by 33 to 89, 111 - facing: 1
+Rotating: Right
+Moving from 89, 111 by 17 to 72, 111 - facing: 2
+Rotating: Left
+Moving from 72, 111 by 31 to 72, 136 - facing: 1
+Rotating: Right
+Moving from 72, 136 by 31 to 71, 136 - facing: 2
+Rotating: Right
+Moving from 71, 136 by 32 to 71, 131 - facing: 3
+Rotating: Right
+Moving from 71, 131 by 27 to 80, 131 - facing: 0
+Rotating: Left
+Moving from 80, 131 by 36 to 80, 126 - facing: 3
+Rotating: Left
+Moving from 80, 126 by 4 to 76, 126 - facing: 2
+Rotating: Right
+Moving from 76, 126 by 46 to 76, 126 - facing: 3
+Rotating: Left
+Moving from 76, 126 by 23 to 76, 126 - facing: 2
+Rotating: Left
+Moving from 76, 126 by 37 to 76, 131 - facing: 1
+Rotating: Right
+Moving from 76, 131 by 12 to 70, 131 - facing: 2
+Rotating: Left
+Moving from 70, 131 by 16 to 70, 132 - facing: 1
+Rotating: Right
+Moving from 70, 132 by 37 to 42, 132 - facing: 2
+Rotating: Left
+Moving from 42, 132 by 1 to 42, 133 - facing: 1
+Rotating: Right
+Moving from 42, 133 by 35 to 40, 133 - facing: 2
+Rotating: Right
+Moving from 40, 133 by 16 to 40, 117 - facing: 3
+Rotating: Left
+Moving from 40, 117 by 49 to 30, 117 - facing: 2
+Rotating: Left
+Moving from 30, 117 by 15 to 30, 118 - facing: 1
+Rotating: Left
+Moving from 30, 118 by 39 to 36, 118 - facing: 0
+Rotating: Left
+Moving from 36, 118 by 37 to 36, 117 - facing: 3
+Rotating: Right
+Moving from 36, 117 by 48 to 40, 117 - facing: 0
+Rotating: Left
+Moving from 40, 117 by 32 to 40, 112 - facing: 3
+Rotating: Right
+Moving from 40, 112 by 30 to 40, 112 - facing: 0
+Rotating: Right
+Moving from 40, 112 by 15 to 40, 127 - facing: 1
+Rotating: Left
+Moving from 40, 127 by 38 to 47, 127 - facing: 0
+Rotating: Right
+Moving from 47, 127 by 42 to 47, 142 - facing: 1
+Rotating: Right
+Moving from 47, 142 by 46 to 44, 142 - facing: 2
+Rotating: Right
+Moving from 44, 142 by 42 to 44, 142 - facing: 3
+Rotating: Left
+Moving from 44, 142 by 10 to 44, 142 - facing: 2
+Rotating: Right
+Moving from 44, 142 by 47 to 44, 142 - facing: 3
+Rotating: Right
+Moving from 44, 142 by 18 to 52, 142 - facing: 0
+Rotating: Right
+Moving from 52, 142 by 27 to 49, 133 - facing: 3
+Rotating: Left
+Moving from 49, 133 by 14 to 40, 133 - facing: 2
+Rotating: Left
+Moving from 40, 133 by 48 to 40, 144 - facing: 1
+Rotating: Right
+Moving from 40, 144 by 16 to 38, 144 - facing: 2
+Rotating: Right
+Moving from 38, 144 by 42 to 38, 132 - facing: 3
+Rotating: Left
+Moving from 38, 132 by 15 to 34, 132 - facing: 2
+Rotating: Left
+Moving from 34, 132 by 29 to 34, 133 - facing: 1
+Rotating: Left
+Moving from 34, 133 by 15 to 38, 133 - facing: 0
+Rotating: Left
+Moving from 38, 133 by 1 to 38, 132 - facing: 3
+Rotating: Left
+Moving from 38, 132 by 25 to 34, 132 - facing: 2
+Rotating: Left
+Moving from 34, 132 by 28 to 34, 133 - facing: 1
+Rotating: Right
+Moving from 34, 133 by 28 to 32, 133 - facing: 2
+Rotating: Left
+Moving from 32, 133 by 5 to 32, 138 - facing: 1
+Rotating: Left
+Moving from 32, 138 by 11 to 33, 138 - facing: 0
+Rotating: Right
+Moving from 33, 138 by 42 to 33, 145 - facing: 1
+Rotating: Right
+Moving from 33, 145 by 35 to 10, 145 - facing: 2
+Rotating: Left
+Moving from 10, 145 by 22 to 10, 146 - facing: 1
+Rotating: Left
+Moving from 10, 146 by 7 to 15, 146 - facing: 0
+Rotating: Right
+Moving from 15, 146 by 21 to 15, 154 - facing: 1
+Rotating: Left
+Moving from 15, 154 by 2 to 17, 154 - facing: 0
+Rotating: Right
+Moving from 17, 154 by 49 to 17, 167 - facing: 1
+Rotating: Right
+Moving from 17, 167 by 26 to 67, 6 - facing: 1
+Rotating: Left
+Moving from 67, 6 by 43 to 92, 6 - facing: 0
+Rotating: Left
+Moving from 92, 6 by 32 to 92, 2 - facing: 3
+Rotating: Left
+Moving from 92, 2 by 14 to 90, 2 - facing: 2
+Rotating: Left
+Moving from 90, 2 by 11 to 90, 13 - facing: 1
+Rotating: Right
+Moving from 90, 13 by 33 to 85, 13 - facing: 2
+Rotating: Right
+Moving from 85, 13 by 19 to 85, 10 - facing: 3
+Rotating: Right
+Moving from 85, 10 by 21 to 87, 10 - facing: 0
+Rotating: Right
+Moving from 87, 10 by 17 to 87, 27 - facing: 1
+Rotating: Left
+Moving from 87, 27 by 50 to 98, 27 - facing: 0
+Rotating: Left
+Moving from 98, 27 by 28 to 98, 11 - facing: 3
+Rotating: Right
+Moving from 98, 11 by 37 to 104, 11 - facing: 0
+Rotating: Left
+Moving from 104, 11 by 20 to 104, 0 - facing: 3
+Rotating: Right
+Moving from 104, 0 by 15 to 112, 0 - facing: 0
+Rotating: Left
+Moving from 112, 0 by 18 to 112, 9 - facing: 1
+Rotating: Left
+Moving from 112, 9 by 11 to 116, 9 - facing: 0
+Rotating: Right
+Moving from 116, 9 by 20 to 116, 21 - facing: 1
+Rotating: Right
+Moving from 116, 21 by 14 to 109, 21 - facing: 2
+Rotating: Left
+Moving from 109, 21 by 4 to 109, 25 - facing: 1
+Rotating: Left
+Moving from 109, 25 by 32 to 109, 25 - facing: 0
+Rotating: Left
+Moving from 109, 25 by 29 to 109, 14 - facing: 3
+Rotating: Right
+Moving from 109, 14 by 44 to 127, 14 - facing: 0
+Rotating: Right
+Moving from 127, 14 by 22 to 127, 27 - facing: 1
+Rotating: Left
+Moving from 127, 27 by 42 to 148, 27 - facing: 0
+Rotating: Right
+Moving from 148, 27 by 39 to 148, 30 - facing: 1
+Rotating: Left
+Moving from 148, 30 by 2 to 99, 119 - facing: 2
+Rotating: Left
+Moving from 99, 119 by 39 to 99, 126 - facing: 1
+Rotating: Right
+Moving from 99, 126 by 33 to 90, 126 - facing: 2
+Rotating: Left
+Moving from 90, 126 by 34 to 90, 142 - facing: 1
+Rotating: Left
+Moving from 90, 142 by 5 to 95, 142 - facing: 0
+Rotating: Left
+Moving from 95, 142 by 18 to 95, 140 - facing: 3
+Rotating: Right
+Moving from 95, 140 by 25 to 97, 140 - facing: 0
+Rotating: Right
+Moving from 97, 140 by 11 to 97, 142 - facing: 1
+Rotating: Left
+Moving from 97, 142 by 3 to 97, 142 - facing: 0
+Rotating: Right
+Moving from 97, 142 by 17 to 97, 142 - facing: 1
+Rotating: Right
+Moving from 97, 142 by 35 to 89, 142 - facing: 2
+Rotating: Right
+Moving from 89, 142 by 38 to 89, 127 - facing: 3
+Rotating: Right
+Moving from 89, 127 by 30 to 92, 127 - facing: 0
+Rotating: Left
+Moving from 92, 127 by 17 to 92, 125 - facing: 3
+Rotating: Left
+Moving from 92, 125 by 6 to 86, 125 - facing: 2
+Rotating: Left
+Moving from 86, 125 by 24 to 86, 134 - facing: 1
+Rotating: Right
+Moving from 86, 134 by 13 to 85, 134 - facing: 2
+Rotating: Left
+Moving from 85, 134 by 30 to 49, 185 - facing: 3
+Rotating: Right
+Moving from 49, 185 by 20 to 85, 132 - facing: 3
+Rotating: Right
+Moving from 85, 132 by 30 to 91, 132 - facing: 0
+Rotating: Right
+Moving from 91, 132 by 28 to 91, 139 - facing: 1
+Rotating: Left
+Moving from 91, 139 by 5 to 94, 139 - facing: 0
+Rotating: Left
+Moving from 94, 139 by 31 to 94, 121 - facing: 3
+Rotating: Left
+Moving from 94, 121 by 50 to 68, 121 - facing: 2
+Rotating: Left
+Moving from 68, 121 by 46 to 68, 127 - facing: 1
+Rotating: Left
+Moving from 68, 127 by 3 to 71, 127 - facing: 0
+Rotating: Right
+Moving from 71, 127 by 32 to 71, 128 - facing: 1
+Rotating: Right
+Moving from 71, 128 by 28 to 69, 128 - facing: 2
+Rotating: Left
+Moving from 69, 128 by 43 to 69, 130 - facing: 1
+Rotating: Left
+Moving from 69, 130 by 20 to 70, 130 - facing: 0
+Rotating: Left
+Moving from 70, 130 by 23 to 70, 130 - facing: 3
+Rotating: Right
+Moving from 70, 130 by 32 to 70, 130 - facing: 0
+Rotating: Left
+Moving from 70, 130 by 43 to 70, 130 - facing: 3
+Rotating: Right
+Moving from 70, 130 by 33 to 70, 130 - facing: 0
+Rotating: Right
+Moving from 70, 130 by 50 to 70, 132 - facing: 1
+Rotating: Left
+Moving from 70, 132 by 31 to 75, 132 - facing: 0
+Rotating: Right
+Moving from 75, 132 by 29 to 49, 174 - facing: 3
+Rotating: Right
+Moving from 49, 174 by 48 to 74, 123 - facing: 3
+Rotating: Left
+Moving from 74, 123 by 12 to 66, 123 - facing: 2
+Rotating: Left
+Moving from 66, 123 by 28 to 66, 132 - facing: 1
+Rotating: Left
+Moving from 66, 132 by 11 to 75, 132 - facing: 0
+Rotating: Right
+Moving from 75, 132 by 25 to 49, 174 - facing: 3
+Rotating: Right
+Moving from 49, 174 by 14 to 74, 136 - facing: 3
+Rotating: Left
+Moving from 74, 136 by 15 to 71, 136 - facing: 2
+Rotating: Left
+Moving from 71, 136 by 25 to 71, 142 - facing: 1
+Rotating: Right
+Moving from 71, 142 by 5 to 66, 142 - facing: 2
+Rotating: Right
+Moving from 66, 142 by 1 to 66, 142 - facing: 3
+Rotating: Right
+Moving from 66, 142 by 20 to 81, 142 - facing: 0
+Rotating: Left
+Moving from 81, 142 by 44 to 81, 139 - facing: 3
+Rotating: Right
+Moving from 81, 139 by 25 to 94, 139 - facing: 0
+Rotating: Right
+Moving from 94, 139 by 31 to 94, 143 - facing: 1
+Rotating: Right
+Moving from 94, 143 by 20 to 91, 143 - facing: 2
+Rotating: Right
+Moving from 91, 143 by 29 to 91, 141 - facing: 3
+Rotating: Left
+Moving from 91, 141 by 9 to 82, 141 - facing: 2
+Rotating: Left
+Moving from 82, 141 by 37 to 82, 141 - facing: 1
+Rotating: Left
+Moving from 82, 141 by 7 to 89, 141 - facing: 0
+Rotating: Right
+Moving from 89, 141 by 12 to 89, 147 - facing: 1
+Rotating: Left
+Moving from 89, 147 by 33 to 93, 147 - facing: 0
+Rotating: Left
+Moving from 93, 147 by 44 to 93, 129 - facing: 3
+Rotating: Left
+Moving from 93, 129 by 28 to 74, 129 - facing: 2
+Rotating: Right
+Moving from 74, 129 by 36 to 74, 123 - facing: 3
+Rotating: Right
+Moving from 74, 123 by 50 to 75, 123 - facing: 0
+Rotating: Left
+Moving from 75, 123 by 19 to 75, 108 - facing: 3
+Rotating: Left
+Moving from 75, 108 by 24 to 60, 108 - facing: 2
+Rotating: Left
+Moving from 60, 108 by 9 to 60, 109 - facing: 1
+Rotating: Left
+Moving from 60, 109 by 29 to 68, 109 - facing: 0
+Rotating: Right
+Moving from 68, 109 by 5 to 68, 110 - facing: 1
+Rotating: Right
+Moving from 68, 110 by 45 to 61, 110 - facing: 2
+Rotating: Right
+Moving from 61, 110 by 20 to 61, 93 - facing: 3
+Rotating: Left
+Moving from 61, 93 by 21 to 56, 93 - facing: 2
+Rotating: Right
+Moving from 56, 93 by 22 to 56, 84 - facing: 3
+Rotating: Left
+Moving from 56, 84 by 41 to 34, 120 - facing: 1
+Rotating: Left
+Moving from 34, 120 by 25 to 46, 120 - facing: 0
+Rotating: Right
+Moving from 46, 120 by 24 to 46, 128 - facing: 1
+Rotating: Right
+Moving from 46, 128 by 27 to 42, 128 - facing: 2
+Rotating: Left
+Moving from 42, 128 by 38 to 42, 136 - facing: 1
+Rotating: Right
+Moving from 42, 136 by 29 to 34, 136 - facing: 2
+Rotating: Left
+Moving from 34, 136 by 2 to 34, 137 - facing: 1
+Rotating: Right
+Moving from 34, 137 by 23 to 20, 137 - facing: 2
+Rotating: Right
+Moving from 20, 137 by 34 to 20, 122 - facing: 3
+Rotating: Left
+Moving from 20, 122 by 3 to 17, 122 - facing: 2
+Rotating: Right
+Moving from 17, 122 by 34 to 17, 114 - facing: 3
+Rotating: Right
+Moving from 17, 114 by 11 to 28, 114 - facing: 0
+Rotating: Left
+Moving from 28, 114 by 35 to 28, 105 - facing: 3
+Rotating: Left
+Moving from 28, 105 by 26 to 12, 105 - facing: 2
+Rotating: Right
+Moving from 12, 105 by 34 to 12, 100 - facing: 3
+Rotating: Left
+Moving from 12, 100 by 27 to 4, 100 - facing: 2
+Rotating: Right
+Moving from 4, 100 by 27 to 51, 54 - facing: 0
+Rotating: Left
+Moving from 51, 54 by 14 to 51, 51 - facing: 3
+Rotating: Right
+Moving from 51, 51 by 28 to 57, 51 - facing: 0
+Rotating: Right
+Moving from 57, 51 by 19 to 57, 60 - facing: 1
+Rotating: Right
+Moving from 57, 60 by 28 to 52, 60 - facing: 2
+Rotating: Left
+Moving from 52, 60 by 47 to 52, 61 - facing: 1
+Rotating: Left
+Moving from 52, 61 by 5 to 56, 61 - facing: 0
+Rotating: Right
+Moving from 56, 61 by 30 to 56, 61 - facing: 1
+Rotating: Left
+Moving from 56, 61 by 17 to 56, 61 - facing: 0
+Rotating: Right
+Moving from 56, 61 by 44 to 56, 61 - facing: 1
+Rotating: Left
+Moving from 56, 61 by 5 to 56, 61 - facing: 0
+Rotating: Right
+Moving from 56, 61 by 49 to 56, 61 - facing: 1
+Rotating: Right
+Moving from 56, 61 by 17 to 11, 104 - facing: 1
+Rotating: Right
+Moving from 11, 104 by 48 to 50, 45 - facing: 0
+Rotating: Right
+Moving from 50, 45 by 49 to 50, 56 - facing: 1
+Rotating: Left
+Moving from 50, 56 by 15 to 53, 56 - facing: 0
+Rotating: Right
+Moving from 53, 56 by 48 to 53, 63 - facing: 1
+Rotating: Right
+Moving from 53, 63 by 4 to 13, 100 - facing: 1
+Rotating: Right
+Moving from 13, 100 by 44 to 4, 100 - facing: 2
+Rotating: Left
+Moving from 4, 100 by 9 to 4, 104 - facing: 1
+Rotating: Left
+Moving from 4, 104 by 3 to 7, 104 - facing: 0
+Rotating: Right
+Moving from 7, 104 by 28 to 7, 111 - facing: 1
+Rotating: Right
+Moving from 7, 111 by 4 to 3, 111 - facing: 2
+Rotating: Left
+Moving from 3, 111 by 6 to 3, 112 - facing: 1
+Rotating: Left
+Moving from 3, 112 by 40 to 6, 112 - facing: 0
+Rotating: Right
+Moving from 6, 112 by 24 to 6, 112 - facing: 1
+Rotating: Left
+Moving from 6, 112 by 46 to 6, 112 - facing: 0
+Rotating: Left
+Moving from 6, 112 by 34 to 6, 109 - facing: 3
+Rotating: Right
+Moving from 6, 109 by 40 to 23, 109 - facing: 0
+Rotating: Right
+Moving from 23, 109 by 26 to 23, 135 - facing: 1
+Rotating: Left
+Moving from 23, 135 by 29 to 24, 135 - facing: 0
+Rotating: Right
+Moving from 24, 135 by 4 to 24, 135 - facing: 1
+Rotating: Right
+Moving from 24, 135 by 38 to 0, 135 - facing: 2
+Rotating: Right
+Moving from 0, 135 by 20 to 0, 120 - facing: 3
+Rotating: Right
+Moving from 0, 120 by 43 to 4, 120 - facing: 0
+Rotating: Right
+Moving from 4, 120 by 47 to 4, 127 - facing: 1
+Rotating: Right
+Moving from 4, 127 by 36 to 51, 22 - facing: 0
+Rotating: Right
+Moving from 51, 22 by 19 to 51, 41 - facing: 1
+Rotating: Right
+Moving from 51, 41 by 17 to 5, 108 - facing: 0
+Rotating: Right
+Moving from 5, 108 by 45 to 5, 114 - facing: 1
+Rotating: Left
+Moving from 5, 114 by 34 to 6, 114 - facing: 0
+Rotating: Right
+Moving from 6, 114 by 19 to 6, 117 - facing: 1
+Rotating: Right
+Moving from 6, 117 by 11 to 0, 117 - facing: 2
+Rotating: Left
+Moving from 0, 117 by 4 to 0, 117 - facing: 1
+Rotating: Right
+Moving from 0, 117 by 41 to 0, 117 - facing: 2
+Rotating: Left
+Moving from 0, 117 by 23 to 0, 117 - facing: 1
+Rotating: Left
+Moving from 0, 117 by 50 to 13, 117 - facing: 0
+Rotating: Right
+Moving from 13, 117 by 34 to 13, 139 - facing: 1
+Rotating: Left
+Moving from 13, 139 by 45 to 13, 139 - facing: 0
+Rotating: Left
+Moving from 13, 139 by 15 to 13, 124 - facing: 3
+Rotating: Left
+Moving from 13, 124 by 38 to 13, 124 - facing: 2
+Rotating: Right
+Moving from 13, 124 by 38 to 13, 104 - facing: 3
+Rotating: Right
+Moving from 13, 104 by 18 to 27, 104 - facing: 0
+Rotating: Right
+Moving from 27, 104 by 4 to 27, 108 - facing: 1
+Rotating: Left
+Moving from 27, 108 by 15 to 28, 108 - facing: 0
+Rotating: Left
+Moving from 28, 108 by 26 to 28, 105 - facing: 3
+Rotating: Left
+Moving from 28, 105 by 15 to 13, 105 - facing: 2
+Rotating: Right
+Moving from 13, 105 by 49 to 13, 104 - facing: 3
+Rotating: Right
+Moving from 13, 104 by 22 to 27, 104 - facing: 0
+Rotating: Right
+Moving from 27, 104 by 14 to 27, 118 - facing: 1
+Rotating: Left
+Moving from 27, 118 by 33 to 27, 118 - facing: 0
+Rotating: Right
+Moving from 27, 118 by 37 to 27, 125 - facing: 1
+Rotating: Right
+Moving from 27, 125 by 22 to 19, 125 - facing: 2
+Rotating: Left
+Moving from 19, 125 by 20 to 19, 136 - facing: 1
+Rotating: Left
+Moving from 19, 136 by 19 to 23, 136 - facing: 0
+Rotating: Left
+Moving from 23, 136 by 23 to 23, 113 - facing: 3
+Rotating: Left
+Moving from 23, 113 by 9 to 19, 113 - facing: 2
+Rotating: Left
+Moving from 19, 113 by 40 to 19, 136 - facing: 1
+Rotating: Right
+Moving from 19, 136 by 30 to 17, 136 - facing: 2
+Rotating: Right
+Moving from 17, 136 by 42 to 17, 127 - facing: 3
+Rotating: Left
+Moving from 17, 127 by 44 to 6, 127 - facing: 2
+Rotating: Right
+Moving from 6, 127 by 22 to 6, 126 - facing: 3
+Rotating: Left
+Moving from 6, 126 by 41 to 66, 23 - facing: 0
+Rotating: Left
+Moving from 66, 23 by 20 to 66, 23 - facing: 3
+Rotating: Left
+Moving from 66, 23 by 26 to 9, 126 - facing: 0
+Rotating: Right
+Moving from 9, 126 by 32 to 9, 141 - facing: 1
+Rotating: Right
+Moving from 9, 141 by 29 to 5, 141 - facing: 2
+Rotating: Right
+Moving from 5, 141 by 40 to 5, 139 - facing: 3
+Rotating: Left
+Moving from 5, 139 by 48 to 1, 139 - facing: 2
+Rotating: Left
+Moving from 1, 139 by 18 to 1, 139 - facing: 1
+Rotating: Left
+Moving from 1, 139 by 43 to 13, 139 - facing: 0
+Rotating: Left
+Moving from 13, 139 by 48 to 13, 104 - facing: 3
+Rotating: Right
+Moving from 13, 104 by 46 to 27, 104 - facing: 0
+Rotating: Right
+Moving from 27, 104 by 24 to 27, 125 - facing: 1
+Rotating: Right
+Moving from 27, 125 by 25 to 19, 125 - facing: 2
+Rotating: Left
+Moving from 19, 125 by 15 to 19, 136 - facing: 1
+Rotating: Right
+Moving from 19, 136 by 37 to 17, 136 - facing: 2
+Rotating: Left
+Moving from 17, 136 by 32 to 17, 137 - facing: 1
+Rotating: Right
+Moving from 17, 137 by 22 to 13, 137 - facing: 2
+Rotating: Left
+Moving from 13, 137 by 22 to 13, 139 - facing: 1
+Rotating: Right
+Moving from 13, 139 by 17 to 1, 139 - facing: 2
+Rotating: Right
+Moving from 1, 139 by 27 to 1, 131 - facing: 3
+Rotating: Left
+Moving from 1, 131 by 28 to 51, 18 - facing: 0
+Rotating: Left
+Moving from 51, 18 by 28 to 51, 18 - facing: 3
+Rotating: Right
+Moving from 51, 18 by 15 to 51, 18 - facing: 0
+Rotating: Left
+Moving from 51, 18 by 38 to 51, 18 - facing: 3
+Rotating: Left
+Moving from 51, 18 by 36 to 10, 131 - facing: 0
+Rotating: Left
+Moving from 10, 131 by 20 to 10, 121 - facing: 3
+Rotating: Right
+Moving from 10, 121 by 7 to 17, 121 - facing: 0
+Rotating: Right
+Moving from 17, 121 by 35 to 17, 123 - facing: 1
+Rotating: Right
+Moving from 17, 123 by 38 to 16, 123 - facing: 2
+Rotating: Left
+Moving from 16, 123 by 42 to 16, 123 - facing: 1
+Rotating: Left
+Moving from 16, 123 by 22 to 24, 123 - facing: 0
+Rotating: Right
+Moving from 24, 123 by 24 to 24, 135 - facing: 1
+Rotating: Left
+Moving from 24, 135 by 27 to 24, 135 - facing: 0
+Rotating: Left
+Moving from 24, 135 by 2 to 24, 133 - facing: 3
+Rotating: Right
+Moving from 24, 133 by 39 to 24, 133 - facing: 0
+Rotating: Right
+Moving from 24, 133 by 9 to 24, 135 - facing: 1
+Rotating: Right
+Moving from 24, 135 by 1 to 23, 135 - facing: 2
+Rotating: Left
+Moving from 23, 135 by 6 to 23, 141 - facing: 1
+Rotating: Right
+Moving from 23, 141 by 15 to 12, 141 - facing: 2
+Rotating: Right
+Moving from 12, 141 by 12 to 12, 138 - facing: 3
+Rotating: Right
+Moving from 12, 138 by 7 to 16, 138 - facing: 0
+Rotating: Right
+Moving from 16, 138 by 50 to 16, 143 - facing: 1
+Rotating: Right
+Moving from 16, 143 by 26 to 59, 6 - facing: 0
+Rotating: Right
+Moving from 59, 6 by 20 to 59, 26 - facing: 1
+Rotating: Left
+Moving from 59, 26 by 41 to 62, 26 - facing: 0
+Rotating: Right
+Moving from 62, 26 by 44 to 62, 39 - facing: 1
+Rotating: Right
+Moving from 62, 39 by 27 to 56, 39 - facing: 2
+Rotating: Right
+Moving from 56, 39 by 42 to 56, 30 - facing: 3
+Rotating: Right
+Moving from 56, 30 by 40 to 62, 30 - facing: 0
+Rotating: Left
+Moving from 62, 30 by 50 to 62, 13 - facing: 3
+Rotating: Right
+Moving from 62, 13 by 12 to 74, 13 - facing: 0
+Rotating: Left
+Moving from 74, 13 by 50 to 74, 6 - facing: 3
+Rotating: Left
+Moving from 74, 6 by 37 to 63, 6 - facing: 2
+Rotating: Right
+Moving from 63, 6 by 46 to 63, 3 - facing: 3
+Rotating: Right
+Moving from 63, 3 by 45 to 72, 3 - facing: 0
+Rotating: Left
+Moving from 72, 3 by 7 to 3, 172 - facing: 0
+Rotating: Right
+Moving from 3, 172 by 27 to 3, 172 - facing: 1
+Rotating: Right
+Moving from 3, 172 by 45 to 72, 13 - facing: 1
+Rotating: Right
+Moving from 72, 13 by 5 to 67, 13 - facing: 2
+Rotating: Right
+Moving from 67, 13 by 5 to 67, 8 - facing: 3
+Rotating: Left
+Moving from 67, 8 by 37 to 59, 8 - facing: 2
+Rotating: Right
+Moving from 59, 8 by 34 to 23, 159 - facing: 0
+Rotating: Left
+Moving from 23, 159 by 24 to 23, 156 - facing: 3
+Rotating: Right
+Moving from 23, 156 by 25 to 37, 156 - facing: 0
+Rotating: Left
+Moving from 37, 156 by 1 to 37, 155 - facing: 3
+Rotating: Left
+Moving from 37, 155 by 5 to 36, 155 - facing: 2
+Rotating: Left
+Moving from 36, 155 by 35 to 36, 174 - facing: 1
+Rotating: Right
+Moving from 36, 174 by 20 to 32, 174 - facing: 2
+Rotating: Right
+Moving from 32, 174 by 29 to 32, 162 - facing: 3
+Rotating: Left
+Moving from 32, 162 by 11 to 21, 162 - facing: 2
+Rotating: Left
+Moving from 21, 162 by 45 to 21, 170 - facing: 1
+Rotating: Left
+Moving from 21, 170 by 1 to 22, 170 - facing: 0
+Rotating: Left
+Moving from 22, 170 by 1 to 22, 169 - facing: 3
+Rotating: Left
+Moving from 22, 169 by 18 to 18, 169 - facing: 2
+Rotating: Left
+Moving from 18, 169 by 43 to 18, 170 - facing: 1
+Rotating: Left
+Moving from 18, 170 by 38 to 48, 170 - facing: 0
+Rotating: Left
+Moving from 48, 170 by 50 to 48, 155 - facing: 3
+Rotating: Left
+Moving from 48, 155 by 1 to 47, 155 - facing: 2
+Rotating: Left
+Moving from 47, 155 by 18 to 47, 156 - facing: 1
+Rotating: Right
+Moving from 47, 156 by 48 to 41, 156 - facing: 2
+Rotating: Left
+Moving from 41, 156 by 18 to 41, 161 - facing: 1
+Rotating: Left
+Moving from 41, 161 by 24 to 48, 161 - facing: 0
+Rotating: Left
+Moving from 48, 161 by 9 to 48, 155 - facing: 3
+Rotating: Left
+Moving from 48, 155 by 1 to 47, 155 - facing: 2
+Rotating: Right
+Moving from 47, 155 by 28 to 47, 150 - facing: 3
+Rotating: Right
+Moving from 47, 150 by 8 to 50, 144 - facing: 3
+Rotating: Right
+Moving from 50, 144 by 6 to 56, 144 - facing: 0
+Rotating: Right
+Moving from 56, 144 by 46 to 49, 116 - facing: 3
+Rotating: Left
+Moving from 49, 116 by 9 to 47, 116 - facing: 2
+Rotating: Right
+Moving from 47, 116 by 18 to 47, 109 - facing: 3
+Rotating: Right
+Moving from 47, 109 by 4 to 51, 109 - facing: 0
+Rotating: Right
+Moving from 51, 109 by 33 to 51, 110 - facing: 1
+Rotating: Right
+Moving from 51, 110 by 49 to 49, 110 - facing: 2
+Rotating: Right
+Moving from 49, 110 by 28 to 51, 99 - facing: 0
+Rotating: Right
+Moving from 51, 99 by 35 to 51, 110 - facing: 1
+Rotating: Left
+Moving from 51, 110 by 18 to 59, 110 - facing: 0
+Rotating: Right
+Moving from 59, 110 by 45 to 59, 120 - facing: 1
+Rotating: Right
+Moving from 59, 120 by 27 to 52, 120 - facing: 2
+Rotating: Left
+Moving from 52, 120 by 46 to 52, 121 - facing: 1
+Rotating: Right
+Moving from 52, 121 by 10 to 51, 121 - facing: 2
+Rotating: Left
+Moving from 51, 121 by 41 to 51, 126 - facing: 1
+Rotating: Right
+Moving from 51, 126 by 20 to 49, 126 - facing: 2
+Rotating: Left
+Moving from 49, 126 by 25 to 49, 151 - facing: 1
+Rotating: Right
+Moving from 49, 151 by 49 to 39, 151 - facing: 2
+Rotating: Right
+Moving from 39, 151 by 49 to 39, 148 - facing: 3
+Rotating: Right
+Moving from 39, 148 by 50 to 58, 148 - facing: 0
+Rotating: Left
+Moving from 58, 148 by 25 to 58, 145 - facing: 3
+Rotating: Right
+Moving from 58, 145 by 30 to 65, 145 - facing: 0
+Rotating: Right
+Moving from 65, 145 by 20 to 49, 163 - facing: 3
+Rotating: Right
+Moving from 49, 163 by 45 to 63, 149 - facing: 3
+Rotating: Left
+Moving from 63, 149 by 47 to 62, 149 - facing: 2
+Rotating: Right
+Moving from 62, 149 by 41 to 62, 148 - facing: 3
+Rotating: Left
+Moving from 62, 148 by 39 to 60, 148 - facing: 2
+Rotating: Left
+Moving from 60, 148 by 50 to 49, 112 - facing: 3
+Rotating: Left
+Moving from 49, 112 by 39 to 44, 112 - facing: 2
+Rotating: Left
+Moving from 44, 112 by 5 to 44, 117 - facing: 1
+Rotating: Right
+Moving from 44, 117 by 36 to 42, 117 - facing: 2
+Rotating: Right
+Moving from 42, 117 by 46 to 42, 115 - facing: 3
+Rotating: Left
+Moving from 42, 115 by 28 to 34, 115 - facing: 2
+Rotating: Right
+Moving from 34, 115 by 42 to 62, 84 - facing: 0
+Rotating: Left
+Moving from 62, 84 by 45 to 62, 79 - facing: 3
+Rotating: Right
+Moving from 62, 79 by 11 to 63, 79 - facing: 0
+Rotating: Right
+Moving from 63, 79 by 2 to 63, 81 - facing: 1
+Rotating: Right
+Moving from 63, 81 by 3 to 60, 81 - facing: 2
+Rotating: Left
+Moving from 60, 81 by 18 to 60, 91 - facing: 1
+Rotating: Right
+Moving from 60, 91 by 15 to 54, 91 - facing: 2
+Rotating: Left
+Moving from 54, 91 by 43 to 54, 101 - facing: 1
+Rotating: Right
+Moving from 54, 101 by 48 to 54, 101 - facing: 2
+Rotating: Left
+Moving from 54, 101 by 35 to 54, 101 - facing: 1
+Rotating: Right
+Moving from 54, 101 by 21 to 54, 101 - facing: 2
+Rotating: Left
+Moving from 54, 101 by 20 to 54, 101 - facing: 1
+Rotating: Right
+Moving from 54, 101 by 49 to 54, 101 - facing: 2
+Rotating: Right
+Moving from 54, 101 by 47 to 54, 89 - facing: 3
+Rotating: Left
+Moving from 54, 89 by 33 to 39, 106 - facing: 1
+Rotating: Left
+Moving from 39, 106 by 31 to 44, 106 - facing: 0
+Rotating: Right
+Moving from 44, 106 by 10 to 44, 106 - facing: 1
+Rotating: Right
+Moving from 44, 106 by 7 to 37, 106 - facing: 2
+Rotating: Left
+Moving from 37, 106 by 20 to 37, 117 - facing: 1
+Rotating: Left
+Moving from 37, 117 by 30 to 40, 117 - facing: 0
+Rotating: Left
+Moving from 40, 117 by 35 to 40, 112 - facing: 3
+Rotating: Right
+Moving from 40, 112 by 25 to 40, 112 - facing: 0
+Rotating: Left
+Moving from 40, 112 by 16 to 40, 112 - facing: 3
+Rotating: Left
+Moving from 40, 112 by 49 to 33, 112 - facing: 2
+Rotating: Left
+Moving from 33, 112 by 41 to 33, 114 - facing: 1
+Rotating: Right
+Moving from 33, 114 by 44 to 10, 114 - facing: 2
+Rotating: Right
+Moving from 10, 114 by 49 to 50, 60 - facing: 0
+Rotating: Left
+Moving from 50, 60 by 31 to 50, 58 - facing: 3
+Rotating: Right
+Moving from 50, 58 by 10 to 51, 58 - facing: 0
+Rotating: Right
+Moving from 51, 58 by 40 to 51, 59 - facing: 1
+Rotating: Right
+Moving from 51, 59 by 17 to 9, 112 - facing: 1
+Rotating: Right
+Moving from 9, 112 by 30 to 8, 112 - facing: 2
+Rotating: Left
+Moving from 8, 112 by 16 to 8, 124 - facing: 1
+Rotating: Left
+Moving from 8, 124 by 17 to 11, 124 - facing: 0
+Rotating: Right
+Moving from 11, 124 by 17 to 11, 130 - facing: 1
+Rotating: Right
+Moving from 11, 130 by 13 to 2, 130 - facing: 2
+Rotating: Right
+Moving from 2, 130 by 46 to 2, 101 - facing: 3
+Rotating: Left
+Moving from 2, 101 by 32 to 74, 48 - facing: 0
+Rotating: Right
+Moving from 74, 48 by 46 to 74, 51 - facing: 1
+Rotating: Right
+Moving from 74, 51 by 34 to 71, 51 - facing: 2
+Rotating: Right
+Moving from 71, 51 by 46 to 71, 48 - facing: 3
+Rotating: Left
+Moving from 71, 48 by 23 to 1, 101 - facing: 0
+Rotating: Right
+Moving from 1, 101 by 40 to 1, 129 - facing: 1
+Rotating: Left
+Moving from 1, 129 by 38 to 15, 129 - facing: 0
+Rotating: Left
+Moving from 15, 129 by 13 to 15, 126 - facing: 3
+Rotating: Left
+Moving from 15, 126 by 20 to 54, 23 - facing: 0
+Rotating: Right
+Moving from 54, 23 by 46 to 54, 23 - facing: 1
+Rotating: Right
+Moving from 54, 23 by 27 to 16, 126 - facing: 0
+Rotating: Left
+Moving from 16, 126 by 38 to 16, 125 - facing: 3
+Rotating: Left
+Moving from 16, 125 by 48 to 16, 125 - facing: 2
+Rotating: Left
+Moving from 16, 125 by 2 to 16, 127 - facing: 1
+Rotating: Left
+Moving from 16, 127 by 26 to 28, 127 - facing: 0
+Rotating: Left
+Moving from 28, 127 by 32 to 28, 119 - facing: 3
+Rotating: Right
+Moving from 28, 119 by 30 to 29, 119 - facing: 0
+Rotating: Left
+Moving from 29, 119 by 29 to 29, 118 - facing: 3
+Rotating: Left
+Moving from 29, 118 by 15 to 29, 118 - facing: 2
+Rotating: Left
+Moving from 29, 118 by 41 to 29, 121 - facing: 1
+Rotating: Right
+Moving from 29, 121 by 19 to 21, 121 - facing: 2
+Rotating: Right
+Moving from 21, 121 by 13 to 21, 121 - facing: 3
+Rotating: Right
+Moving from 21, 121 by 46 to 33, 121 - facing: 0
+Rotating: Left
+Moving from 33, 121 by 28 to 33, 120 - facing: 3
+Rotating: Right
+Moving from 33, 120 by 6 to 39, 120 - facing: 0
+Rotating: Right
+Moving from 39, 120 by 23 to 39, 123 - facing: 1
+Rotating: Left
+Moving from 39, 123 by 26 to 49, 123 - facing: 0
+Rotating: Left
+Moving from 49, 123 by 40 to 51, 99 - facing: 0
+Rotating: Right
+Moving from 51, 99 by 24 to 51, 110 - facing: 1
+Rotating: Right
+Moving from 51, 110 by 40 to 49, 110 - facing: 2
+Rotating: Right
+Moving from 49, 110 by 4 to 49, 106 - facing: 3
+Rotating: Left
+Moving from 49, 106 by 7 to 46, 106 - facing: 2
+Rotating: Left
+Moving from 46, 106 by 21 to 46, 108 - facing: 1
+Rotating: Right
+Moving from 46, 108 by 40 to 46, 108 - facing: 2
+Rotating: Left
+Moving from 46, 108 by 5 to 46, 108 - facing: 1
+Rotating: Right
+Moving from 46, 108 by 34 to 46, 108 - facing: 2
+Rotating: Right
+Moving from 46, 108 by 31 to 68, 96 - facing: 0
+Rotating: Left
+Moving from 68, 96 by 6 to 68, 90 - facing: 3
+Rotating: Left
+Moving from 68, 90 by 12 to 68, 90 - facing: 2
+Rotating: Right
+Moving from 68, 90 by 19 to 68, 87 - facing: 3
+Rotating: Right
+Moving from 68, 87 by 42 to 80, 87 - facing: 0
+Rotating: Right
+Moving from 80, 87 by 29 to 80, 102 - facing: 1
+Rotating: Right
+Moving from 80, 102 by 31 to 70, 102 - facing: 2
+Rotating: Left
+Moving from 70, 102 by 19 to 70, 102 - facing: 1
+Rotating: Right
+Moving from 70, 102 by 8 to 70, 102 - facing: 2
+Rotating: Left
+Moving from 70, 102 by 15 to 70, 102 - facing: 1
+Rotating: Left
+Moving from 70, 102 by 30 to 96, 102 - facing: 0
+Rotating: Right
+Moving from 96, 102 by 10 to 96, 105 - facing: 1
+Rotating: Left
+Moving from 96, 105 by 42 to 132, 44 - facing: 2
+Rotating: Right
+Moving from 132, 44 by 33 to 132, 27 - facing: 3
+Rotating: Right
+Moving from 132, 27 by 6 to 138, 27 - facing: 0
+Rotating: Right
+Moving from 138, 27 by 20 to 138, 31 - facing: 1
+Rotating: Left
+Moving from 138, 31 by 48 to 146, 31 - facing: 0
+Rotating: Left
+Moving from 146, 31 by 26 to 146, 5 - facing: 3
+Rotating: Right
+Moving from 146, 5 by 19 to 95, 144 - facing: 2
+Rotating: Left
+Moving from 95, 144 by 24 to 49, 195 - facing: 3
+Rotating: Left
+Moving from 49, 195 by 34 to 35, 195 - facing: 2
+Rotating: Right
+Moving from 35, 195 by 4 to 35, 191 - facing: 3
+Rotating: Right
+Moving from 35, 191 by 47 to 37, 191 - facing: 0
+Rotating: Right
+Moving from 37, 191 by 26 to 137, 5 - facing: 1
+Rotating: Right
+Moving from 137, 5 by 31 to 128, 5 - facing: 2
+Rotating: Left
+Moving from 128, 5 by 44 to 128, 13 - facing: 1
+Rotating: Right
+Moving from 128, 13 by 47 to 122, 13 - facing: 2
+Rotating: Left
+Moving from 122, 13 by 14 to 122, 16 - facing: 1
+Rotating: Left
+Moving from 122, 16 by 9 to 131, 16 - facing: 0
+Rotating: Right
+Moving from 131, 16 by 41 to 131, 29 - facing: 1
+Rotating: Right
+Moving from 131, 29 by 41 to 118, 29 - facing: 2
+Rotating: Right
+Moving from 118, 29 by 38 to 118, 28 - facing: 3
+Rotating: Left
+Moving from 118, 28 by 7 to 118, 28 - facing: 2
+Rotating: Left
+Moving from 118, 28 by 38 to 118, 36 - facing: 1
+Rotating: Left
+Moving from 118, 36 by 30 to 118, 36 - facing: 0
+Rotating: Left
+Moving from 118, 36 by 37 to 118, 28 - facing: 3
+Rotating: Left
+Moving from 118, 28 by 13 to 118, 28 - facing: 2
+Rotating: Right
+Moving from 118, 28 by 23 to 118, 28 - facing: 3
+Rotating: Left
+Moving from 118, 28 by 44 to 118, 28 - facing: 2
+Rotating: Left
+Moving from 118, 28 by 15 to 118, 36 - facing: 1
+Rotating: Right
+Moving from 118, 36 by 48 to 117, 36 - facing: 2
+Rotating: Right
+Moving from 117, 36 by 33 to 117, 30 - facing: 3
+Rotating: Right
+Moving from 117, 30 by 18 to 119, 30 - facing: 0
+Rotating: Left
+Moving from 119, 30 by 49 to 119, 25 - facing: 3
+Rotating: Left
+Moving from 119, 25 by 20 to 116, 25 - facing: 2
+Rotating: Left
+Moving from 116, 25 by 26 to 116, 35 - facing: 1
+Rotating: Left
+Moving from 116, 35 by 39 to 135, 35 - facing: 0
+Rotating: Left
+Moving from 135, 35 by 8 to 135, 35 - facing: 3
+Rotating: Left
+Moving from 135, 35 by 24 to 111, 35 - facing: 2
+Rotating: Right
+Moving from 111, 35 by 50 to 111, 28 - facing: 3
+Rotating: Left
+Moving from 111, 28 by 19 to 108, 28 - facing: 2
+Rotating: Left
+Moving from 108, 28 by 33 to 108, 42 - facing: 1
+Rotating: Right
+Moving from 108, 42 by 27 to 106, 42 - facing: 2
+Rotating: Left
+Moving from 106, 42 by 27 to 106, 47 - facing: 1
+Rotating: Right
+Moving from 106, 47 by 23 to 106, 47 - facing: 2
+Rotating: Right
+Moving from 106, 47 by 24 to 106, 41 - facing: 3
+Rotating: Left
+Moving from 106, 41 by 36 to 101, 41 - facing: 2
+Rotating: Right
+Moving from 101, 41 by 12 to 101, 35 - facing: 3
+Rotating: Left
+Moving from 101, 35 by 22 to 100, 35 - facing: 2
+Rotating: Right
+Moving from 100, 35 by 23 to 100, 21 - facing: 3
+Rotating: Left
+Moving from 100, 21 by 34 to 82, 21 - facing: 2
+Rotating: Left
+Moving from 82, 21 by 49 to 82, 55 - facing: 1
+Rotating: Right
+Moving from 82, 55 by 2 to 80, 55 - facing: 2
+Rotating: Left
+Moving from 80, 55 by 14 to 80, 59 - facing: 1
+Rotating: Right
+Moving from 80, 59 by 45 to 67, 59 - facing: 2
+Rotating: Right
+Moving from 67, 59 by 38 to 67, 58 - facing: 3
+Rotating: Right
+Moving from 67, 58 by 23 to 90, 58 - facing: 0
+Rotating: Right
+Moving from 90, 58 by 46 to 90, 60 - facing: 1
+Rotating: Right
+Moving from 90, 60 by 18 to 88, 60 - facing: 2
+Rotating: Left
+Moving from 88, 60 by 40 to 88, 69 - facing: 1
+Rotating: Left
+Moving from 88, 69 by 39 to 93, 69 - facing: 0
+Rotating: Left
+Moving from 93, 69 by 20 to 93, 67 - facing: 3
+Rotating: Left
+Moving from 93, 67 by 24 to 88, 67 - facing: 2
+Rotating: Right
+Moving from 88, 67 by 46 to 88, 57 - facing: 3
+Rotating: Left
+Moving from 88, 57 by 34 to 87, 57 - facing: 2
+Rotating: Left
+Moving from 87, 57 by 15 to 87, 59 - facing: 1
+Rotating: Left
+Moving from 87, 59 by 1 to 88, 59 - facing: 0
+Rotating: Left
+Moving from 88, 59 by 44 to 88, 57 - facing: 3
+Rotating: Right
+Moving from 88, 57 by 28 to 88, 57 - facing: 0
+Rotating: Left
+Moving from 88, 57 by 20 to 88, 57 - facing: 3
+Rotating: Right
+Moving from 88, 57 by 23 to 88, 57 - facing: 0
+Rotating: Right
+Moving from 88, 57 by 18 to 88, 69 - facing: 1
+Rotating: Left
+Moving from 88, 69 by 19 to 93, 69 - facing: 0
+Rotating: Right
+Moving from 93, 69 by 27 to 93, 71 - facing: 1
+Rotating: Left
+Moving from 93, 71 by 15 to 121, 41 - facing: 3
+Rotating: Left
+Moving from 121, 41 by 1 to 120, 41 - facing: 2
+Rotating: Right
+Moving from 120, 41 by 34 to 120, 34 - facing: 3
+Rotating: Right
+Moving from 120, 34 by 35 to 123, 34 - facing: 0
+Rotating: Right
+Moving from 123, 34 by 1 to 123, 35 - facing: 1
+Rotating: Left
+Moving from 123, 35 by 26 to 135, 35 - facing: 0
+Rotating: Right
+Moving from 135, 35 by 47 to 135, 42 - facing: 1
+Rotating: Right
+Moving from 135, 42 by 12 to 123, 42 - facing: 2
+Rotating: Right
+Moving from 123, 42 by 26 to 123, 28 - facing: 3
+Rotating: Right
+Moving from 123, 28 by 7 to 126, 28 - facing: 0
+Rotating: Left
+Moving from 126, 28 by 18 to 126, 19 - facing: 3
+Rotating: Right
+Moving from 126, 19 by 36 to 131, 19 - facing: 0
+Rotating: Left
+Moving from 131, 19 by 16 to 131, 4 - facing: 3
+Rotating: Right
+Moving from 131, 4 by 48 to 132, 4 - facing: 0
+Rotating: Right
+Moving from 132, 4 by 37 to 132, 15 - facing: 1
+Rotating: Left
+Moving from 132, 15 by 18 to 141, 15 - facing: 0
+Rotating: Right
+Moving from 141, 15 by 18 to 141, 31 - facing: 1
+Rotating: Right
+Moving from 141, 31 by 29 to 135, 31 - facing: 2
+Rotating: Left
+Moving from 135, 31 by 16 to 135, 33 - facing: 1
+Rotating: Left
+Moving from 135, 33 by 21 to 136, 33 - facing: 0
+Rotating: Right
+Moving from 136, 33 by 24 to 136, 34 - facing: 1
+Rotating: Left
+Moving from 136, 34 by 45 to 139, 34 - facing: 0
+Rotating: Right
+Moving from 139, 34 by 27 to 139, 38 - facing: 1
+Rotating: Left
+Moving from 139, 38 by 15 to 95, 111 - facing: 2
+Rotating: Left
+Moving from 95, 111 by 32 to 95, 127 - facing: 1
+Rotating: Left
+Moving from 95, 127 by 48 to 98, 127 - facing: 0
+Rotating: Right
+Moving from 98, 127 by 38 to 98, 139 - facing: 1
+Rotating: Left
+Moving from 98, 139 by 6 to 149, 10 - facing: 2
+Rotating: Right
+Moving from 149, 10 by 48 to 149, 1 - facing: 3
+Rotating: Left
+Moving from 149, 1 by 44 to 144, 1 - facing: 2
+Rotating: Left
+Moving from 144, 1 by 29 to 144, 5 - facing: 1
+Rotating: Left
+Moving from 144, 5 by 2 to 146, 5 - facing: 0
+Rotating: Right
+Moving from 146, 5 by 47 to 146, 48 - facing: 1
+Rotating: Right
+Moving from 146, 48 by 50 to 145, 48 - facing: 2
+Rotating: Left
+Moving from 145, 48 by 13 to 145, 49 - facing: 1
+Rotating: Left
+Moving from 145, 49 by 32 to 145, 49 - facing: 0
+Rotating: Right
+Moving from 145, 49 by 40 to 145, 49 - facing: 1
+Rotating: Right
+Moving from 145, 49 by 48 to 141, 49 - facing: 2
+Rotating: Left
+Moving from 141, 49 by 9 to 93, 91 - facing: 2
+Rotating: Left
+Moving from 93, 91 by 46 to 93, 99 - facing: 1
+Rotating: Left
+Moving from 93, 99 by 1 to 94, 99 - facing: 0
+Rotating: Left
+Moving from 94, 99 by 50 to 94, 84 - facing: 3
+Rotating: Right
+Moving from 94, 84 by 8 to 134, 47 - facing: 3
+Rotating: Left
+Moving from 134, 47 by 3 to 134, 47 - facing: 2
+Rotating: Left
+Moving from 134, 47 by 13 to 91, 84 - facing: 2
+Rotating: Left
+Moving from 91, 84 by 13 to 91, 97 - facing: 1
+Rotating: Right
+Moving from 91, 97 by 30 to 61, 97 - facing: 2
+Rotating: Left
+Moving from 61, 97 by 10 to 61, 107 - facing: 1
+Rotating: Left
+Moving from 61, 107 by 36 to 65, 107 - facing: 0
+Rotating: Left
+Moving from 65, 107 by 8 to 65, 100 - facing: 3
+Rotating: Left
+Moving from 65, 100 by 13 to 61, 100 - facing: 2
+Rotating: Left
+Moving from 61, 100 by 33 to 61, 121 - facing: 1
+Rotating: Right
+Moving from 61, 121 by 13 to 60, 121 - facing: 2
+Rotating: Right
+Moving from 60, 121 by 14 to 60, 111 - facing: 3
+Rotating: Right
+Moving from 60, 111 by 36 to 61, 111 - facing: 0
+Rotating: Left
+Moving from 61, 111 by 16 to 61, 95 - facing: 3
+Rotating: Left
+Moving from 61, 95 by 24 to 57, 95 - facing: 2
+Rotating: Left
+Moving from 57, 95 by 38 to 57, 98 - facing: 1
+Rotating: Left
+Moving from 57, 98 by 7 to 58, 98 - facing: 0
+Rotating: Right
+Moving from 58, 98 by 1 to 58, 99 - facing: 1
+Rotating: Left
+Moving from 58, 99 by 22 to 64, 99 - facing: 0
+Rotating: Left
+Moving from 64, 99 by 48 to 64, 92 - facing: 3
+Rotating: Left
+Moving from 64, 92 by 36 to 62, 92 - facing: 2
+Rotating: Left
+Moving from 62, 92 by 22 to 62, 103 - facing: 1
+Rotating: Left
+Moving from 62, 103 by 39 to 69, 103 - facing: 0
+Rotating: Right
+Moving from 69, 103 by 44 to 69, 108 - facing: 1
+Rotating: Right
+Moving from 69, 108 by 24 to 60, 108 - facing: 2
+Rotating: Left
+Moving from 60, 108 by 44 to 60, 109 - facing: 1
+Rotating: Right
+Moving from 60, 109 by 21 to 57, 109 - facing: 2
+Rotating: Right
+Moving from 57, 109 by 20 to 57, 106 - facing: 3
+Rotating: Right
+Moving from 57, 106 by 17 to 69, 106 - facing: 0
+Rotating: Right
+Moving from 69, 106 by 1 to 69, 107 - facing: 1
+Rotating: Left
+Moving from 69, 107 by 17 to 74, 107 - facing: 0
+Rotating: Left
+Moving from 74, 107 by 19 to 74, 91 - facing: 3
+Rotating: Right
+Moving from 74, 91 by 50 to 75, 91 - facing: 0
+Rotating: Left
+Moving from 75, 91 by 45 to 75, 90 - facing: 3
+Rotating: Right
+Moving from 75, 90 by 6 to 77, 90 - facing: 0
+Rotating: Right
+Moving from 77, 90 by 6 to 77, 94 - facing: 1
+Rotating: Left
+Moving from 77, 94 by 13 to 90, 94 - facing: 0
+Rotating: Left
+Moving from 90, 94 by 12 to 90, 94 - facing: 3
+Rotating: Right
+Moving from 90, 94 by 25 to 91, 94 - facing: 0
+Rotating: Right
+Moving from 91, 94 by 2 to 91, 96 - facing: 1
+Rotating: Right
+Moving from 91, 96 by 37 to 89, 96 - facing: 2
+Rotating: Left
+Moving from 89, 96 by 43 to 89, 111 - facing: 1
+Rotating: Left
+Moving from 89, 111 by 46 to 139, 38 - facing: 2
+Rotating: Left
+Moving from 139, 38 by 34 to 139, 38 - facing: 1
+Rotating: Right
+Moving from 139, 38 by 1 to 139, 38 - facing: 2
+Rotating: Left
+Moving from 139, 38 by 26 to 139, 38 - facing: 1
+Rotating: Right
+Moving from 139, 38 by 9 to 139, 38 - facing: 2
+Rotating: Right
+Moving from 139, 38 by 17 to 139, 30 - facing: 3
+Rotating: Left
+Moving from 139, 30 by 25 to 132, 30 - facing: 2
+Rotating: Right
+Moving from 132, 30 by 2 to 132, 28 - facing: 3
+Rotating: Left
+Moving from 132, 28 by 5 to 128, 28 - facing: 2
+Rotating: Right
+Moving from 128, 28 by 31 to 128, 15 - facing: 3
+Rotating: Right
+Moving from 128, 15 by 20 to 141, 15 - facing: 0
+Rotating: Right
+Moving from 141, 15 by 33 to 141, 31 - facing: 1
+Rotating: Left
+Moving from 141, 31 by 44 to 146, 31 - facing: 0
+Rotating: Left
+Moving from 146, 31 by 3 to 146, 28 - facing: 3
+Rotating: Left
+Moving from 146, 28 by 43 to 146, 28 - facing: 2
+Rotating: Right
+Moving from 146, 28 by 12 to 146, 16 - facing: 3
+Rotating: Right
+Moving from 146, 16 by 40 to 93, 133 - facing: 2
+Rotating: Left
+Moving from 93, 133 by 32 to 49, 185 - facing: 3
+Rotating: Left
+Moving from 49, 185 by 7 to 43, 185 - facing: 2
+Rotating: Left
+Moving from 43, 185 by 4 to 43, 189 - facing: 1
+Rotating: Left
+Moving from 43, 189 by 39 to 45, 189 - facing: 0
+Rotating: Right
+Moving from 45, 189 by 38 to 45, 190 - facing: 1
+Rotating: Right
+Moving from 45, 190 by 18 to 36, 190 - facing: 2
+Rotating: Left
+Moving from 36, 190 by 7 to 36, 197 - facing: 1
+Rotating: Left
+Moving from 36, 197 by 14 to 49, 197 - facing: 0
+Rotating: Left
+Moving from 49, 197 by 21 to 49, 197 - facing: 3
+Rotating: Right
+Moving from 49, 197 by 21 to 49, 197 - facing: 0
+Rotating: Right
+Moving from 49, 197 by 15 to 49, 199 - facing: 1
+Rotating: Left
+Moving from 49, 199 by 30 to 99, 128 - facing: 3
+Rotating: Left
+Moving from 99, 128 by 50 to 96, 128 - facing: 2
+Rotating: Right
+Moving from 96, 128 by 6 to 96, 122 - facing: 3
+Rotating: Left
+Moving from 96, 122 by 6 to 91, 122 - facing: 2
+Rotating: Left
+Moving from 91, 122 by 37 to 91, 139 - facing: 1
+Rotating: Right
+Moving from 91, 139 by 5 to 86, 139 - facing: 2
+Rotating: Right
+Moving from 86, 139 by 24 to 86, 136 - facing: 3
+Rotating: Left
+Moving from 86, 136 by 39 to 81, 136 - facing: 2
+Rotating: Right
+Moving from 81, 136 by 19 to 81, 133 - facing: 3
+Rotating: Left
+Moving from 81, 133 by 27 to 81, 133 - facing: 2
+Rotating: Left
+Moving from 81, 133 by 28 to 81, 137 - facing: 1
+Rotating: Left
+Moving from 81, 137 by 47 to 148, 12 - facing: 2
+Rotating: Right
+Moving from 148, 12 by 20 to 148, 11 - facing: 3
+Rotating: Right
+Moving from 148, 11 by 31 to 96, 138 - facing: 2
+Rotating: Left
+Moving from 96, 138 by 15 to 96, 140 - facing: 1
+Rotating: Right
+Moving from 96, 140 by 31 to 92, 140 - facing: 2
+Rotating: Left
+Moving from 92, 140 by 23 to 92, 140 - facing: 1
+Rotating: Right
+Moving from 92, 140 by 1 to 92, 140 - facing: 2
+Rotating: Left
+Moving from 92, 140 by 2 to 92, 140 - facing: 1
+Rotating: Left
+Moving from 92, 140 by 43 to 97, 140 - facing: 0
+Rotating: Right
+Moving from 97, 140 by 39 to 97, 142 - facing: 1
+Rotating: Right
+Moving from 97, 142 by 36 to 89, 142 - facing: 2
+Rotating: Right
+Moving from 89, 142 by 18 to 89, 127 - facing: 3
+Rotating: Right
+Moving from 89, 127 by 30 to 92, 127 - facing: 0
+Rotating: Right
+Moving from 92, 127 by 21 to 92, 131 - facing: 1
+Rotating: Right
+Moving from 92, 131 by 3 to 89, 131 - facing: 2
+Rotating: Right
+Moving from 89, 131 by 34 to 89, 127 - facing: 3
+Rotating: Left
+Moving from 89, 127 by 35 to 85, 127 - facing: 2
+Rotating: Right
+Moving from 85, 127 by 35 to 85, 126 - facing: 3
+Rotating: Right
+Moving from 85, 126 by 25 to 88, 126 - facing: 0
+Rotating: Right
+Moving from 88, 126 by 38 to 88, 137 - facing: 1
+Rotating: Left
+Moving from 88, 137 by 40 to 148, 12 - facing: 2
+Rotating: Right
+Moving from 148, 12 by 27 to 148, 11 - facing: 3
+Rotating: Right
+Moving from 148, 11 by 20 to 96, 138 - facing: 2
+Rotating: Right
+Moving from 96, 138 by 47 to 96, 107 - facing: 3
+Rotating: Right
+Moving from 96, 107 by 23 to 130, 42 - facing: 2
+Rotating: Right
+Moving from 130, 42 by 45 to 130, 23 - facing: 3
+Rotating: Left
+Moving from 130, 23 by 20 to 123, 23 - facing: 2
+Rotating: Right
+Moving from 123, 23 by 3 to 123, 20 - facing: 3
+Rotating: Right
+Moving from 123, 20 by 41 to 128, 20 - facing: 0
+Rotating: Left
+Moving from 128, 20 by 17 to 128, 15 - facing: 3
+Rotating: Left
+Moving from 128, 15 by 40 to 125, 15 - facing: 2
+Rotating: Left
+Moving from 125, 15 by 3 to 125, 18 - facing: 1
+Rotating: Right
+Moving from 125, 18 by 14 to 111, 18 - facing: 2
+Rotating: Right
+Moving from 111, 18 by 37 to 111, 12 - facing: 3
+Rotating: Right
+Moving from 111, 12 by 22 to 113, 12 - facing: 0
+Rotating: Right
+Moving from 113, 12 by 48 to 113, 28 - facing: 1
+Rotating: Left
+Moving from 113, 28 by 47 to 116, 28 - facing: 0
+Rotating: Left
+Moving from 116, 28 by 40 to 116, 23 - facing: 3
+Rotating: Left
+Moving from 116, 23 by 43 to 82, 23 - facing: 2
+Rotating: Right
+Moving from 82, 23 by 1 to 82, 22 - facing: 3
+Rotating: Right
+Moving from 82, 22 by 33 to 94, 22 - facing: 0
+Rotating: Left
+Moving from 94, 22 by 6 to 94, 19 - facing: 3
+Rotating: Left
+Moving from 94, 19 by 43 to 70, 19 - facing: 2
+Rotating: Left
+Moving from 70, 19 by 28 to 70, 26 - facing: 1
+Rotating: Right
+Moving from 70, 26 by 17 to 64, 26 - facing: 2
+Rotating: Left
+Moving from 64, 26 by 48 to 64, 46 - facing: 1
+Rotating: Left
+Moving from 64, 46 by 28 to 66, 46 - facing: 0
+Rotating: Right
+Moving from 66, 46 by 32 to 66, 52 - facing: 1
+Rotating: Right
+Moving from 66, 52 by 24 to 55, 52 - facing: 2
+Rotating: Right
+Moving from 55, 52 by 39 to 55, 40 - facing: 3
+Rotating: Right
+Moving from 55, 40 by 22 to 60, 40 - facing: 0
+Rotating: Left
+Moving from 60, 40 by 31 to 60, 12 - facing: 3
+Rotating: Right
+Moving from 60, 12 by 30 to 61, 12 - facing: 0
+Rotating: Left
+Moving from 61, 12 by 18 to 61, 12 - facing: 3
+Rotating: Left
+Moving from 61, 12 by 36 to 57, 12 - facing: 2
+Rotating: Left
+Moving from 57, 12 by 13 to 57, 19 - facing: 1
+Rotating: Left
+Moving from 57, 19 by 12 to 57, 19 - facing: 0
+Rotating: Right
+Moving from 57, 19 by 24 to 57, 19 - facing: 1
+Rotating: Right
+Moving from 57, 19 by 16 to 57, 19 - facing: 2
+Rotating: Left
+Moving from 57, 19 by 20 to 57, 19 - facing: 1
+Rotating: Left
+Moving from 57, 19 by 26 to 57, 19 - facing: 0
+Rotating: Right
+Moving from 57, 19 by 47 to 57, 19 - facing: 1
+Rotating: Left
+Moving from 57, 19 by 20 to 57, 19 - facing: 0
+Rotating: Left
+Moving from 57, 19 by 6 to 57, 13 - facing: 3
+Rotating: Right
+Moving from 57, 13 by 25 to 82, 13 - facing: 0
+Rotating: Right
+Moving from 82, 13 by 28 to 82, 41 - facing: 1
+Rotating: Right
+Moving from 82, 41 by 43 to 79, 41 - facing: 2
+Rotating: Left
+Moving from 79, 41 by 32 to 79, 49 - facing: 1
+Rotating: Right
+Moving from 79, 49 by 47 to 79, 49 - facing: 2
+Rotating: Right
+Moving from 79, 49 by 12 to 79, 37 - facing: 3
+Rotating: Right
+Moving from 79, 37 by 49 to 82, 37 - facing: 0
+Rotating: Right
+Moving from 82, 37 by 32 to 82, 55 - facing: 1
+Rotating: Right
+Moving from 82, 55 by 10 to 78, 55 - facing: 2
+Rotating: Left
+Moving from 78, 55 by 24 to 78, 76 - facing: 1
+Rotating: Right
+Moving from 78, 76 by 15 to 67, 76 - facing: 2
+Rotating: Left
+Moving from 67, 76 by 50 to 67, 89 - facing: 1
+Rotating: Left
+Moving from 67, 89 by 39 to 74, 89 - facing: 0
+Rotating: Left
+Moving from 74, 89 by 41 to 74, 61 - facing: 3
+Rotating: Left
+Moving from 74, 61 by 16 to 69, 61 - facing: 2
+Rotating: Right
+Moving from 69, 61 by 25 to 69, 55 - facing: 3
+Rotating: Right
+Moving from 69, 55 by 40 to 70, 55 - facing: 0
+Rotating: Right
+Moving from 70, 55 by 28 to 70, 73 - facing: 1
+Rotating: Right
+Moving from 70, 73 by 31 to 23, 101 - facing: 1
+Rotating: Left
+Moving from 23, 101 by 9 to 25, 101 - facing: 0
+Rotating: Left
+Moving from 25, 101 by 50 to 58, 75 - facing: 0
+Rotating: Left
+Moving from 58, 75 by 37 to 58, 52 - facing: 3
+Rotating: Right
+Moving from 58, 52 by 24 to 73, 52 - facing: 0
+Rotating: Left
+Moving from 73, 52 by 15 to 73, 51 - facing: 3
+Rotating: Right
+Moving from 73, 51 by 7 to 79, 51 - facing: 0
+Rotating: Left
+Moving from 79, 51 by 26 to 79, 51 - facing: 3
+Rotating: Left
+Moving from 79, 51 by 22 to 71, 51 - facing: 2
+Rotating: Right
+Moving from 71, 51 by 49 to 71, 48 - facing: 3
+Rotating: Right
+Moving from 71, 48 by 33 to 74, 48 - facing: 0
+Rotating: Right
+Moving from 74, 48 by 50 to 74, 51 - facing: 1
+Rotating: Right
+Moving from 74, 51 by 38 to 71, 51 - facing: 2
+Rotating: Left
+Moving from 71, 51 by 46 to 71, 54 - facing: 1
+Rotating: Left
+Moving from 71, 54 by 17 to 72, 54 - facing: 0
+Rotating: Right
+Moving from 72, 54 by 29 to 72, 80 - facing: 1
+Rotating: Right
+Moving from 72, 80 by 29 to 72, 80 - facing: 2
+Rotating: Left
+Moving from 72, 80 by 21 to 72, 80 - facing: 1
+Rotating: Left
+Moving from 72, 80 by 35 to 77, 80 - facing: 0
+Rotating: Right
+Moving from 77, 80 by 20 to 77, 88 - facing: 1
+Rotating: Left
+Moving from 77, 88 by 50 to 85, 88 - facing: 0
+Rotating: Right
+Moving from 85, 88 by 7 to 85, 95 - facing: 1
+Rotating: Right
+Moving from 85, 95 by 26 to 78, 95 - facing: 2
+Rotating: Right
+Moving from 78, 95 by 36 to 78, 91 - facing: 3
+Rotating: Right
+Moving from 78, 91 by 29 to 91, 91 - facing: 0
+Rotating: Left
+Moving from 91, 91 by 47 to 91, 84 - facing: 3
+Rotating: Right
+Moving from 91, 84 by 44 to 134, 40 - facing: 3
+Rotating: Right
+Moving from 134, 40 by 25 to 136, 40 - facing: 0
+Rotating: Right
+Moving from 136, 40 by 29 to 87, 86 - facing: 2
+Rotating: Left
+Moving from 87, 86 by 1 to 87, 87 - facing: 1
+Rotating: Left
+Moving from 87, 87 by 41 to 137, 41 - facing: 3
+Rotating: Left
+Moving from 137, 41 by 50 to 101, 41 - facing: 2
+Rotating: Left
+Moving from 101, 41 by 25 to 101, 46 - facing: 1
+Rotating: Right
+Moving from 101, 46 by 30 to 100, 46 - facing: 2
+Rotating: Left
+Moving from 100, 46 by 1 to 100, 47 - facing: 1
+Rotating: Left
+Moving from 100, 47 by 22 to 100, 47 - facing: 0
+Rotating: Left
+Moving from 100, 47 by 12 to 100, 42 - facing: 3
+Rotating: Right
+Moving from 100, 42 by 6 to 104, 42 - facing: 0
+Rotating: Left
+Moving from 104, 42 by 7 to 104, 40 - facing: 3
+Rotating: Left
+Moving from 104, 40 by 32 to 95, 40 - facing: 2
+Rotating: Left
+Moving from 95, 40 by 33 to 95, 52 - facing: 1
+Rotating: Left
+Moving from 95, 52 by 19 to 102, 35 - facing: 3
+Rotating: Left
+Moving from 102, 35 by 34 to 100, 35 - facing: 2
+Rotating: Left
+Moving from 100, 35 by 31 to 100, 36 - facing: 1
+Rotating: Right
+Moving from 100, 36 by 5 to 95, 36 - facing: 2
+Rotating: Right
+Moving from 95, 36 by 25 to 95, 32 - facing: 3
+Rotating: Right
+Moving from 95, 32 by 28 to 113, 32 - facing: 0
+Rotating: Left
+Moving from 113, 32 by 12 to 113, 30 - facing: 3
+Rotating: Right
+Moving from 113, 30 by 5 to 118, 30 - facing: 0
+Rotating: Right
+Moving from 118, 30 by 35 to 118, 36 - facing: 1
+Rotating: Left
+Moving from 118, 36 by 34 to 118, 36 - facing: 0
+Rotating: Right
+Moving from 118, 36 by 41 to 118, 36 - facing: 1
+Rotating: Right
+Moving from 118, 36 by 50 to 117, 36 - facing: 2
+Rotating: Left
+Moving from 117, 36 by 8 to 117, 44 - facing: 1
+Rotating: Right
+Moving from 117, 44 by 20 to 109, 44 - facing: 2
+Rotating: Right
+Moving from 109, 44 by 28 to 109, 32 - facing: 3
+Rotating: Left
+Moving from 109, 32 by 3 to 106, 32 - facing: 2
+Rotating: Right
+Moving from 106, 32 by 48 to 106, 31 - facing: 3
+Rotating: Left
+Moving from 106, 31 by 7 to 99, 31 - facing: 2
+Rotating: Right
+Moving from 99, 31 by 10 to 99, 28 - facing: 3
+Rotating: Right
+Moving from 99, 28 by 26 to 106, 28 - facing: 0
+Rotating: Right
+Moving from 106, 28 by 16 to 106, 29 - facing: 1
+Rotating: Right
+Moving from 106, 29 by 17 to 89, 29 - facing: 2
+Rotating: Right
+Moving from 89, 29 by 38 to 89, 29 - facing: 3
+Rotating: Right
+Moving from 89, 29 by 35 to 111, 29 - facing: 0
+Rotating: Right
+Moving from 111, 29 by 31 to 111, 41 - facing: 1
+Rotating: Left
+Moving from 111, 41 by 7 to 118, 41 - facing: 0
+Rotating: Left
+Moving from 118, 41 by 48 to 118, 38 - facing: 3
+Rotating: Left
+Moving from 118, 38 by 50 to 116, 38 - facing: 2
+Rotating: Right
+Moving from 116, 38 by 37 to 116, 37 - facing: 3
+Rotating: Left
+Moving from 116, 37 by 46 to 101, 37 - facing: 2
+Rotating: Left
+Moving from 101, 37 by 31 to 101, 46 - facing: 1
+Rotating: Left
+Moving from 101, 46 by 36 to 115, 46 - facing: 0
+Rotating: Left
+Moving from 115, 46 by 46 to 115, 39 - facing: 3
+Rotating: Right
+Moving from 115, 39 by 45 to 118, 39 - facing: 0
+Rotating: Left
+Moving from 118, 39 by 50 to 118, 38 - facing: 3
+Rotating: Right
+Moving from 118, 38 by 18 to 136, 38 - facing: 0
+Rotating: Left
+Moving from 136, 38 by 46 to 136, 36 - facing: 3
+Rotating: Left
+Moving from 136, 36 by 39 to 135, 36 - facing: 2
+Rotating: Left
+Moving from 135, 36 by 26 to 135, 42 - facing: 1
+Rotating: Left
+Moving from 135, 42 by 48 to 95, 107 - facing: 2
+Rotating: Right
+Moving from 95, 107 by 38 to 95, 96 - facing: 3
+Rotating: Left
+Moving from 95, 96 by 11 to 89, 96 - facing: 2
+Rotating: Left
+Moving from 89, 96 by 37 to 89, 111 - facing: 1
+Rotating: Right
+Moving from 89, 111 by 50 to 69, 111 - facing: 2
+Rotating: Left
+Moving from 69, 111 by 48 to 69, 123 - facing: 1
+Rotating: Right
+Moving from 69, 123 by 43 to 66, 123 - facing: 2
+Rotating: Right
+Moving from 66, 123 by 17 to 66, 108 - facing: 3
+Rotating: Left
+Moving from 66, 108 by 31 to 60, 108 - facing: 2
+Rotating: Left
+Moving from 60, 108 by 41 to 60, 109 - facing: 1
+Rotating: Right
+Moving from 60, 109 by 38 to 57, 109 - facing: 2
+Rotating: Left
+Moving from 57, 109 by 31 to 57, 113 - facing: 1
+Rotating: Right
+Moving from 57, 113 by 19 to 56, 113 - facing: 2
+Rotating: Right
+Moving from 56, 113 by 11 to 56, 110 - facing: 3
+Rotating: Right
+Moving from 56, 110 by 41 to 59, 110 - facing: 0
+Rotating: Left
+Moving from 59, 110 by 46 to 59, 109 - facing: 3
+Rotating: Left
+Moving from 59, 109 by 12 to 57, 109 - facing: 2
+Rotating: Left
+Moving from 57, 109 by 14 to 57, 113 - facing: 1
+Rotating: Left
+Moving from 57, 113 by 45 to 61, 113 - facing: 0
+Rotating: Right
+Moving from 61, 113 by 24 to 61, 121 - facing: 1
+Rotating: Right
+Moving from 61, 121 by 33 to 60, 121 - facing: 2
+Rotating: Right
+Moving from 60, 121 by 23 to 60, 111 - facing: 3
+Rotating: Left
+Moving from 60, 111 by 25 to 52, 111 - facing: 2
+Rotating: Left
+Moving from 52, 111 by 16 to 52, 111 - facing: 1
+Rotating: Right
+Moving from 52, 111 by 7 to 52, 111 - facing: 2
+Rotating: Right
+Moving from 52, 111 by 24 to 52, 109 - facing: 3
+Rotating: Right
+Moving from 52, 109 by 39 to 55, 109 - facing: 0
+Rotating: Left
+Moving from 55, 109 by 21 to 55, 108 - facing: 3
+Rotating: Right
+Moving from 55, 108 by 18 to 58, 108 - facing: 0
+Rotating: Left
+Moving from 58, 108 by 31 to 58, 86 - facing: 3
+Rotating: Right
+Moving from 58, 86 by 33 to 65, 86 - facing: 0
+Rotating: Left
+Moving from 65, 86 by 49 to 65, 80 - facing: 3
+Rotating: Right
+Moving from 65, 80 by 4 to 69, 80 - facing: 0
+Rotating: Left
+Moving from 69, 80 by 33 to 69, 73 - facing: 3
+Rotating: Left
+Moving from 69, 73 by 32 to 23, 101 - facing: 1
+Rotating: Left
+Moving from 23, 101 by 3 to 25, 101 - facing: 0
+Rotating: Right
+Moving from 25, 101 by 29 to 25, 101 - facing: 1
+Rotating: Left
+Moving from 25, 101 by 37 to 25, 101 - facing: 0
+Rotating: Left
+Moving from 25, 101 by 40 to 58, 75 - facing: 0
+Rotating: Right
+Moving from 58, 75 by 4 to 58, 79 - facing: 1
+Rotating: Left
+Moving from 58, 79 by 33 to 63, 79 - facing: 0
+Rotating: Left
+Moving from 63, 79 by 16 to 63, 69 - facing: 3
+Rotating: Left
+Moving from 63, 69 by 9 to 60, 69 - facing: 2
+Rotating: Right
+Moving from 60, 69 by 7 to 60, 62 - facing: 3
+Rotating: Right
+Moving from 60, 62 by 30 to 63, 62 - facing: 0
+Rotating: Right
+Moving from 63, 62 by 34 to 63, 63 - facing: 1
+Rotating: Left
+Moving from 63, 63 by 37 to 84, 63 - facing: 0
+Rotating: Right
+Moving from 84, 63 by 13 to 84, 70 - facing: 1
+Rotating: Right
+Moving from 84, 70 by 8 to 80, 70 - facing: 2
+Rotating: Left
+Moving from 80, 70 by 50 to 80, 102 - facing: 1
+Rotating: Left
+Moving from 80, 102 by 4 to 84, 102 - facing: 0
+Rotating: Right
+Moving from 84, 102 by 49 to 84, 121 - facing: 1
+Rotating: Right
+Moving from 84, 121 by 50 to 68, 121 - facing: 2
+Rotating: Left
+Moving from 68, 121 by 17 to 68, 127 - facing: 1
+Rotating: Left
+Moving from 68, 127 by 50 to 78, 127 - facing: 0
+Rotating: Left
+Moving from 78, 127 by 2 to 78, 126 - facing: 3
+Rotating: Right
+Moving from 78, 126 by 11 to 88, 126 - facing: 0
+Rotating: Left
+Moving from 88, 126 by 32 to 88, 124 - facing: 3
+Rotating: Left
+Moving from 88, 124 by 34 to 81, 124 - facing: 2
+Rotating: Left
+Moving from 81, 124 by 21 to 81, 127 - facing: 1
+Rotating: Right
+Moving from 81, 127 by 6 to 80, 127 - facing: 2
+Rotating: Left
+Moving from 80, 127 by 49 to 80, 132 - facing: 1
+Rotating: Left
+Moving from 80, 132 by 16 to 80, 132 - facing: 0
+Rotating: Right
+Moving from 80, 132 by 46 to 80, 132 - facing: 1
+Rotating: Right
+Moving from 80, 132 by 27 to 77, 132 - facing: 2
+Rotating: Right
+Moving from 77, 132 by 25 to 77, 126 - facing: 3
+Rotating: Right
+Moving from 77, 126 by 14 to 88, 126 - facing: 0
+Rotating: Right
+Moving from 88, 126 by 35 to 88, 137 - facing: 1
+Rotating: Left
+Moving from 88, 137 by 46 to 148, 12 - facing: 2
+Rotating: Right
+Moving from 148, 12 by 21 to 148, 11 - facing: 3
+Rotating: Right
+Moving from 148, 11 by 5 to 96, 138 - facing: 2
+Rotating: Right
+Moving from 96, 138 by 43 to 96, 107 - facing: 3
+Rotating: Right
+Moving from 96, 107 by 16 to 137, 42 - facing: 2
+Rotating: Right
+Moving from 137, 42 by 28 to 137, 41 - facing: 3
+Rotating: Right
+Moving from 137, 41 by 43 to 93, 108 - facing: 2
+Rotating: Left
+Moving from 93, 108 by 4 to 93, 112 - facing: 1
+Rotating: Left
+Moving from 93, 112 by 24 to 149, 37 - facing: 2
+Rotating: Left
+Moving from 149, 37 by 26 to 149, 38 - facing: 1
+Rotating: Left
+Moving from 149, 38 by 2 to 98, 111 - facing: 2
+Rotating: Right
+Moving from 98, 111 by 26 to 98, 110 - facing: 3
+Rotating: Right
+Moving from 98, 110 by 15 to 99, 110 - facing: 0
+Rotating: Right
+Moving from 99, 110 by 41 to 99, 126 - facing: 1
+Rotating: Left
+Moving from 99, 126 by 2 to 148, 23 - facing: 2
+Rotating: Right
+Moving from 148, 23 by 37 to 148, 11 - facing: 3
+Rotating: Left
+Moving from 148, 11 by 33 to 141, 11 - facing: 2
+Rotating: Left
+Moving from 141, 11 by 6 to 141, 17 - facing: 1
+Rotating: Right
+Moving from 141, 17 by 37 to 140, 17 - facing: 2
+Rotating: Left
+Moving from 140, 17 by 39 to 140, 25 - facing: 1
+Rotating: Right
+Moving from 140, 25 by 29 to 139, 25 - facing: 2
+Rotating: Left
+Moving from 139, 25 by 43 to 139, 28 - facing: 1
+Rotating: Right
+Moving from 139, 28 by 34 to 128, 28 - facing: 2
+Rotating: Right
+Moving from 128, 28 by 14 to 128, 15 - facing: 3
+Rotating: Left
+Moving from 128, 15 by 28 to 125, 15 - facing: 2
+Rotating: Left
+Moving from 125, 15 by 14 to 125, 29 - facing: 1
+Rotating: Right
+Moving from 125, 29 by 50 to 118, 29 - facing: 2
+Rotating: Left
+Moving from 118, 29 by 48 to 118, 36 - facing: 1
+Rotating: Right
+Moving from 118, 36 by 21 to 117, 36 - facing: 2
+Rotating: Right
+Moving from 117, 36 by 32 to 117, 30 - facing: 3
+Rotating: Left
+Moving from 117, 30 by 4 to 113, 30 - facing: 2
+Rotating: Left
+Moving from 113, 30 by 7 to 113, 37 - facing: 1
+Rotating: Left
+Moving from 113, 37 by 47 to 117, 37 - facing: 0
+Rotating: Right
+Moving from 117, 37 by 26 to 88, 67 - facing: 2
+Rotating: Right
+Moving from 88, 67 by 34 to 88, 57 - facing: 3
+Rotating: Right
+Moving from 88, 57 by 16 to 88, 57 - facing: 0
+Rotating: Right
+Moving from 88, 57 by 47 to 88, 69 - facing: 1
+Rotating: Right
+Moving from 88, 69 by 19 to 81, 69 - facing: 2
+Rotating: Left
+Moving from 81, 69 by 11 to 81, 70 - facing: 1
+Rotating: Right
+Moving from 81, 70 by 19 to 80, 70 - facing: 2
+Rotating: Right
+Moving from 80, 70 by 40 to 80, 70 - facing: 3
+Rotating: Left
+Moving from 80, 70 by 24 to 80, 70 - facing: 2
+Rotating: Right
+Moving from 80, 70 by 47 to 80, 70 - facing: 3
+Rotating: Left
+Moving from 80, 70 by 8 to 80, 70 - facing: 2
+Rotating: Left
+Moving from 80, 70 by 13 to 80, 83 - facing: 1
+Rotating: Right
+Moving from 80, 83 by 47 to 57, 83 - facing: 2
+Rotating: Right
+Moving from 57, 83 by 10 to 57, 79 - facing: 3
+Rotating: Right
+Moving from 57, 79 by 43 to 63, 79 - facing: 0
+Rotating: Left
+Moving from 63, 79 by 23 to 63, 69 - facing: 3
+Rotating: Left
+Moving from 63, 69 by 10 to 60, 69 - facing: 2
+Rotating: Left
+Moving from 60, 69 by 34 to 60, 76 - facing: 1
+Rotating: Left
+Moving from 60, 76 by 1 to 61, 76 - facing: 0
+Rotating: Right
+Moving from 61, 76 by 27 to 61, 77 - facing: 1
+Rotating: Right
+Moving from 61, 77 by 15 to 61, 77 - facing: 2
+Rotating: Left
+Moving from 61, 77 by 32 to 61, 77 - facing: 1
+Rotating: Left
+Moving from 61, 77 by 40 to 76, 77 - facing: 0
+Rotating: Left
+Moving from 76, 77 by 18 to 76, 70 - facing: 3
+Rotating: Left
+Moving from 76, 70 by 40 to 62, 70 - facing: 2
+Rotating: Left
+Moving from 62, 70 by 45 to 62, 77 - facing: 1
+Rotating: Right
+Moving from 62, 77 by 41 to 61, 77 - facing: 2
+Rotating: Left
+Moving from 61, 77 by 50 to 61, 77 - facing: 1
+Rotating: Left
+Moving from 61, 77 by 28 to 76, 77 - facing: 0
+Rotating: Right
+Moving from 76, 77 by 9 to 76, 86 - facing: 1
+Rotating: Left
+Moving from 76, 86 by 9 to 84, 86 - facing: 0
+Rotating: Left
+Moving from 84, 86 by 41 to 84, 75 - facing: 3
+Rotating: Right
+Moving from 84, 75 by 19 to 97, 75 - facing: 0
+Rotating: Right
+Moving from 97, 75 by 6 to 97, 81 - facing: 1
+Rotating: Left
+Moving from 97, 81 by 26 to 99, 81 - facing: 0
+Rotating: Right
+Moving from 99, 81 by 45 to 99, 94 - facing: 1
+Rotating: Right
+Moving from 99, 94 by 5 to 99, 94 - facing: 2
+Rotating: Right
+Moving from 99, 94 by 49 to 99, 70 - facing: 3
+Rotating: Right
+Moving from 99, 70 by 21 to 120, 49 - facing: 3
+Rotating: Right
+Moving from 120, 49 by 45 to 121, 49 - facing: 0
+Rotating: Left
+Moving from 121, 49 by 21 to 121, 28 - facing: 3
+Rotating: Left
+Moving from 121, 28 by 48 to 118, 28 - facing: 2
+Rotating: Right
+Moving from 118, 28 by 5 to 118, 28 - facing: 3
+Rotating: Right
+Moving from 118, 28 by 43 to 126, 28 - facing: 0
+Rotating: Left
+Moving from 126, 28 by 25 to 126, 19 - facing: 3
+Rotating: Left
+Moving from 126, 19 by 44 to 124, 19 - facing: 2
+Rotating: Left
+Moving from 124, 19 by 15 to 124, 20 - facing: 1
+Rotating: Left
+Moving from 124, 20 by 4 to 128, 20 - facing: 0
+Rotating: Right
+Moving from 128, 20 by 46 to 128, 38 - facing: 1
+Rotating: Right
+Moving from 128, 38 by 45 to 116, 38 - facing: 2
+Rotating: Right
+Moving from 116, 38 by 35 to 116, 37 - facing: 3
+Rotating: Left
+Moving from 116, 37 by 8 to 108, 37 - facing: 2
+Rotating: Right
+Moving from 108, 37 by 21 to 108, 22 - facing: 3
+Rotating: Right
+Moving from 108, 22 by 33 to 115, 22 - facing: 0
+Rotating: Right
+Moving from 115, 22 by 10 to 115, 23 - facing: 1
+Rotating: Left
+Moving from 115, 23 by 7 to 121, 23 - facing: 0
+Rotating: Left
+Moving from 121, 23 by 5 to 121, 23 - facing: 3
+Rotating: Right
+Moving from 121, 23 by 22 to 121, 23 - facing: 0
+Rotating: Right
+Moving from 121, 23 by 12 to 121, 26 - facing: 1
+Rotating: Right
+Moving from 121, 26 by 10 to 111, 26 - facing: 2
+Rotating: Left
+Moving from 111, 26 by 28 to 111, 26 - facing: 1
+Rotating: Right
+Moving from 111, 26 by 43 to 111, 26 - facing: 2
+Rotating: Left
+Moving from 111, 26 by 49 to 111, 26 - facing: 1
+Rotating: Left
+Moving from 111, 26 by 33 to 131, 26 - facing: 0
+Rotating: Right
+Moving from 131, 26 by 28 to 131, 29 - facing: 1
+Rotating: Right
+Moving from 131, 29 by 12 to 119, 29 - facing: 2
+Rotating: Left
+Moving from 119, 29 by 3 to 119, 32 - facing: 1
+Rotating: Left
+Moving from 119, 32 by 24 to 128, 32 - facing: 0
+Rotating: Left
+Moving from 128, 32 by 21 to 128, 15 - facing: 3
+Rotating: Left
+Moving from 128, 15 by 28 to 125, 15 - facing: 2
+Rotating: Right
+Moving from 125, 15 by 7 to 125, 8 - facing: 3
+Rotating: Left
+Moving from 125, 8 by 1 to 124, 8 - facing: 2
+Rotating: Left
+Moving from 124, 8 by 42 to 124, 14 - facing: 1
+Rotating: Left
+Moving from 124, 14 by 12 to 127, 14 - facing: 0
+Rotating: Left
+Moving from 127, 14 by 50 to 127, 10 - facing: 3
+Rotating: Right
+Moving from 127, 10 by 26 to 128, 10 - facing: 0
+Rotating: Left
+Moving from 128, 10 by 28 to 128, 13 - facing: 1
+Rotating: Left
+Moving from 128, 13 by 19 to 138, 13 - facing: 0
+Rotating: Left
+Moving from 138, 13 by 3 to 138, 10 - facing: 3
+Rotating: Right
+Moving from 138, 10 by 39 to 147, 10 - facing: 0
+Rotating: Right
+Moving from 147, 10 by 10 to 147, 11 - facing: 1
+Rotating: Right
+Moving from 147, 11 by 27 to 141, 11 - facing: 2
+Rotating: Left
+Moving from 141, 11 by 17 to 141, 28 - facing: 1
+Rotating: Right
+Moving from 141, 28 by 16 to 128, 28 - facing: 2
+Rotating: Left
+Moving from 128, 28 by 12 to 128, 38 - facing: 1
+Rotating: Right
+Moving from 128, 38 by 36 to 116, 38 - facing: 2
+Rotating: Left
+Moving from 116, 38 by 22 to 116, 45 - facing: 1
+Rotating: Left
+Moving from 116, 45 by 40 to 124, 45 - facing: 0
+Rotating: Left
+Moving from 124, 45 by 38 to 124, 40 - facing: 3
+Rotating: Left
+Moving from 124, 40 by 30 to 107, 40 - facing: 2
+Rotating: Right
+Moving from 107, 40 by 16 to 107, 37 - facing: 3
+Rotating: Right
+Moving from 107, 37 by 10 to 117, 37 - facing: 0
+Rotating: Left
+Moving from 117, 37 by 2 to 117, 35 - facing: 3
+Rotating: Right
+Moving from 117, 35 by 39 to 135, 35 - facing: 0
+Rotating: Right
+Moving from 135, 35 by 18 to 135, 42 - facing: 1
+Rotating: Left
+Moving from 135, 42 by 20 to 95, 107 - facing: 2
+Rotating: Left
+Moving from 95, 107 by 24 to 95, 127 - facing: 1
+Rotating: Right
+Moving from 95, 127 by 11 to 94, 127 - facing: 2
+Rotating: Right
+Moving from 94, 127 by 14 to 94, 121 - facing: 3
+Rotating: Right
+Moving from 94, 121 by 8 to 147, 28 - facing: 2
+Rotating: Right
+Moving from 147, 28 by 37 to 147, 13 - facing: 3
+Rotating: Right
+Moving from 147, 13 by 45 to 81, 136 - facing: 2
+Rotating: Right
+Moving from 81, 136 by 16 to 81, 133 - facing: 3
+Rotating: Right
+Moving from 81, 133 by 33 to 83, 133 - facing: 0
+Rotating: Left
+Moving from 83, 133 by 29 to 83, 104 - facing: 3
+Rotating: Right
+Moving from 83, 104 by 2 to 85, 104 - facing: 0
+Rotating: Right
+Moving from 85, 104 by 27 to 85, 107 - facing: 1
+Rotating: Left
+Moving from 85, 107 by 8 to 89, 107 - facing: 0
+Rotating: Right
+Moving from 89, 107 by 22 to 89, 111 - facing: 1
+Rotating: Right
+Moving from 89, 111 by 15 to 74, 111 - facing: 2
+Rotating: Right
+Moving from 74, 111 by 21 to 74, 91 - facing: 3
+Rotating: Left
+Moving from 74, 91 by 26 to 74, 91 - facing: 2
+Rotating: Left
+Moving from 74, 91 by 14 to 74, 105 - facing: 1
+Rotating: Right
+Moving from 74, 105 by 40 to 58, 105 - facing: 2
+Rotating: Right
+Moving from 58, 105 by 27 to 58, 86 - facing: 3
+Rotating: Left
+Moving from 58, 86 by 50 to 58, 86 - facing: 2
+Rotating: Left
+Moving from 58, 86 by 30 to 58, 111 - facing: 1
+Rotating: Right
+Moving from 58, 111 by 24 to 52, 111 - facing: 2
+Rotating: Left
+Moving from 52, 111 by 31 to 52, 111 - facing: 1
+Rotating: Left
+Moving from 52, 111 by 9 to 61, 111 - facing: 0
+Rotating: Left
+Moving from 61, 111 by 9 to 61, 102 - facing: 3
+Rotating: Right
+Moving from 61, 102 by 31 to 65, 102 - facing: 0
+Rotating: Right
+Moving from 65, 102 by 49 to 65, 122 - facing: 1
+Rotating: Left
+Moving from 65, 122 by 21 to 73, 122 - facing: 0
+Rotating: Right
+Moving from 73, 122 by 42 to 73, 128 - facing: 1
+Rotating: Left
+Moving from 73, 128 by 19 to 80, 128 - facing: 0
+Rotating: Left
+Moving from 80, 128 by 19 to 80, 126 - facing: 3
+Rotating: Left
+Moving from 80, 126 by 5 to 76, 126 - facing: 2
+Rotating: Right
+Moving from 76, 126 by 24 to 76, 126 - facing: 3
+Rotating: Left
+Moving from 76, 126 by 34 to 76, 126 - facing: 2
+Rotating: Right
+Moving from 76, 126 by 47 to 76, 126 - facing: 3
+Rotating: Right
+Moving from 76, 126 by 6 to 82, 126 - facing: 0
+Rotating: Right
+Moving from 82, 126 by 25 to 82, 130 - facing: 1
+Rotating: Right
+Moving from 82, 130 by 21 to 79, 130 - facing: 2
+Rotating: Right
+Moving from 79, 130 by 15 to 79, 128 - facing: 3
+Rotating: Right
+Moving from 79, 128 by 24 to 80, 128 - facing: 0
+Rotating: Right
+Moving from 80, 128 by 43 to 80, 132 - facing: 1
+Rotating: Right
+Moving from 80, 132 by 25 to 77, 132 - facing: 2
+Rotating: Left
+Moving from 77, 132 by 4 to 77, 134 - facing: 1
+Rotating: Right
+Moving from 77, 134 by 14 to 71, 134 - facing: 2
+Rotating: Right
+Moving from 71, 134 by 9 to 71, 131 - facing: 3
+Rotating: Left
+Moving from 71, 131 by 5 to 70, 131 - facing: 2
+Rotating: Left
+Moving from 70, 131 by 42 to 70, 132 - facing: 1
+Rotating: Left
+Moving from 70, 132 by 15 to 75, 132 - facing: 0
+Rotating: Left
+Moving from 75, 132 by 40 to 75, 127 - facing: 3
+Rotating: Right
+Moving from 75, 127 by 18 to 78, 127 - facing: 0
+Rotating: Right
+Moving from 78, 127 by 33 to 78, 129 - facing: 1
+Rotating: Left
+Moving from 78, 129 by 47 to 96, 129 - facing: 0
+Rotating: Right
+Moving from 96, 129 by 37 to 96, 140 - facing: 1
+Rotating: Right
+Moving from 96, 140 by 22 to 92, 140 - facing: 2
+Rotating: Left
+Moving from 92, 140 by 38 to 92, 140 - facing: 1
+Rotating: Right
+Moving from 92, 140 by 1 to 92, 140 - facing: 2
+Rotating: Right
+Moving from 92, 140 by 35 to 92, 134 - facing: 3
+Rotating: Right
+Moving from 92, 134 by 41 to 144, 15 - facing: 2
+Rotating: Right
+Moving from 144, 15 by 39 to 144, 15 - facing: 3
+Rotating: Left
+Moving from 144, 15 by 34 to 144, 15 - facing: 2
+Rotating: Left
+Moving from 144, 15 by 46 to 144, 47 - facing: 1
+Rotating: Left
+Moving from 144, 47 by 27 to 98, 102 - facing: 2
+Rotating: Left
+Moving from 98, 102 by 2 to 98, 104 - facing: 1
+Rotating: Right
+Moving from 98, 104 by 18 to 91, 104 - facing: 2
+Rotating: Left
+Moving from 91, 104 by 42 to 91, 113 - facing: 1
+Rotating: Right
+Moving from 91, 113 by 13 to 78, 113 - facing: 2
+Rotating: Left
+Moving from 78, 113 by 49 to 78, 114 - facing: 1
+Rotating: Right
+Moving from 78, 114 by 46 to 75, 114 - facing: 2
+Rotating: Left
+Moving from 75, 114 by 49 to 75, 125 - facing: 1
+Rotating: Left
+Moving from 75, 125 by 15 to 75, 125 - facing: 0
+Rotating: Right
+Moving from 75, 125 by 39 to 75, 125 - facing: 1
+Rotating: Right
+Moving from 75, 125 by 13 to 68, 125 - facing: 2
+Rotating: Left
+Moving from 68, 125 by 24 to 68, 127 - facing: 1
+Rotating: Right
+Moving from 68, 127 by 36 to 59, 127 - facing: 2
+Rotating: Left
+Moving from 59, 127 by 29 to 59, 135 - facing: 1
+Rotating: Left
+Moving from 59, 135 by 5 to 64, 135 - facing: 0
+Rotating: Right
+Moving from 64, 135 by 18 to 64, 139 - facing: 1
+Rotating: Right
+Moving from 64, 139 by 44 to 57, 139 - facing: 2
+Rotating: Right
+Moving from 57, 139 by 36 to 57, 115 - facing: 3
+Rotating: Right
+Moving from 57, 115 by 37 to 61, 115 - facing: 0
+Rotating: Left
+Moving from 61, 115 by 6 to 61, 109 - facing: 3
+Rotating: Right
+Moving from 61, 109 by 48 to 68, 109 - facing: 0
+Rotating: Right
+Moving from 68, 109 by 39 to 68, 110 - facing: 1
+Rotating: Left
+Moving from 68, 110 by 27 to 69, 110 - facing: 0
+Rotating: Right
+Moving from 69, 110 by 11 to 69, 121 - facing: 1
+Rotating: Right
+Moving from 69, 121 by 16 to 68, 121 - facing: 2
+Rotating: Right
+Moving from 68, 121 by 35 to 68, 121 - facing: 3
+Rotating: Left
+Moving from 68, 121 by 48 to 68, 121 - facing: 2
+Rotating: Right
+Moving from 68, 121 by 47 to 68, 121 - facing: 3
+Rotating: Right
+Moving from 68, 121 by 44 to 146, 28 - facing: 2
+Rotating: Left
+Moving from 146, 28 by 42 to 146, 48 - facing: 1
+Rotating: Right
+Moving from 146, 48 by 29 to 145, 48 - facing: 2
+Rotating: Right
+Moving from 145, 48 by 12 to 145, 40 - facing: 3
+Rotating: Left
+Moving from 145, 40 by 30 to 141, 40 - facing: 2
+Rotating: Right
+Moving from 141, 40 by 20 to 141, 33 - facing: 3
+Rotating: Left
+Moving from 141, 33 by 50 to 138, 33 - facing: 2
+Rotating: Right
+Moving from 138, 33 by 17 to 138, 33 - facing: 3
+Rotating: Left
+Moving from 138, 33 by 11 to 138, 33 - facing: 2
+Rotating: Left
+Moving from 138, 33 by 32 to 138, 37 - facing: 1
+Rotating: Right
+Moving from 138, 37 by 27 to 123, 37 - facing: 2
+Rotating: Left
+Moving from 123, 37 by 11 to 123, 48 - facing: 1
+Rotating: Left
+Moving from 123, 48 by 49 to 143, 48 - facing: 0
+Rotating: Left
+Moving from 143, 48 by 43 to 143, 34 - facing: 3
+Rotating: Left
+Moving from 143, 34 by 9 to 141, 34 - facing: 2
+Rotating: Right
+Moving from 141, 34 by 18 to 141, 33 - facing: 3
+Rotating: Right
+Moving from 141, 33 by 2 to 142, 33 - facing: 0
+Rotating: Right
+Moving from 142, 33 by 33 to 142, 36 - facing: 1
+Rotating: Left
+Moving from 142, 36 by 15 to 92, 113 - facing: 2
+Rotating: Right
+Moving from 92, 113 by 5 to 92, 109 - facing: 3
+Rotating: Right
+Moving from 92, 109 by 24 to 97, 109 - facing: 0
+Rotating: Right
+Moving from 97, 109 by 28 to 97, 122 - facing: 1
+Rotating: Right
+Moving from 97, 122 by 45 to 91, 122 - facing: 2
+Rotating: Right
+Moving from 91, 122 by 41 to 91, 121 - facing: 3
+Rotating: Right
+Moving from 91, 121 by 10 to 148, 28 - facing: 2
+Rotating: Left
+Moving from 148, 28 by 43 to 148, 30 - facing: 1
+Rotating: Right
+Moving from 148, 30 by 46 to 132, 30 - facing: 2
+Rotating: Left
+Moving from 132, 30 by 44 to 132, 48 - facing: 1
+Rotating: Left
+Moving from 132, 48 by 36 to 143, 48 - facing: 0
+Rotating: Left
+Moving from 143, 48 by 21 to 143, 34 - facing: 3
+Rotating: Right
+Moving from 143, 34 by 4 to 147, 34 - facing: 0
+Rotating: Right
+Moving from 147, 34 by 27 to 88, 97 - facing: 2
+Rotating: Left
+Moving from 88, 97 by 8 to 88, 105 - facing: 1
+Rotating: Right
+Moving from 88, 105 by 7 to 81, 105 - facing: 2
+Rotating: Right
+Moving from 81, 105 by 13 to 81, 105 - facing: 3
+Rotating: Left
+Moving from 81, 105 by 46 to 58, 105 - facing: 2
+Rotating: Right
+Moving from 58, 105 by 25 to 58, 86 - facing: 3
+Rotating: Left
+Moving from 58, 86 by 43 to 58, 86 - facing: 2
+Rotating: Left
+Moving from 58, 86 by 4 to 58, 90 - facing: 1
+Rotating: Right
+Moving from 58, 90 by 44 to 52, 90 - facing: 2
+Rotating: Right
+Moving from 52, 90 by 28 to 52, 83 - facing: 3
+Rotating: Right
+Moving from 52, 83 by 38 to 54, 83 - facing: 0
+Rotating: Left
+Moving from 54, 83 by 27 to 54, 72 - facing: 3
+Rotating: Left
+Moving from 54, 72 by 11 to 52, 72 - facing: 2
+Rotating: Right
+Moving from 52, 72 by 45 to 52, 65 - facing: 3
+Rotating: Left
+Moving from 52, 65 by 25 to 15, 105 - facing: 1
+Rotating: Right
+Moving from 15, 105 by 17 to 12, 105 - facing: 2
+Rotating: Left
+Moving from 12, 105 by 13 to 12, 115 - facing: 1
+Rotating: Right
+Moving from 12, 115 by 26 to 6, 115 - facing: 2
+Rotating: Left
+Moving from 6, 115 by 4 to 6, 117 - facing: 1
+Rotating: Left
+Moving from 6, 117 by 33 to 13, 117 - facing: 0
+Rotating: Left
+Moving from 13, 117 by 20 to 13, 104 - facing: 3
+Rotating: Right
+Moving from 13, 104 by 39 to 27, 104 - facing: 0
+Rotating: Right
+Moving from 27, 104 by 25 to 27, 125 - facing: 1
+Rotating: Left
+Moving from 27, 125 by 16 to 43, 125 - facing: 0
+Rotating: Right
+Moving from 43, 125 by 28 to 43, 141 - facing: 1
+Rotating: Right
+Moving from 43, 141 by 36 to 40, 141 - facing: 2
+Rotating: Left
+Moving from 40, 141 by 10 to 40, 144 - facing: 1
+Rotating: Left
+Moving from 40, 144 by 14 to 42, 144 - facing: 0
+Rotating: Right
+Moving from 42, 144 by 13 to 42, 157 - facing: 1
+Rotating: Left
+Moving from 42, 157 by 46 to 44, 157 - facing: 0
+Rotating: Left
+Moving from 44, 157 by 25 to 44, 156 - facing: 3
+Rotating: Left
+Moving from 44, 156 by 22 to 41, 156 - facing: 2
+Rotating: Right
+Moving from 41, 156 by 44 to 41, 143 - facing: 3
+Rotating: Right
+Moving from 41, 143 by 20 to 46, 143 - facing: 0
+Rotating: Right
+Moving from 46, 143 by 5 to 46, 148 - facing: 1
+Rotating: Left
+Moving from 46, 148 by 11 to 57, 148 - facing: 0
+Rotating: Left
+Moving from 57, 148 by 32 to 57, 116 - facing: 3
+Rotating: Left
+Moving from 57, 116 by 10 to 51, 116 - facing: 2
+Rotating: Left
+Moving from 51, 116 by 32 to 51, 116 - facing: 1
+Rotating: Right
+Moving from 51, 116 by 1 to 51, 116 - facing: 2
+Rotating: Left
+Moving from 51, 116 by 20 to 51, 116 - facing: 1
+Rotating: Right
+Moving from 51, 116 by 5 to 51, 116 - facing: 2
+Rotating: Right
+Moving from 51, 116 by 15 to 51, 112 - facing: 3
+Rotating: Left
+Moving from 51, 112 by 34 to 44, 112 - facing: 2
+Rotating: Left
+Moving from 44, 112 by 23 to 44, 135 - facing: 1
+Rotating: Right
+Moving from 44, 135 by 24 to 26, 135 - facing: 2
+Rotating: Right
+Moving from 26, 135 by 2 to 26, 133 - facing: 3
+Rotating: Right
+Moving from 26, 133 by 25 to 30, 133 - facing: 0
+Rotating: Left
+Moving from 30, 133 by 36 to 30, 125 - facing: 3
+Rotating: Right
+Moving from 30, 125 by 39 to 63, 125 - facing: 0
+Rotating: Right
+Moving from 63, 125 by 15 to 63, 132 - facing: 1
+Rotating: Left
+Moving from 63, 132 by 10 to 73, 132 - facing: 0
+Rotating: Left
+Moving from 73, 132 by 26 to 73, 130 - facing: 3
+Rotating: Left
+Moving from 73, 130 by 13 to 72, 130 - facing: 2
+Rotating: Left
+Moving from 72, 130 by 42 to 72, 136 - facing: 1
+Rotating: Left
+Moving from 72, 136 by 21 to 79, 136 - facing: 0
+Rotating: Left
+Moving from 79, 136 by 8 to 79, 135 - facing: 3
+Rotating: Left
+Moving from 79, 135 by 22 to 78, 135 - facing: 2
+Rotating: Left
+Moving from 78, 135 by 9 to 78, 144 - facing: 1
+Rotating: Left
+Moving from 78, 144 by 25 to 82, 144 - facing: 0
+Rotating: Right
+Moving from 82, 144 by 9 to 49, 179 - facing: 3
+Rotating: Right
+Moving from 49, 179 by 3 to 79, 147 - facing: 3
+Rotating: Right
+Moving from 79, 147 by 40 to 93, 147 - facing: 0
+Rotating: Right
+Moving from 93, 147 by 50 to 49, 185 - facing: 3
+Rotating: Right
+Moving from 49, 185 by 15 to 85, 135 - facing: 3
+Rotating: Right
+Moving from 85, 135 by 29 to 85, 135 - facing: 0
+Rotating: Left
+Moving from 85, 135 by 10 to 85, 132 - facing: 3
+Rotating: Left
+Moving from 85, 132 by 27 to 83, 132 - facing: 2
+Rotating: Left
+Moving from 83, 132 by 13 to 83, 141 - facing: 1
+Rotating: Left
+Moving from 83, 141 by 20 to 91, 141 - facing: 0
+Rotating: Right
+Moving from 91, 141 by 32 to 91, 148 - facing: 1
+Rotating: Right
+Moving from 91, 148 by 5 to 90, 148 - facing: 2
+Rotating: Right
+Moving from 90, 148 by 4 to 90, 144 - facing: 3
+Rotating: Left
+Moving from 90, 144 by 2 to 88, 144 - facing: 2
+Rotating: Right
+Moving from 88, 144 by 11 to 88, 143 - facing: 3
+Rotating: Left
+Moving from 88, 143 by 25 to 72, 143 - facing: 2
+Rotating: Left
+Moving from 72, 143 by 29 to 72, 143 - facing: 1
+Rotating: Left
+Moving from 72, 143 by 22 to 89, 143 - facing: 0
+Rotating: Left
+Moving from 89, 143 by 5 to 89, 138 - facing: 3
+Rotating: Left
+Moving from 89, 138 by 6 to 89, 138 - facing: 2
+Rotating: Right
+Moving from 89, 138 by 22 to 89, 127 - facing: 3
+Rotating: Right
+Moving from 89, 127 by 49 to 92, 127 - facing: 0
+Rotating: Right
+Moving from 92, 127 by 18 to 92, 131 - facing: 1
+Rotating: Left
+Moving from 92, 131 by 24 to 146, 18 - facing: 2
+Rotating: Left
+Moving from 146, 18 by 45 to 146, 48 - facing: 1
+Rotating: Left
+Moving from 146, 48 by 40 to 63, 101 - facing: 2
+Rotating: Right
+Moving from 63, 101 by 4 to 63, 97 - facing: 3
+Rotating: Left
+Moving from 63, 97 by 3 to 60, 97 - facing: 2
+Rotating: Left
+Moving from 60, 97 by 41 to 60, 99 - facing: 1
+Rotating: Left
+Moving from 60, 99 by 12 to 64, 99 - facing: 0
+Rotating: Left
+Moving from 64, 99 by 8 to 64, 92 - facing: 3
+Rotating: Right
+Moving from 64, 92 by 5 to 69, 92 - facing: 0
+Rotating: Left
+Moving from 69, 92 by 29 to 69, 83 - facing: 3
+Rotating: Left
+Moving from 69, 83 by 26 to 57, 83 - facing: 2
+Rotating: Right
+Moving from 57, 83 by 22 to 57, 79 - facing: 3
+Rotating: Left
+Moving from 57, 79 by 40 to 29, 107 - facing: 1
+Rotating: Right
+Moving from 29, 107 by 20 to 23, 107 - facing: 2
+Rotating: Left
+Moving from 23, 107 by 7 to 23, 114 - facing: 1
+Rotating: Left
+Moving from 23, 114 by 6 to 29, 114 - facing: 0
+Rotating: Left
+Moving from 29, 114 by 18 to 29, 109 - facing: 3
+Rotating: Right
+Moving from 29, 109 by 39 to 37, 109 - facing: 0
+Rotating: Right
+Moving from 37, 109 by 24 to 37, 117 - facing: 1
+Rotating: Right
+Moving from 37, 117 by 22 to 30, 117 - facing: 2
+Rotating: Left
+Moving from 30, 117 by 9 to 30, 118 - facing: 1
+Rotating: Left
+Moving from 30, 118 by 41 to 36, 118 - facing: 0
+Rotating: Left
+Moving from 36, 118 by 32 to 36, 117 - facing: 3
+Rotating: Left
+Moving from 36, 117 by 30 to 30, 117 - facing: 2
+Rotating: Left
+Moving from 30, 117 by 21 to 30, 118 - facing: 1
+Rotating: Left
+Moving from 30, 118 by 15 to 36, 118 - facing: 0
+Rotating: Right
+Moving from 36, 118 by 10 to 36, 121 - facing: 1
+Rotating: Right
+Moving from 36, 121 by 32 to 35, 121 - facing: 2
+Rotating: Right
+Moving from 35, 121 by 31 to 35, 107 - facing: 3
+Rotating: Left
+Moving from 35, 107 by 31 to 34, 107 - facing: 2
+Rotating: Right
+Moving from 34, 107 by 8 to 50, 84 - facing: 0
+Rotating: Left
+Moving from 50, 84 by 5 to 50, 79 - facing: 3
+Rotating: Right
+Moving from 50, 79 by 3 to 53, 79 - facing: 0
+Rotating: Right
+Moving from 53, 79 by 5 to 53, 84 - facing: 1
+Rotating: Right
+Moving from 53, 84 by 41 to 34, 120 - facing: 1
+Rotating: Right
+Moving from 34, 120 by 48 to 22, 120 - facing: 2
+Rotating: Right
+Moving from 22, 120 by 16 to 22, 113 - facing: 3
+Rotating: Left
+Moving from 22, 113 by 35 to 19, 113 - facing: 2
+Rotating: Right
+Moving from 19, 113 by 37 to 19, 113 - facing: 3
+Rotating: Left
+Moving from 19, 113 by 33 to 19, 113 - facing: 2
+Rotating: Right
+Moving from 19, 113 by 9 to 19, 113 - facing: 3
+Rotating: Right
+Moving from 19, 113 by 27 to 46, 113 - facing: 0
+Rotating: Right
+Moving from 46, 113 by 25 to 46, 115 - facing: 1
+Rotating: Left
+Moving from 46, 115 by 4 to 50, 115 - facing: 0
+Rotating: Left
+Moving from 50, 115 by 15 to 50, 100 - facing: 3
+Rotating: Left
+Moving from 50, 100 by 34 to 44, 100 - facing: 2
+Rotating: Left
+Moving from 44, 100 by 18 to 44, 101 - facing: 1
+Rotating: Left
+Moving from 44, 101 by 45 to 51, 101 - facing: 0
+Rotating: Right
+Moving from 51, 101 by 22 to 51, 110 - facing: 1
+Rotating: Left
+Moving from 51, 110 by 22 to 59, 110 - facing: 0
+Rotating: Left
+Moving from 59, 110 by 32 to 59, 109 - facing: 3
+Rotating: Right
+Moving from 59, 109 by 31 to 68, 109 - facing: 0
+Rotating: Left
+Moving from 68, 109 by 32 to 68, 103 - facing: 3
+Rotating: Right
+Moving from 68, 103 by 41 to 69, 103 - facing: 0
+Rotating: Left
+Moving from 69, 103 by 10 to 69, 103 - facing: 3
+Rotating: Right
+Moving from 69, 103 by 41 to 69, 103 - facing: 0
+Rotating: Right
+Moving from 69, 103 by 45 to 69, 108 - facing: 1
+Rotating: Right
+Moving from 69, 108 by 34 to 60, 108 - facing: 2
+Rotating: Right
+Moving from 60, 108 by 36 to 60, 101 - facing: 3
+Rotating: Right
+Moving from 60, 101 by 20 to 80, 101 - facing: 0
+Rotating: Left
+Moving from 80, 101 by 46 to 80, 70 - facing: 3
+Rotating: Left
+Moving from 80, 70 by 40 to 80, 70 - facing: 2
+Rotating: Left
+Moving from 80, 70 by 37 to 80, 102 - facing: 1
+Rotating: Left
+Moving from 80, 102 by 22 to 96, 102 - facing: 0
+Rotating: Left
+Moving from 96, 102 by 21 to 96, 86 - facing: 3
+Rotating: Right
+Moving from 96, 86 by 8 to 136, 45 - facing: 3
+Rotating: Right
+Moving from 136, 45 by 23 to 91, 104 - facing: 2
+Rotating: Right
+Moving from 91, 104 by 50 to 91, 84 - facing: 3
+Rotating: Right
+Moving from 91, 84 by 32 to 134, 40 - facing: 3
+Rotating: Left
+Moving from 134, 40 by 40 to 107, 40 - facing: 2
+Rotating: Right
+Moving from 107, 40 by 24 to 107, 37 - facing: 3
+Rotating: Right
+Moving from 107, 37 by 43 to 117, 37 - facing: 0
+Rotating: Left
+Moving from 117, 37 by 47 to 117, 30 - facing: 3
+Rotating: Left
+Moving from 117, 30 by 36 to 107, 30 - facing: 2
+Rotating: Left
+Moving from 107, 30 by 46 to 107, 33 - facing: 1
+Rotating: Left
+Moving from 107, 33 by 19 to 119, 33 - facing: 0
+Rotating: Right
+Moving from 119, 33 by 1 to 119, 34 - facing: 1
+Rotating: Left
+Moving from 119, 34 by 23 to 123, 34 - facing: 0
+Rotating: Right
+Moving from 123, 34 by 48 to 67, 73 - facing: 2
+Rotating: Left
+Moving from 67, 73 by 25 to 67, 89 - facing: 1
+Rotating: Left
+Moving from 67, 89 by 8 to 74, 89 - facing: 0
+Rotating: Right
+Moving from 74, 89 by 5 to 74, 89 - facing: 1
+Rotating: Right
+Moving from 74, 89 by 21 to 53, 89 - facing: 2
+Rotating: Left
+Moving from 53, 89 by 13 to 53, 90 - facing: 1
+Rotating: Right
+Moving from 53, 90 by 27 to 52, 90 - facing: 2
+Rotating: Right
+Moving from 52, 90 by 28 to 52, 83 - facing: 3
+Rotating: Left
+Moving from 52, 83 by 14 to 33, 106 - facing: 1
+Rotating: Right
+Moving from 33, 106 by 12 to 25, 106 - facing: 2
+Rotating: Right
+Moving from 25, 106 by 49 to 25, 103 - facing: 3
+Rotating: Left
+Moving from 25, 103 by 31 to 14, 103 - facing: 2
+Rotating: Left
+Moving from 14, 103 by 22 to 14, 106 - facing: 1
+Rotating: Left
+Moving from 14, 106 by 19 to 14, 106 - facing: 0
+Rotating: Right
+Moving from 14, 106 by 8 to 14, 106 - facing: 1
+Rotating: Right
+Moving from 14, 106 by 41 to 5, 106 - facing: 2
+Rotating: Left
+Moving from 5, 106 by 14 to 5, 114 - facing: 1
+Rotating: Right
+Moving from 5, 114 by 3 to 2, 114 - facing: 2
+Rotating: Right
+Moving from 2, 114 by 45 to 2, 101 - facing: 3
+Rotating: Left
+Moving from 2, 101 by 49 to 74, 48 - facing: 0
+Rotating: Left
+Moving from 74, 48 by 15 to 74, 33 - facing: 3
+Rotating: Left
+Moving from 74, 33 by 3 to 71, 33 - facing: 2
+Rotating: Left
+Moving from 71, 33 by 6 to 71, 39 - facing: 1
+Rotating: Left
+Moving from 71, 39 by 48 to 80, 39 - facing: 0
+Rotating: Right
+Moving from 80, 39 by 9 to 80, 48 - facing: 1
+Rotating: Left
+Moving from 80, 48 by 14 to 93, 48 - facing: 0
+Rotating: Left
+Moving from 93, 48 by 11 to 93, 44 - facing: 3
+Rotating: Right
+Moving from 93, 44 by 44 to 96, 44 - facing: 0
+Rotating: Left
+Moving from 96, 44 by 31 to 96, 43 - facing: 3
+Rotating: Right
+Moving from 96, 43 by 35 to 107, 43 - facing: 0
+Rotating: Left
+Moving from 107, 43 by 25 to 107, 37 - facing: 3
+Rotating: Left
+Moving from 107, 37 by 47 to 101, 37 - facing: 2
+Rotating: Right
+Moving from 101, 37 by 6 to 101, 35 - facing: 3
+Rotating: Right
+Moving from 101, 35 by 29 to 130, 35 - facing: 0
+Rotating: Right
+Moving from 130, 35 by 35 to 83, 80 - facing: 2
+Rotating: Right
+Moving from 83, 80 by 49 to 83, 80 - facing: 3
+Rotating: Left
+Moving from 83, 80 by 16 to 83, 80 - facing: 2
+Rotating: Left
+Moving from 83, 80 by 38 to 83, 80 - facing: 1
+Rotating: Left
+Moving from 83, 80 by 7 to 90, 80 - facing: 0
+Rotating: Left
+Moving from 90, 80 by 2 to 90, 78 - facing: 3
+Rotating: Right
+Moving from 90, 78 by 8 to 90, 78 - facing: 0
+Rotating: Right
+Moving from 90, 78 by 50 to 90, 82 - facing: 1
+Rotating: Right
+Moving from 90, 82 by 50 to 90, 82 - facing: 2
+Rotating: Left
+Moving from 90, 82 by 22 to 90, 82 - facing: 1
+Rotating: Left
+Moving from 90, 82 by 30 to 99, 82 - facing: 0
+Rotating: Left
+Moving from 99, 82 by 38 to 99, 70 - facing: 3
+Rotating: Right
+Moving from 99, 70 by 38 to 120, 49 - facing: 3
+Rotating: Left
+Moving from 120, 49 by 3 to 117, 49 - facing: 2
+Rotating: Right
+Moving from 117, 49 by 28 to 117, 30 - facing: 3
+Rotating: Left
+Moving from 117, 30 by 14 to 107, 30 - facing: 2
+Rotating: Left
+Moving from 107, 30 by 3 to 107, 33 - facing: 1
+Rotating: Right
+Moving from 107, 33 by 12 to 107, 33 - facing: 2
+Rotating: Left
+Moving from 107, 33 by 50 to 107, 33 - facing: 1
+Rotating: Left
+Moving from 107, 33 by 18 to 119, 33 - facing: 0
+Rotating: Left
+Moving from 119, 33 by 5 to 119, 28 - facing: 3
+Rotating: Left
+Moving from 119, 28 by 6 to 118, 28 - facing: 2
+Rotating: Left
+Moving from 118, 28 by 17 to 118, 36 - facing: 1
+Rotating: Left
+Moving from 118, 36 by 35 to 118, 36 - facing: 0
+Rotating: Left
+Moving from 118, 36 by 16 to 118, 28 - facing: 3
+Rotating: Left
+Moving from 118, 28 by 36 to 118, 28 - facing: 2
+Rotating: Right
+Moving from 118, 28 by 28 to 118, 28 - facing: 3
+Rotating: Right
+Moving from 118, 28 by 5 to 123, 28 - facing: 0
+Rotating: Right
+Moving from 123, 28 by 17 to 123, 45 - facing: 1
+Rotating: Right
+Moving from 123, 45 by 29 to 111, 45 - facing: 2
+Rotating: Right
+Moving from 111, 45 by 27 to 111, 43 - facing: 3
+Rotating: Right
+Moving from 111, 43 by 20 to 131, 43 - facing: 0
+Rotating: Right
+Moving from 131, 43 by 20 to 131, 43 - facing: 1
+Rotating: Left
+Moving from 131, 43 by 23 to 134, 43 - facing: 0
+Rotating: Left
+Moving from 134, 43 by 38 to 134, 40 - facing: 3
+Rotating: Right
+Moving from 134, 40 by 44 to 136, 40 - facing: 0
+Rotating: Left
+Moving from 136, 40 by 28 to 136, 36 - facing: 3
+Rotating: Right
+Moving from 136, 36 by 6 to 142, 36 - facing: 0
+Rotating: Right
+Moving from 142, 36 by 29 to 142, 36 - facing: 1
+Rotating: Right
+Moving from 142, 36 by 5 to 137, 36 - facing: 2
+Rotating: Right
+Moving from 137, 36 by 28 to 137, 34 - facing: 3
+Rotating: Right
+Moving from 137, 34 by 1 to 138, 34 - facing: 0
+Rotating: Right
+Moving from 138, 34 by 34 to 138, 37 - facing: 1
+Rotating: Right
+Moving from 138, 37 by 2 to 136, 37 - facing: 2
+Rotating: Right
+Moving from 136, 37 by 33 to 136, 36 - facing: 3
+Rotating: Left
+Moving from 136, 36 by 49 to 135, 36 - facing: 2
+Rotating: Left
+Moving from 135, 36 by 42 to 135, 42 - facing: 1
+Rotating: Left
+Moving from 135, 42 by 11 to 146, 42 - facing: 0
+Rotating: Right
+Moving from 146, 42 by 11 to 146, 48 - facing: 1
+Rotating: Right
+Moving from 146, 48 by 17 to 145, 48 - facing: 2
+Rotating: Left
+Moving from 145, 48 by 27 to 145, 49 - facing: 1
+Rotating: Left
+Moving from 145, 49 by 25 to 145, 49 - facing: 0
+Rotating: Right
+Moving from 145, 49 by 49 to 145, 49 - facing: 1
+Rotating: Right
+Moving from 145, 49 by 48 to 141, 49 - facing: 2
+Rotating: Left
+Moving from 141, 49 by 9 to 93, 91 - facing: 2
+Rotating: Left
+Moving from 93, 91 by 19 to 93, 99 - facing: 1
+Rotating: Right
+Moving from 93, 99 by 10 to 83, 99 - facing: 2
+Rotating: Right
+Moving from 83, 99 by 1 to 83, 98 - facing: 3
+Rotating: Right
+Moving from 83, 98 by 33 to 91, 98 - facing: 0
+Rotating: Right
+Moving from 91, 98 by 27 to 91, 113 - facing: 1
+Rotating: Left
+Moving from 91, 113 by 35 to 135, 36 - facing: 2
+Rotating: Left
+Moving from 135, 36 by 35 to 135, 42 - facing: 1
+Rotating: Right
+Moving from 135, 42 by 45 to 114, 42 - facing: 2
+Rotating: Right
+Moving from 114, 42 by 13 to 114, 33 - facing: 3
+Rotating: Left
+Moving from 114, 33 by 23 to 107, 33 - facing: 2
+Rotating: Right
+Moving from 107, 33 by 14 to 107, 29 - facing: 3
+Rotating: Right
+Moving from 107, 29 by 14 to 111, 29 - facing: 0
+Rotating: Right
+Moving from 111, 29 by 50 to 111, 41 - facing: 1
+Rotating: Left
+Moving from 111, 41 by 39 to 99, 108 - facing: 2
+Rotating: Left
+Moving from 99, 108 by 10 to 99, 118 - facing: 1
+Rotating: Right
+Moving from 99, 118 by 34 to 65, 118 - facing: 2
+Rotating: Left
+Moving from 65, 118 by 33 to 65, 122 - facing: 1
+Rotating: Right
+Moving from 65, 122 by 39 to 62, 122 - facing: 2
+Rotating: Left
+Moving from 62, 122 by 42 to 62, 129 - facing: 1
+Rotating: Right
+Moving from 62, 129 by 7 to 56, 129 - facing: 2
+Rotating: Right
+Moving from 56, 129 by 16 to 56, 129 - facing: 3
+Rotating: Left
+Moving from 56, 129 by 43 to 56, 129 - facing: 2
+Rotating: Left
+Moving from 56, 129 by 38 to 56, 138 - facing: 1
+Rotating: Left
+Moving from 56, 138 by 19 to 61, 138 - facing: 0
+Rotating: Right
+Moving from 61, 138 by 8 to 61, 139 - facing: 1
+Rotating: Right
+Moving from 61, 139 by 12 to 57, 139 - facing: 2
+Rotating: Right
+Moving from 57, 139 by 37 to 57, 115 - facing: 3
+Rotating: Left
+Moving from 57, 115 by 20 to 44, 115 - facing: 2
+Rotating: Left
+Moving from 44, 115 by 2 to 44, 117 - facing: 1
+Rotating: Right
+Moving from 44, 117 by 16 to 42, 117 - facing: 2
+Rotating: Left
+Moving from 42, 117 by 32 to 42, 136 - facing: 1
+Rotating: Left
+Moving from 42, 136 by 30 to 58, 136 - facing: 0
+Rotating: Right
+Moving from 58, 136 by 24 to 58, 140 - facing: 1
+Rotating: Right
+Moving from 58, 140 by 38 to 45, 140 - facing: 2
+Rotating: Left
+Moving from 45, 140 by 45 to 45, 156 - facing: 1
+Rotating: Left
+Moving from 45, 156 by 24 to 56, 140 - facing: 3
+Rotating: Left
+Moving from 56, 140 by 19 to 45, 140 - facing: 2
+Rotating: Right
+Moving from 45, 140 by 43 to 45, 122 - facing: 3
+Rotating: Left
+Moving from 45, 122 by 19 to 37, 122 - facing: 2
+Rotating: Right
+Moving from 37, 122 by 25 to 37, 119 - facing: 3
+Rotating: Left
+Moving from 37, 119 by 41 to 34, 119 - facing: 2
+Rotating: Right
+Moving from 34, 119 by 46 to 62, 84 - facing: 0
+Rotating: Right
+Moving from 62, 84 by 48 to 62, 103 - facing: 1
+Rotating: Right
+Moving from 62, 103 by 49 to 36, 103 - facing: 2
+Rotating: Left
+Moving from 36, 103 by 36 to 36, 110 - facing: 1
+Rotating: Right
+Moving from 36, 110 by 40 to 51, 39 - facing: 0
+Rotating: Left
+Moving from 51, 39 by 12 to 51, 27 - facing: 3
+Rotating: Left
+Moving from 51, 27 by 13 to 51, 27 - facing: 2
+Rotating: Left
+Moving from 51, 27 by 29 to 51, 44 - facing: 1
+Rotating: Right
+Moving from 51, 44 by 38 to 51, 44 - facing: 2
+Rotating: Left
+Moving from 51, 44 by 27 to 51, 44 - facing: 1
+Rotating: Left
+Moving from 51, 44 by 24 to 65, 44 - facing: 0
+Rotating: Right
+Moving from 65, 44 by 45 to 65, 74 - facing: 1
+Rotating: Right
+Moving from 65, 74 by 6 to 59, 74 - facing: 2
+Rotating: Left
+Moving from 59, 74 by 20 to 59, 74 - facing: 1
+Rotating: Right
+Moving from 59, 74 by 12 to 24, 102 - facing: 1
+Rotating: Right
+Moving from 24, 102 by 7 to 24, 102 - facing: 2
+Rotating: Right
+Moving from 24, 102 by 29 to 67, 74 - facing: 0
+                                                  .#..#....x.#x....x...xx...............................xxxxxxxxx#..#........x..x#.......x...........#
+                                                  ....#....x..x.#..x...xx.##...............##...........xxx#.x..x.......#.##.x..x.#......x.....#xxxxxx
+                                                  xxxxxxxxxxxxx#...x...xx.......#.##....##xxxxxxxxx#..#.x....x..x...#...#....x..x....#...x......x....x
+                                                  .........x.#.xxxxxxxxxx#...#xxxxxxxxxxx.x.x.....x.....x#.#.x.#x#.#...#.....x..x..#.....x......x...#x
+                                                  ..#......x...x...x...xx.....x........#x.x.x.....x....#x...#x..x.......#.#..x#.x..xx#...x......x....x
+                                                  ......#..x...x...x...xx.#...x.........x.x.x.#...x...#.x....x..x.....#......x.#xxxxxxxxxx......xxxxxx
+                                                  xxxxxxxxxx.##xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx##...xxxx##x....x.#x.##.........x#.x..xx....#......#.x#.x
+                                                  .........x#....#.#...xx.x...#.........x#x.x...#.#..xxxxxxxxxxxxxxxxxxxxxxxxx..x..xx..........#..x..x
+                                                  ........#xxxxxxxxx...xx.x......#......x.x.x........#..x.#..x.#x.......#.#.xx..x..xx.............x..x
+                                                  .........x.....x.x...xx.x#....#....#.#xxxxxxxxxxxxxxxxxxx#.x..xxxxx#......xx.#x..xx....#........x..x
+                                                  .........x.....x.x...xx.x##.......#xxx#.x.x.....#..x..x.#..x..##..x..#..#.xx.xx#.xx.....xxxxxxxxxx#x
+                                                  .........x##...x#x...xx.x.#.##....xxxxxxxxxxxxxxxxxxxxx#...x.#...#x#......xx.xx..xx.....x.#xxxxxxxxx
+                                                  ......#xxxxx#..x.x...xxxx#.......#.x#x..x.#....#x..x.#xxxxxx.xxx#.x...#...xx.xx..xx.#..#x..x#...x#xx
+                                                  #......xxxxxxxxxxxxxxxxxxxxxxxxxx.#xxxxxx.......x..x.#x....#.x#x..x....#xxxxxxxxxxxxxxxxx#xxxxxxxxxx
+                                                  #......x.xx.x..x.#...x##x.......x....x..........x.#xxxx.#..xxxxxxxxxxxxxxxxxxx#..xx..#....xx..#.xxx#
+                                                  .......x.xx.x..x.#...x##x#.#....x#...x.......#..x#...x#...#x.x.x.#x.....x.#xxxxxxxxxxxxxxxxx##xxxxxx
+                                                  .......x.xx.x..x...#.x..x.......x....x.........#x....x....#x.x.x..x#..#.xxxxxxxxxx#.......xx..x.xxxx
+                                                  .#.....x.xx.x..x...#.x..x.......x....x..#.......x#...x.....x.x.x..x#....#.#xxxx..x.......#xx..x.xxx#
+                                                  xx#....x.xx.x..x....#x..x.#...#.x....x......#...x....x.....x.xxxxxxxxxxxxxxx#xxxxxxxxxxxxxxxx#x#xxxx
+                                                  ......#x#xx.x..x.#.#xxxxxxxxxxxxxxxxxxxxxxxxx...x....x....#x...x..x......#xxxxxxxx#.......xx#.x.xxx.
+                                                  ...#.#.##xx.x..x..xxxxxxxxx#....x.##.x....#.x...x.#.#x.....x...x..x..xxxxxxxxxx#.x........xx..x.xxx.
+                                                  .........xx.x.#x..x#x...xxxx####xxxxxxxxxxxxxxxxxxxxxxxxxx#xxxxxxxx..x...x#xxxx..x.....#..xx..x.xxx.
+                                                  xx#......xx.x.xx#.x.x.###.xxxxxxxxxxxxxxxxxxx#..x.x..x...xxxxxxxxx#..x.#.x.xxxx.#x........xx..x.xxx.
+                                                  xxxxxxxxxxxxxxxxx#x.x.....#x#..#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#xxxxxxxxx.....#.#xx..x.xxxx
+                                                  .x..#....xx.x.x...x.x......x....x....x....x.x...x.x..x..#xxx#..x##x..#.x#xxxxxxxxxxxxxxxxxxx..x.xxx.
+                                                  xxxxxxx#.xx#xxxxxxxxxxxxxxxx...#x....x....x.x.#.x.x..x..#xxx#..x.#xxxx.x#x.xxxx.xx......#xxx..x.xxx.
+                                                  .x..x.x..xxxx#xxxxxxx....#.#....x....x....x.x...x.x.#x..#xx.#xxxxxxxxxxxxxxxxxxxxx#......x#x..x#xxx.
+                                                  #x..x.x...x.x#x..#x.#........#..x....xxxxxxxxxxxx#xxxxxxxxx..#.x..x.#x.#.#.xxxxxxxxxxxxxxxxxxxxxxxx#
+                                                  .x.#xxxxxxxxxxxxxxx#..#..#......x......#..x.x....xxxxxxxx#xxxx#xxxx#xxxxxxxxx#xxxxxxxxxxxxxx..x#xxxx
+                                                  xxxxxx#...x.x.x...##.#...#..#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx##.#x#xxxxxxxxxxxxxxxxx.#.x#.x..x.x.x.
+                                                  .x..#xxxxxxxx#x........#.....x..x.........x.x....xx..x..#xxxxxxxxxxxxx#x.x.x#.x.x#xxxxxxxxxxxxxxxxxx
+                                                  .x...xx...x.x.x.......#......x..x#.....#..x.x#.#.xxxxxxxxxx#.x.x..xxxx.x.x.x..x.x.x.#xxxxxxxxxxxx###
+                                                  #x..#xx...x.x.x........#....#x..x..#...#xxxxxxxxxxxxxxxxxxxxxxxx#.xxxxxxxxxxxxx#x.x..x..#x.#..x.x..#
+                                                  .x.#.xx...x.x.x.#....xxxx....x#.x##.#.#.x#x.#x#...x..x..#xxxxxxxxxxxxx#x.x.#..x.x.x..xx#xxxxx#x.x...
+                                                  xxxxxxxxxxxxxxxxx##..x..x#...x..x.......xxxxxxx#..x#.x..##xx.x.xx.xxxxxxxx#..#x.x.x..#xxxx#xxxxxxx..
+                                                  .x..#xx#..x.x.x...xxxxxxxxxxxxxxxxxxxxxxxxxxxx...#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#xxx#xxxx.xx..
+                                                  #x...#x...x.x.x...x..x..x##..x..x.......xxx#xxxxxxxxxx#..#xx.x.xx.#xx#xx.x....x.x.x.#xxxxxxxxxxxxxxx
+                                                  .x....x...x.x.x...x..x..x....xxxx#..#...xxxxxx....#xxxxxxxxxxxxxxxxx#.xx#xxxxxxxxxxxxxxxxx.x#xx.xx#x
+                                                  .x#...x...x.x.x...x..x..x....x..x..#....xx..x#.....xxx...xxx.x#.x#xxxxxxxxxxxxxxxxxxxxxx#xxxxxxxxxxx
+                                                  xx#..#xxxxxxxxxxxxx##xxxxxxxxxx#x.......xx..xxxxxxxxxx#..xxx.x..xxxxx#xx.x#...#.x.x.#xxxx#.x.xx#xx.#
+                                                  xxxxxxxxxxx##.x...x.....x....xx.x##..#..xx..#xxxxxxxxxx.#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#x.#xxxxxxx.#
+                                                  xxxxxxxxxxxxx.x...x.....x...#xxxx.xxxxxxxx...x....#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                                  .x..#x......x.x#.#x.....x.#..xx.x.x.....x....x#...xxxxx#xxxx.###xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+                                                  .x.#.x....#.x#x...x.#...x....xx#x.x...#.x..#.xxxxxxxxxxxxx#x.xxxxxxxxxxxxxxxxxxxxxxxx#xxx....xxxxx..
+                                                  #xxxxxxxxxxxxxxx#xxxxxxxxxxxxxx.x.x.....x..xxxx#..xxx...xx#xxxxxxxxx...x.xx.....x#xxxxxxxxxxxxxxxxxx
+                                                  x#...x......x#xxxxx.....x...#xx#x.x.....x#.x.x...#xxx...xx..#xxxxxxxxxxxxxx#..xxxxxxxxxxxxxxxxxxxxxx
+                                                  x....x......x.xxx#x.....x....xx.x.x..#..x..x.x#..#xxxxxxxxxxxxxxxx#x...x.x#...x.x.x#xxxxx....xxxxx..
+                                                  xxxxxxxxxxxxxx#xx.x.##..x....xx.x.x....#x..x.x....x#x..#xx..x......x...x.x...#x.x.x#x.xx##...xxxxxxx
+                                                  xxxxxxxxxxxxxxxxxxxxxxxxx#.#.xxxxxxxxxxxxxxx#x....x#x...#x..x......x.##xxxxxxxxxxxxxxxxxxxxxxx#xxxxx
+                                                  x.#..x.#....xx.xx.x..x..x...#x.#x.x#....x#..#x....xxxxxxxxxxxxxxxxxxxxxx#x...##.x##.x.xx..#xxxxx#x#.
+                                                  x#...x......xx.xx.x..x.#x....#..x.xx#.#.x.#..x.#.#                                                  
+                                                  xxxxxxxx#...xx.xx.x.#xxxxxxxxx#.x.xx#...x#xxxxxxxx                                                  
+                                                  xx..#xxxxxxxxxxxxxxxxxxx#....#..x#xx....x#x..xxxxx                                                  
+                                                  xx.....xx...xx.x##x#xx......#..#xxxx....x.#..#...x                                                  
+                                                  xx#....xx...xx.x..##xxx#......#.xxxx....x.xx#....x                                                  
+                                                  x#.....xx...xx.x...xx#x....#xxxxxxxx....x.xx.#...x                                                  
+                                                  xxxx#..xx...xx.x...xx.x...#.x.x.#xxx..#.x.xx.....x                                                  
+                                                  #..x...xxxx.xx.x.#.xx.x.....x.x..#x##xx#x#xx.....x                                                  
+                                                  xx#x..#xx.x#xxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xx...#..                                                  
+                                                  xx.x...xx.x..x.x#xxxxxxxxxxxxxx.#.x..xx.x.xx......                                                  
+                                                  x#xxxxxxx.x..x.x.x.xx.x.#...x.#.#.x..#xxx.xxxxxxxx                                                  
+                                                  xxxxxxx#x.x..x.x.x#xxxxxx...x.....x..#x.#.x#..#..#                                                  
+                                                  ###x.###x.xxxx#x#x..x.x.x...x.....x...x.xxx#..#...                                                  
+                                                  xxxx....x#xxxxxxxxxxxxxxxxxxxxxxxxx##.x.x.........                                                  
+                                                  ..##....x.x..#.x.x..x.x.x.x#x.....x...x.x.........                                                  
+                                                  xxx#....xxxxxxxxxx#.x.x#x#x.x.#...x...x#x...##....                                                  
+                                                  ..x.....x.x....x....x.xxxxx#x...##x...x.x..#.#....                                                  
+                                                  ..x.....x.x..#.x....x.xxx...x..#..x#.#xxxxxxxxxxxx                                                  
+                                                  ..x.....x.x..#.x#...x#xxx...x.....x...xxxxxxxxxx#.                                                  
+                                                  .#x.....x#xxxx.x....x.xxx.#.x##xxxxxxxxxxxxx#..x.#                                                  
+                                                  #.x#....x.x#xxxxxxxxxxxxxxx.x#xxxxx...#.x..x...x.x                                                  
+                                                  ..x.#...x.x.xx.x#...x.xxx.x.x.x##.#...x#xxxxxxxxxx                                                  
+                                                  .#xxx...x.x.xx.x...#x.xxx.x#x.x##.....x.x..#...x#x                                                  
+                                                  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+                                                  xxxxxxxxxxxxxxxxxx#x#.x.x.x#x.x...#...x.#......x.x                                                  
+                                                  xxxxxxxxx#x.xx.#.x.x..x.x.x.x.x...xxxxxxxxxxxxxx#x                                                  
+                                                  ..#.x...x.xxxx.##xxxxxxxxxxxx.x...x...x........x.x                                                  
+                                                  ....x.#.x.#xxxxxxxxxxxxxxxx##.x...x.#.x........x.x                                                  
+                                                  ....x..#x..##x.#.x#x..x.x.x...x...x.#.x.x#..#..x.x                                                  
+                                                  xxxxxxxxxxxxxx##.x#x..x.x.x...x..#x...x.x......x.x                                                  
+                                                  x..xx..x....xx.xxxxx.#xxxxxx#.x.#xxxxxxxxxxxxxxxxx                                                  
+                                                  x..xx..x..xxxx.x.x....#.x#xx..x..#x...x#x##....xxx                                                  
+                                                  x.#xx..x..x.x..x.x.#....x.xx..x...x...x#xxxxxxxxxx                                                  
+                                                  xxxxx##xxxxxxxxxxxxxxxxxxxxxxxx...x..#xx##..#..x.x                                                  
+                                                  xxxxxxxxxxxxx#.x#x.x....x.xx..x...x..xxx#xxxxxxxxx                                                  
+                                                  ..x...x.#.x.x..x.x.x....x.xx..x...x..xxx.x.#x.#x.x                                                  
+                                                  ..x..#x#xxxxxxxx#x#x....x.xxxxxxxxx##xxxxxxxxxxxxx                                                  
+                                                  ..x..#x.x.x.x....xxxxxxxxxxxxxx#..#..xxxxxxxxxxxxx                                                  
+                                                  .#x.#.x.x.x.x....xxx....x..xxxxxxxxx#xxx.x.xx.xx.x                                                  
+                                                  xxxxxxxxxxxxxxxxxxxxxxxxx#.#..x....x.xxx.x.xx.xx.x                                                  
+                                                  .#xxxxxxx.x.x....#xx.#.##xxx#.x....x.xxx.x.xx#xx.x                                                  
+                                                  .#.#xxxxxxx.x.#...xx...#xx#xxxxxxxxxxxxxxx#xxxxxxx                                                  
+                                                  ....x.x.x###xxxxxxxx....x.#xx.x....x.xxx.x.xx.xx.x                                                  
+                                                  ....x#xxxxxxx.x...x.....x#xxxxxxxxxxxxxx#x.xx.xx.x                                                  
+                                                  ..#xxx.#x..xx.x...x.....x#xxxxxxxxxxxxxxxx#xxxxx#x                                                  
+                                                  xxxxxx#xxxxxx#x...x.....x..#xxxxxxxx.x#x.x.xx#x###                                                  
+                                                  xxxxxxxxxxxxxxxxxxx#....x.....x...#..x#xxxxxxxx...                                                  
+                                                  ...xx..xx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+                                                  #..xx..xx#xxxxx##.......x.....x..xxxxxxxxx#xxxx...                                                  
+                                                  xx#xx..#xxxxxxx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#.                                                  
+..##xxxxxxxxxx.x.....#.xxx...x...xx....x..##xxxxxxxx.xxxxxx.#xxxxx#.#.#...x....#x.......xx.x.#xxx#..                                                  
+xxx.x....xxxx..x#......xxx#..x...xx....x...#xxxxxxxx##x...x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+xxxxxxxxxxxxxxxxx......#x##..x...xx....x....#xxxxxxxxx#...x.xxxxxx#.##xxxxxxxxxxxxxxxxxxxxxxxxxxx#xx                                                  
+.xx.x..#.xxxx#xxxxxxxxxxxx.#.x#..xx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#...x..#..#...x...xx.x.#xxx.x#                                                  
+xxxxxxxxxxxxxxxxxxxxxxxxxxxx#x...xx.x..x......x..xxx.x##..x.xx#..x..xx....x###..###xxx..xx#xxxxxxxxx                                                  
+.xx.#..x.xx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.x.#.#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#x..#xxxxx                                                  
+.xx.#xxxxxxxxxx#x.......#xxxxxxxxxx#xxxxxxxxx#xxxxxx.x...xxxxxxxxxxxxx##..x#.......xxx...x#x...x#...                                                  
+#xx.xxxxxxxxxx##x....##xxxxxxx...#xxxx###...#.x..xxx.x.#.xx.xxxxxx#.xxxxxxx#.......xxxxxxx#x..#xxxxx                                                  
+xxxxxx#x.xx.xx..x.....#x...xx#....xxxx.#xxxxx#x#.xxx#xxxxxx#xxxxxxxxxxxxxxxx#......xx#...x.x#xxxxxxx                                                  
+xxxxxxxxxxxxxxxxxxxxxxxx#.#xxxxxxxxxxx#.x..#x.#xxxxxxxxx#xxxxxxxxxxxx#.#..xx#......xx....x.xxxxxxx#x                                                  
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.#xxxxx#.x#xxxxxxxxxxx#xxxxxxxxx#...xx.......xx.#..x#xxx.xxxxx                                                  
+.xxxxxxx.xx.xx...#.....x..#xxx....xx#x..##..x#.x.xx#xxxxxxxxxx#..xx.#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+.xxxxxx#xxx.xx..#..#..#x.#.xxx..#xxxxxxxx#.#xxxxxxxx#x#xxx#xxx...xx#.x..x..x.#.....xx.##.#.xxxxxxxxx                                                  
+.xx#xx#.x#x.xx...##xxxxxxxxxxxxxxxxxxxxxxxxxxxxx#xxx.#.#xxxxxx#..xx..x..x..x..xxxxxxxxxxxxxxxxxxxxxx                                                  
+.xxxxxx#x#xxxxxxxxxxxxxxxxxxxxxxxxxx.x..x.#.x.xx.xxx#....#.xxx.#.xx.#x..x.#xxxx....xx......#...xxx.x                                                  
+xxxxx#xxxxxxxx...x.x##xx#..x.....#xxxxxxxxx#xxxxxxxxxxxxxxxxxx#..xx..x..x#.x..#....xx..........xxx.x                                                  
+.xx...x.x...#x...x#x..xx...x......xx#x..x.x.x##xxx#xxxxxxx.xxx...xx.#x#.x..x......#xx..........xxx.x                                                  
+xxxxxxxxxxxxxx#..x.x..xx...x##xxxxxxxxxxx#xxx#...x.#.#...x.xxx..#xx..x..x..x.......xx......#...xxx.x                                                  
+#xx..##.x....x...x.x..xx...x#xxxxxxxx##.x.x#x....x...xxxxxxxxx#..xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+#xx.....x....x...x.x..xx...xxx#..#xxxxxxxxxxxxx.#xxxxxxxxxxxxxx..xx.#x..x..x.....#xxxxxxxxxxxxxxxxxx                                                  
+xxxxx#..x.#.#x...x.x.#xxxxxxxxxxxxxxxxxxxxxxxxx#.x.#xxxxxxxxxxx..xx.#x#xxxxxxxxxxxxxx......#..#xxx.x                                                  
+xxx.x...x.xxxxxxxx.x#xxxxxxxxxxxxx#xxx.xx.x.x#x..x#xxxxxxxx#xxx#.xx#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+xxx.x...x.x..x...xxxxxxxx#.xx##..x#.#xxxxxxxxxxxxxxx#xxxxxx.x#xxxxxxxxxxxx#x.....xxx#.#..##xxxxxxx.x                                                  
+xxx#x...x.x.#x##xxxxxxxxx#.xx..#.x.#.xxxxxxxxxxxxx#x.....x#.x#x..#xxxxxxxxxx#...#xxx....#..x..xxx#.x                                                  
+xxx#x...xxxx#x..##.xx..xx..xx.#..x.....#x.x.xxx..x.x.....x..x.x...x.x##xxxxx...##xxxxxxxx.#x#.xxx#.x                                                  
+xxx.x##.#.xx.x.#x.#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#.x#xxxxxxxx###.#xxx.#xxxxxxx.xxx..x                                                  
+xxxxxxxxxxxxxxxxx#.xx#.xx..#x.x..x#.....x.xxxxx.#xxx..#..x..x.xx..x.xx.xxxx#xxxxxxxxxxxxx#xxxxxxxxxx                                                  
+xxxxx#xxxxxxxxxxxxxxxxxxxxxxx#x#.x..##..xxxxxxxx#x.#.....x#xxxxxxxxxxxxxxxxxxxx#xxxx#xxxxxxxx#xxxxx#                                                  
+xxx.#....xxx.x.xxxxxxxxxxxxxxxxxxx......x#xxxxxx.x......#x.xx.xx..x.#xxxxxxxxxxxx#xx#.x.xxxxx#x#xxxx                                                  
+xxxxxxxxxxxxxxxx#x.xx.#xx..##.x...#...#.x#xxxx#x.x....##xxxxxxxx..x.#x##x#xxxxxxxxxxxxxxxxxxxxxxx#xx                                                  
+x#xxxxxxxxxx.x.x.x.xx..xx.....x......#.#x.xxxx.x.x......xx#xx.#x..x..xx#xxxxxx#xxxxx..x.xxxxxxx.x.xx                                                  
+xxxxxxxxxxx#.x.x.x.xx..xx....#x.......#.x#xxxx.x#x......xx.xx..x..x###xxxxxxxxxxx##x.#x.xxxxxxxxxxxx                                                  
+xx..x....x...x.x.x.xx#.xx.....x#.#xxxxx.x#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#xxxx##xxxxxxxxx#xx.x.xx                                                  
+xx..x....x...x.x.x#xx..xx#xxxxx#xxxxxxx#xxxxxxxxxx#.....xx.xx..#..#...#xx.xx.x..#xxx#xx.xxxx#xxxxxxx                                                  
+xx..x....x...x.x#x.xx..xx.x....xxx#..#x.x.xxxx.x.x......xx.xx......#..#xxxxxxx.#.x.x#xx#xxxxxxxxxxxx                                                  
+xxxxxxxxxxxxxxxxxxxxxxxxx#xxxxxxxxxxxxxxxxxxxx.x.x.##...xx.xxxxxx#.....xx.xx##xx.x.x.x#.xxxxxxx.x.xx                                                  
+xx..x....x...x.##xxxxxxx#......xx#xxxxxxxxxxxxxxxxxxxxxxxxx#x#..x...#.#xxxxxxxxx#xxxxxxxxxxxxxxxxxxx                                                  
+xx.#x....x..#xxxxx.#xxxxxxxxxxxxxxx...x#x##xxx.x.x.#.#..xxx.x...x....##x#.xx..x..xxxxxxxxxxxxxxxxxxx                                                  
+xxxxx#.#.x..xxxxx#.....xx..#.#.xxx#...x.x..xxx#x#x......xxxxxx#.x......x..xx..x#.#.x.xx.#xxxxxx#xxxx                                                  
+#xxxxxxxxxxxxx#.x...#..xx.###xxxxxxxxxxxxxxxxxxxxxxxxxxx#xxxxxxxx......x..xx..x..xxxxxxxxxxxxxx#x.xx                                                  
+.#..#x...x..x#..x...#..xx..#xx#x.xx#..x.x.#x#xxxxxxxxxxxxxx.x#..#.#....x..xx#.x..x.x.x...xx#xxxxxx#x                                                  
+....#xxxxx.#xxxxxxxxxxxxx...xx.x.xx#..x#xxxx#xxx.x.....xxx#.x....##....x..xx..x..xxxxxxxxxxx#xxx#x.x                                                  
+.....x...#......x.....#.x.#.xx#x.xx...x.x#x#xxxxxxxxx#.xxx..x.....xxxxxxxxxxxxxxxx##.x..#xxxxxxxxx#x                                                  
+xxxxxxxxxxxxxxxxx.......x..#xx.x.xx...x#xxxxxxx#.x#.x..xxx..x..........#xxxxxxxxxxxxxxxxxx#xxxx.##.x                                                  
+.....x#....#.#.##.....#.x#..xx.x.xx.##xxxxx#.xx.#xxxxxxxxx#.x....#......#.xx..xxxxx#.x#.xxxx#x#xxxxx                                                  
+.....x...#xxxxxxxxxxxxxxxxxxxxxxxxx#....#xxxxxxxxxx.x..xxxxxxxxxxx#.......xx.#.#x.x..x...xxx.x#x#..x                                                  
+.....x....xxxxxx#.......x...xx.x.#..#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx                                                  
+xxxxxx....#x...x....#...x...xx.x.....x.#.xx..xx..xx.x..xxxx.x.##.x#..#....xx.x#xxxxxxxxxxxxxxx#x...x                                                  
+.....#.....x..#x.#......x..#xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#xxx#.x........xx.x.x..x..x...#xx.x.x...x                                                  
+....#..#...x..#x..#.....x.#.x#.#.#...x.x.xx..x.#.xx.x..xx##.x#xx.x.....#..xx.x.x..x..x.....#.x.x.##x                                                  
+xxxxx#.....x...x.......#xxxxxxxx.....x.x.xx..x.xxx                                                                                                    
+#..#x......x.#.x..#.........x..x.....x#xxxxxxxxxxx                                                                                                    
+..#xx....#.x..#x.....#......x..x.....x...xx..x.x.x                                                                                                    
+..#xx......x...x............x..x..#..x...xx..x.x.x                                                                                                    
+...x#.#...#x...xxx..........x..x....#x#..xx..x.x#x                                                                                                    
+#..x.......x...##x..#..#.#..x..x...#xx...xx.#x.xxx                                                                                                    
+...x.......x..#xxxxxxxxxxxxxxxxxxxxxxx###xxxxxxxxx                                                                                                    
+#.#x..#xxxxxxxxx.xx.x#.x....x..x.#..xxxxxxxxx#.#xx                                                                                                    
+...x...x...x..xx.xx.x..x....x.#x....x....x......xx                                                                                                    
+xxxxxxxxxxxxxxxxxxxxxxxx#.#.x.#x...#x....x......xx                                                                                                    
+...x...#...x..xx.xx.xxxxxxxxxxxxxxx#x.#..x......xx                                                                                                    
+...x.......x..xx.xx#x..xxx#.x.xx#.x.x#.#.xxxxxxxx#                                                                                                    
+xxxxxxxxxxxx##xxxxxxxxxxxxxxxxxxxxxxxx##.#......x#                                                                                                    
+...x.#.........x.xx.xx#xxxxxxxxxx.x.x##.........xx                                                                                                    
+...x..........#xxxx.xx.#.x.###xxxxxxx.........#.xx                                                                                                    
+..#xxxxxxxxxxxxxxxxxxxx#.x....x.x.x.x..........#xx                                                                                                    
+#..#.#......#..x.x.#xxxxxxxxx#x.x.x.x.....#.....x.                                                                                                    
+xxxxxxxxxxxxxxxxxx..xx#..x..x#xxxxxxxxxxxxx.....x.                                                                                                    
+....#....#..#..x.#xxxxxxxxxxxx#.x.x#x.....x.....x.                                                                                                    
+....##.........x.#xxxxxxx##.xxxxx#x.x...#.x#..#.x.                                                                                                    
+.#..........##.x.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx#                                                                                                    
+xxxxxxxxxxxxxxxxxx#.x#x.x....x..x.x.x...x.x.....x#                                                                                                    
+xxxx...........#....x.x.x....x..xxx.x...x.x.#...x.                                                                                                    
+...#.......#........x.x.x...#x#.x.#.x...x.x#....x#                                                                                                    
+.......##......#...#xxxxxxxxxxx#xxxxxxxxxxx#xxxxxx                                                                                                    
+......................x.x.#..xx..#..#...x.x.x...xx                                                                                                    
+.........#.......#....xxxxx.#xx.........x.x.x...x.                                                                                                    
+.#.............#........x.x#.xx.#.......x.x.x...xx                                                                                                    
+.....#....#.............x.x#.xx.......#.x.x.x...xx                                                                                                    
+...#....................x#x..xx#........x.x.x...xx                                                                                                    
+.......#.............#..x.x#.#.........#xxxxxxxxxx                                                                                                    
+...#...........#..#.....x.x.........#.....x.x..##x                                                                                                    
+....##..................x.x..#.........#..x#x....x                                                                                                    
+............#........#xxx.x....#.......##.#xx#....                                                                                                    
+..............#.......x...x...............#xx..###                                                                                                    
+....#........#.#....#.x...x#.#..#.........#xxxxxxx                                                                                                    
+....#.................x..#x........#.......xx#...x                                                                                                    
+......................x...x..............##xx....x                                                                                                    
+........#....#..#.#..#x...x....#...#.......x.#...x                                                                                                    
+......................x...x..#..#...##.....xxx#..x                                                                                                    
+...#.......#.......#..x...x........#xxxxxxxxxx...x                                                                                                    
+......................x...xxxxxxxxxxxx#....x.#...x                                                                                                    
+.....#................x.#..........xxx.....x.....x                                                                                                    
+#.....#.....#..#......x............xxx.....x.....x                                                                                                    
+..#.....#..#...#......x.........#..xxx#....x.....#                                                                                                    
+.....................#x...........#xxxxxxxxxxxxxxx                                                                                                    
+.......#..............xxxx..........xx.....#.....#                                                                                                    
+............#.#..#..#...#x........#.xxxxxxxxxxxxxx                                                                                                    
+..##..........#...#..#...x....#......x.......#...x                                                                                                    
+....#.xxxx#.x............x..x........x...#.......x                                                                                                    
+Part 1: 201272
+Part 2: incomplete
+Done!
