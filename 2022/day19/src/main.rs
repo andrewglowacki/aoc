@@ -26,11 +26,6 @@ struct Blueprint {
     ore_max: i32
 }
 
-enum Decision {
-    Wait(i32),
-    Build(Option<usize>, usize)
-}
-
 struct Resources {
     ore: i32,
     ore_rate: i32,
@@ -63,6 +58,44 @@ impl Resources {
         self.geode += self.geode_rate * amount;
     }
 
+    fn time_until(&self, ore: i32, clay: i32, obsidian: i32) -> i32 {
+        let ore_left = ore - self.ore;
+        let clay_left = clay - self.clay;
+        let obsidian_left = obsidian - self.obsidian;
+
+        let mut time = 0;
+        if ore_left > 0 {
+            time = ore_left / self.ore_rate;
+            if ore_left % self.ore_rate > 0 {
+                time += 1;
+            }
+        }
+
+        if clay_left > 0 {
+            let mut clay_time = clay_left / self.clay_rate;
+            if clay_left % self.clay_rate > 0 {
+                clay_time += 1;
+            }
+            time = time.max(clay_time);
+        }
+
+        if obsidian_left > 0 {
+            let mut obsidian_time = obsidian_left / self.obsidian_rate;
+            if obsidian_left % self.obsidian_rate > 0 {
+                obsidian_time += 1;
+            }
+            time = time.max(obsidian_time);
+        }
+
+        time
+    }
+}
+
+#[derive(Debug)]
+enum State {
+    Start,
+    Middle,
+    End
 }
 
 impl Blueprint {
@@ -76,7 +109,7 @@ impl Blueprint {
         let geode_ore = pieces[27].parse::<i32>().unwrap();
         let geode_obsidian = pieces[30].parse::<i32>().unwrap();
 
-        let ore_max = ore.max(clay)
+        let ore_max = clay
             .max(obsidian_ore)
             .max(geode_ore);
         
@@ -119,7 +152,7 @@ impl Blueprint {
     fn buy(&self, resources: &mut Resources, bot: usize) -> bool {
         match bot {
             ORE_BOT => {
-                if resources.ore > self.ore && resources.ore_rate < self.ore_max {
+                if resources.ore >= self.ore && resources.ore_rate < self.ore_max {
                     resources.ore_rate += 1;
                     resources.ore -= self.ore;
                     true
@@ -128,7 +161,7 @@ impl Blueprint {
                 }
             }
             CLAY_BOT => {
-                if resources.ore > self.clay && resources.clay_rate < self.obsidian_clay {
+                if resources.ore >= self.clay && resources.clay_rate < self.obsidian_clay {
                     resources.clay_rate += 1;
                     resources.ore -= self.clay;
                     true
@@ -150,7 +183,7 @@ impl Blueprint {
                 }
             },
             GEODE_BOT => {
-                if resources.obsidian >= self.geode_obsidian && resources.ore > self.geode_ore {
+                if resources.obsidian >= self.geode_obsidian && resources.ore >= self.geode_ore {
                     resources.geode_rate += 1;
                     resources.ore -= self.geode_ore;
                     resources.obsidian -= self.geode_obsidian;
@@ -163,82 +196,101 @@ impl Blueprint {
         }
     }
 
-    fn compute_quality(&self) -> i32 {
+    fn compute_quality(&self, max_minutes: i32) -> i32 {
         let mut resources = Resources::new();
         
         let mut decisions = vec![
-            Decision::Wait(self.clay)
+            (CLAY_BOT, State::Start, 0)
         ];
 
-        let mut minutes = self.clay + 1;
+        let mut minutes = 0;
         let mut max_geodes = 0;
 
         while decisions.len() > 0 {
-            let mut decision = decisions.pop().unwrap();
-            if let Decision::Wait(time) = &mut decision {
-                
-                // reset time from the previous operation
-                minutes -= *time + 1;
-                resources.mine(*time * -1);
+            let (mut current, state, added_minutes) = decisions.pop().unwrap();
 
-                if *time > 0 {
-                    minutes += *time;
-                    resources.mine(*time);
-                    if resources.geode > max_geodes {
-                        max_geodes = resources.geode;
-                    }
-                    *time -= 1;
-                } else {
-                    decision = Decision::Build(None, 0);
-                    if minutes >= 23 {
-                        // we don't get any benefit out of any more bots
-                        continue;
-                    }
-                }
-            }
-
-            if let Decision::Build(previous, mut next) = decision {
-                if let Some(previous) = previous {
-                    minutes -= 1;
-                    self.sell(&mut resources, previous);
-                }
-
-                let mut found = false;
-                while next < 4 && !found {
-                    if self.buy(&mut resources, next) {
-                        minutes -= 1;
-                        found = true;
-                    }
-                    next += 1;
-                }
-                if !found {
+            match state {
+                State::Start => (),
+                State::Middle => {
+                    minutes -= added_minutes;
+                    self.sell(&mut resources, current + 1);
+                    resources.mine(-1 * added_minutes);
+                },
+                State::End => {
+                    minutes -= added_minutes;
+                    self.sell(&mut resources, 0);
+                    resources.mine(-1 * added_minutes);
                     continue;
                 }
-                decision = Decision::Build(Some(next - 1), next);
             }
-            
-            decisions.push(decision);
 
-            // determine how much time to wait
-            let mut max = self.ore_max - resources.ore_rate;
-            if resources.clay_rate > 0 {
-                max = max.max(self.obsidian_clay - resources.clay_rate);
-                if resources.obsidian_rate > 0 {
-                    max = max.max(self.geode_obsidian - resources.obsidian_rate);
-                    if resources.geode_rate > 0 {
-                        max = max.max(minutes);
+            let mut time_until = -1;
+            loop {
+                let this_time_until = match current {
+                    ORE_BOT => {
+                        match resources.ore_rate < self.ore_max {
+                            true => resources.time_until(self.ore, 0, 0),
+                            false => -1
+                        }
+                    },
+                    CLAY_BOT => {
+                        match resources.clay_rate < self.obsidian_clay {
+                            true => resources.time_until(self.clay, 0, 0),
+                            false => -1
+                        }
+                    },
+                    OBSIDIAN_BOT => {
+                        match resources.obsidian_rate < self.geode_obsidian {
+                            true => resources.time_until(self.obsidian_ore, self.obsidian_clay, 0),
+                            false => -1
+                        }
+                    },
+                    GEODE_BOT => resources.time_until(self.geode_ore, 0, self.geode_obsidian),
+                    _ => panic!("Unexpected bot: {}", current)
+                };
+                if this_time_until < 0 || this_time_until + minutes + 1 >= max_minutes {
+                    if current == 0 {
+                        break;
                     }
+                    current -= 1;
+                } else {
+                    time_until = this_time_until;
+                    break;
                 }
             }
-            max = max.min(minutes);
 
-            minutes += max + 1;
-            decisions.push(Decision::Wait(max));
+            if time_until == -1 {
+                if resources.geode_rate > 0 {
+                    let total = resources.geode_rate * (max_minutes - minutes);
+                    let total = total + resources.geode;
+                    max_geodes = max_geodes.max(total);
+                }
+                continue;
+            }
+
+            let minutes_added = time_until + 1;
+            resources.mine(minutes_added);
+            self.buy(&mut resources, current);
+            minutes += minutes_added;
+
+            let (current, state) = match current == 0 {
+                true => (0, State::End),
+                false => (current - 1, State::Middle)
+            };
+            decisions.push((current, state, minutes_added));
+
+            let next_option_start = if resources.obsidian_rate > 0 {
+                GEODE_BOT
+            } else if resources.clay_rate > 0 {
+                OBSIDIAN_BOT
+            } else {
+                CLAY_BOT
+            };
+
+            decisions.push((next_option_start, State::Start, 0));
         }
 
-        let quality = resources.geode * self.id;
-        println!("Quality is {}", quality);
-        quality
+        max_geodes * self.id
     }
 }
 
@@ -251,21 +303,30 @@ fn part_one(file_name: &str) {
             id += 1;
             Blueprint::parse(line, this_id)
         })
-        .map(|blueprint| blueprint.compute_quality())
+        .map(|blueprint| blueprint.compute_quality(24))
         .sum::<i32>();
     
     println!("Part 1: {}", quality_total);
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let mut id = 1;
+    let product = get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .map(|line| {
+            let this_id = id;
+            id += 1;
+            Blueprint::parse(line, this_id)
+        })
+        .take(3)
+        .map(|blueprint| blueprint.compute_quality(32) / blueprint.id)
+        .fold(1, |product, current| product * current);
     
-    println!("Part 2: {}", "incomplete");
+    println!("Part 2: {}", product);
 }
 
 fn main() {
-    part_one("sample.txt");
+    part_one("input.txt");
     part_two("input.txt");
 
     println!("Done!");
