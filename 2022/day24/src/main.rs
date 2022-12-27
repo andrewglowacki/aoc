@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -10,91 +11,124 @@ fn get_file_lines(file_name: &str) -> Input {
     BufReader::new(file).lines()
 }
 
-struct Vertical {
-    list: Vec<u32>,
-    max: u32,
-    last: u32,
-    max_inv: u32
+struct Clock {
+    horizontal: u128,
+    vertical: u32,
+    minutes: u32,
+    width: u32,
+    height: u32,
+    state: usize,
+    states: usize
 }
 
-impl Vertical {
-    fn new(list: Vec<u32>, max: usize) -> Vertical {
-        let max = 1 << max;
-        let max_inv = !max;
-        let last = max >> 1;
-        Vertical { list, max, max_inv, last }
+impl Clock {
+    fn new(width: usize, height: usize) -> Clock {
+        Clock {
+            horizontal: 1,
+            vertical: 1,
+            minutes: 0,
+            width: width as u32,
+            height: height as u32,
+            state: 0,
+            states: width * height
+        }
     }
-    fn shift_up(&mut self) {
-        let max = self.max;
-        let max_inv = self.max_inv;
-
-        self.list.iter_mut().for_each(|row| {
-            *row = *row << 1;
-            if *row & max > 0 {
-                *row = (*row & max_inv) | 1;
-            }
-        });
-    }
-    fn shift_down(&mut self) {
-        let last = self.last;
-
-        self.list.iter_mut().for_each(|row| {
-            let lead = *row & 1 > 0;
-            *row = *row >> 1;
-            if lead {
-                *row = *row | last;
-            }
-        });
-    }
+    fn tick(&mut self) {
+        self.minutes += 1;
+        self.state = (self.state + 1) % self.states;
+        if self.minutes % self.width == 0 {
+            self.horizontal = 1;
+        } else {
+            self.horizontal = self.horizontal << 1;
+        }
+        if self.minutes % self.height == 0 {
+            self.vertical = 1;
+        } else {
+            self.vertical = self.vertical << 1;
+        }
+    } 
 }
 
 struct Horizontal {
-    list: Vec<u128>,
-    max: u128,
-    last: u128,
-    max_inv: u128
+    grid: Vec<Vec<u128>>,
+    width: usize,
 }
 
 impl Horizontal {
-    fn new(list: Vec<u128>, max: usize) -> Horizontal {
-        let max = 1 << max;
-        let max_inv = !max;
-        let last = max >> 1;
-        Horizontal { list, max, max_inv, last }
+    fn new(grid: Vec<Vec<u128>>, width: usize) -> Horizontal {
+        Horizontal { grid, width }
     }
-    fn shift_left(&mut self) {
-        let max = self.max;
-        let max_inv = self.max_inv;
+    fn fill_left(&mut self, x: usize, y: usize) {
+        let row = &mut self.grid[y];
+        let mut indicator = 1 << (self.width - 1);
 
-        self.list.iter_mut().for_each(|row| {
-            *row = *row << 1;
-            if *row & max > 0 {
-                *row = (*row & max_inv) | 1;
-            }
-        });
+        row[x] = row[x] | 1;
+        for x in x + 1..x + self.width {
+            let x = x % self.width;
+            row[x] = row[x] | indicator;
+            indicator = indicator >> 1;
+        }
     }
-    fn shift_right(&mut self) {
-        let last = self.last;
+    fn fill_right(&mut self, x: usize, y: usize) {
+        let row = &mut self.grid[y];
+        let mut indicator = 1;
 
-        self.list.iter_mut().for_each(|row| {
-            let lead = *row & 1 > 0;
-            *row = *row >> 1;
-            if lead {
-                *row = *row | last;
-            }
-        });
+        for x in x..x + self.width {
+            let x = x % self.width;
+            row[x] = row[x] | indicator;
+            indicator = indicator << 1;
+        }
+    }
+    fn is_oepn(&self, x: usize, y: usize, clock: &Clock) -> bool {
+        let point = self.grid[y][x];
+        point & clock.horizontal == 0
+    }
+}
+
+struct Vertical {
+    grid: Vec<Vec<u32>>,
+    height: usize,
+}
+
+impl Vertical {
+    fn new(grid: Vec<Vec<u32>>, height: usize) -> Vertical {
+        Vertical { grid, height }
+    }
+    fn fill_up(&mut self, x: usize, y: usize) {
+        let mut indicator = 1 << (self.height - 1);
+
+        self.grid[y][x] = self.grid[y][x] | 1;
+
+        for y in y + 1..y + self.height {
+            let y = y % self.height;
+            self.grid[y][x] = self.grid[y][x] | indicator;
+            indicator = indicator >> 1;
+        }
+    }
+    fn fill_down(&mut self, x: usize, y: usize) {
+        let mut indicator = 1;
+
+        for y in y..y + self.height {
+            let y = y % self.height;
+            self.grid[y][x] = self.grid[y][x] | indicator;
+            indicator = indicator << 1;
+        }
+    }
+    fn is_oepn(&self, x: usize, y: usize, clock: &Clock) -> bool {
+        let point = self.grid[y][x];
+        point & clock.vertical == 0
     }
 }
 
 struct Blizzards {
-    up: Vertical,
-    down: Vertical,
-    left: Horizontal,
-    right: Horizontal,
-    location: (usize, usize),
+    horizontal: Horizontal,
+    vertical: Vertical,
     width: usize,
     height: usize,
-    at_start: bool
+    start_x: i32,
+    start_y: i32,
+    end_x: i32,
+    end_y: i32
 }
 
 impl Blizzards {
@@ -115,75 +149,143 @@ impl Blizzards {
         let width = grid[0].len();
         let height = grid.len();
 
-        let mut up = vec![0; height];
-        let mut down = vec![0; height];
-        let mut left = Vec::new();
-        let mut right = Vec::new();
+        let horizontal = vec![vec![0; width]; height];
+        let mut horizontal = Horizontal::new(horizontal, width);
+        let vertical = vec![vec![0; width]; height];
+        let mut vertical = Vertical::new(vertical, height);
 
         let grid = grid;
 
         for y in 0..height {
             let row = &grid[y];
-            let mut this_left: u128 = 0;
-            let mut this_right: u128 = 0;
-
             for x in 0..width {
                 let c = row[x];
                 match c {
-                    '^' => up[x] |= 1,
-                    'v' => down[x] |= 1,
-                    '<' => this_left |= 1,
-                    '>' => this_right |= 1,
+                    '^' => vertical.fill_up(x, y),
+                    'v' => vertical.fill_down(x, y),
+                    '<' => horizontal.fill_left(x, y),
+                    '>' => horizontal.fill_right(x, y),
                     '.' => (),
                     _ => panic!("Invalid character: {} at {}, {}", c, x, y)
                 }
-                this_left = this_left << 1;
-                this_right = this_right << 1;
-
-                up[x] = up[x] << 1;
-                down[x] = down[x] << 1;
             }
 
-            left.push(this_left);
-            right.push(this_right);
         }
 
-        let up = Vertical::new(up, height);
-        let down = Vertical::new(down, height);
-        let left = Horizontal::new(left, width);
-        let right = Horizontal::new(right, width);
-
         Blizzards {
-            up,
-            down, 
-            left,
-            right,
+            horizontal,
+            vertical,
             width,
             height,
-            location: (0, 0),
-            at_start: true,
+            start_x: 0,
+            start_y: -1,
+            end_x: width as i32 - 1,
+            end_y: height as i32
+        }
+    }
+    
+    fn is_open(&self, x: i32, y: i32, clock: &Clock) -> bool {
+        if x == self.end_x && y == self.end_y {
+            true
+        } else if x == self.start_x && y == self.start_y {
+            true
+        } else if x < 0 || y < 0 {
+            false
+        } else {
+            let x = x as usize;
+            let y = y as usize;
+            if x >= self.width || y >= self.height {
+                false
+            } else {
+                self.vertical.is_oepn(x, y, clock) && 
+                self.horizontal.is_oepn(x, y, clock)
+            }
         }
     }
 
-    fn move_blizzard(&mut self) {
-        self.up.shift_up();
-        self.down.shift_down();
-        self.left.shift_left();
-        self.right.shift_right();
-    } 
+    fn visit_if_open(
+        &self, 
+        clock: &Clock, 
+        x: i32, 
+        y: i32, 
+        visited: &mut HashSet<(i32, i32, usize)>,
+        explore_next: &mut HashSet<(i32, i32)>) 
+    {
+        if self.is_open(x, y, clock) && visited.insert((x, y, clock.state)) {
+            explore_next.insert((x, y));
+        }
+    }
+
+    fn find_shorted_path(&self, clock: &mut Clock) -> u32 {
+        let mut visited = HashSet::new();
+
+        let end = (self.end_x as i32, self.end_y as i32);
+
+        let mut explore = HashSet::new();
+        explore.insert((self.start_x, self.start_y));
+
+        let mut found = false;
+
+        while explore.len() > 0 {
+            clock.tick();
+
+            let mut explore_next = HashSet::new();
+
+            for (x, y) in explore {
+                self.visit_if_open(&clock, x, y, &mut visited, &mut explore_next);
+                self.visit_if_open(&clock, x - 1, y, &mut visited, &mut explore_next);
+                self.visit_if_open(&clock, x + 1, y, &mut visited, &mut explore_next);
+                self.visit_if_open(&clock, x, y - 1, &mut visited, &mut explore_next);
+                self.visit_if_open(&clock, x, y + 1, &mut visited, &mut explore_next);
+            }
+
+            if explore_next.contains(&end) {
+                found = true;
+                break;
+            }
+
+            explore = explore_next;
+        }
+
+        if !found {
+            panic!("Terminated without finding the end");
+        }
+
+        clock.minutes
+    }
+
 }
 
 fn part_one(file_name: &str) {
-    let mut blizzards = Blizzards::from_file(file_name);
+    let blizzards = Blizzards::from_file(file_name);
+    let mut clock = Clock::new(blizzards.width, blizzards.height);
+
+    let time = blizzards.find_shorted_path(&mut clock);
     
-    println!("Part 1: {}", "incomplete");
+    println!("Part 1: {}", time);
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let mut blizzards = Blizzards::from_file(file_name);
+    let mut clock = Clock::new(blizzards.width, blizzards.height);
+
+    blizzards.find_shorted_path(&mut clock);
+
+    blizzards.start_x = blizzards.end_x;
+    blizzards.start_y = blizzards.end_y;
+    blizzards.end_x = 0;
+    blizzards.end_y = -1;
+
+    blizzards.find_shorted_path(&mut clock);
+
+    blizzards.end_x = blizzards.start_x;
+    blizzards.end_y = blizzards.start_y;
+    blizzards.start_x = 0;
+    blizzards.start_y = -1;
+
+    let time_total = blizzards.find_shorted_path(&mut clock);
     
-    println!("Part 2: {}", "incomplete");
+    println!("Part 2: {}", time_total);
 }
 
 fn main() {
