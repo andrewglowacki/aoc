@@ -25,8 +25,8 @@ fn part_two(file_name: &str) {
 }
 
 fn main() {
-    part_one("input.txt");
-    part_two("input.txt");
+    part_one("sample.txt");
+    part_two("sample.txt");
 
     println!("Done!");
 }
