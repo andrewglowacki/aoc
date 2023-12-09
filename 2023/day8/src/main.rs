@@ -1,4 +1,5 @@
-use std::collections::HashMap;
+use std::char::REPLACEMENT_CHARACTER;
+use std::collections::{HashMap, BTreeMap, BTreeSet};
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -64,19 +65,57 @@ impl Map {
         Map { lookup, nodes, turns }
     }
 
-    fn get_distance_to_end(&self, start: usize, end: usize) -> usize {
-        let mut index = 0;
+    fn get_distance_to_end(&self, start: usize, end: usize, mut index: u64) -> Option<u64> {
+        let start_index = index;
         let mut current = start;
-        while current != end {
+        let num_turns = self.turns.len() as u64;
+        let limit_end  = if index > 0 {
+            index * 2
+        } else {
+            u64::MAX
+        };
+        while current != end && index <= limit_end {
             let (left, right) = self.nodes.get(&current).unwrap();
-            let next = match self.turns[index % self.turns.len()] {
+            let next = match self.turns[(index % num_turns) as usize] {
                 Turn::Left => left,
                 Turn::Right => right
             };
             current = *next;
             index += 1;
         }
-        index
+        if current != end {
+            None
+        } else {
+            Some(index - start_index)
+        }
+    }
+
+    fn find_repeat(&self, start: usize) -> u64 {
+        let mut index = 0;
+        let num_turns = self.turns.len() as u64;
+        let mut last_seen = HashMap::<usize, u64>::new();
+        let mut current = start;
+        let give_up = num_turns * num_turns;
+        while index < give_up {
+            let (left, right) = self.nodes.get(&current).unwrap();
+            let next = match self.turns[(index % num_turns) as usize] {
+                Turn::Left => left,
+                Turn::Right => right
+            };
+            index += 1;
+            current = *next;
+            if let Some(last_index) = last_seen.get_mut(next) {
+                if (index - *last_index) % num_turns == 0 {
+                    return *last_index;
+                } else {
+                    *last_index = index;
+                }
+            } else {
+                last_seen.insert(*next, index);
+            }
+        }
+
+        panic!("No repeat found for {}", start);
     }
 
 }
@@ -85,20 +124,84 @@ fn part_one(file_name: &str) {
     let map = Map::parse(file_name);
     let start = map.lookup.get("AAA").unwrap();
     let end = map.lookup.get("ZZZ").unwrap();
-    let count = map.get_distance_to_end(*start, *end);
-    println!("Part 1: {}", count);
+    let count = map.get_distance_to_end(*start, *end, 0);
+    println!("Part 1: {}", count.unwrap());
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let map = Map::parse(file_name);
     
-    println!("Part 2: {}", "incomplete");
+    let starts = map.lookup.iter()
+        .filter(|(name, _)| name.ends_with('A'))
+        .map(|(_, id)| *id)
+        .collect::<Vec<_>>();
+
+    let repeats = starts.iter()
+        .map(|start| map.find_repeat(*start))
+        .collect::<Vec<_>>();
+
+    let mut stage_one = Vec::<u64>::new();
+    for i in (0..6).step_by(2) {
+        let mut left = repeats[i];
+        let left_add = left;
+        let mut right = repeats[i + 1];
+        let right_add = right;
+    
+        while left != right {
+            if left < right {
+                left += left_add;
+            } else {
+                right += right_add;
+            }
+        }
+        stage_one.push(left);
+        println!("{}", left);
+    }
+    
+    let mut stage_two = Vec::<u64>::new();
+    for i in 0..2 {
+        let mut left = stage_one[i];
+        let left_add = left;
+        let mut right = stage_one[i + 1];
+        let right_add = right;
+    
+        while left != right {
+            if left < right {
+                left += left_add;
+            } else {
+                right += right_add;
+            }
+        }
+        println!("{}", left);
+        stage_two.push(left);
+    }
+
+    let mut left = stage_two[0];
+    let left_add = left;
+    let mut right = stage_two[1];
+    let right_add = right;
+
+    while left != right {
+        if left < right {
+            left += left_add;
+        } else {
+            right += right_add;
+        }
+    }
+    println!("{}", left);
+
+    // 16343x = z
+    // 20221y = z
+    // 16343x - 20221y = 0
+    
+    println!("{:?}", repeats);
+
+    // println!("Part 2: {}", turns.first().unwrap().0);
 }
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
