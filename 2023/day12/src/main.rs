@@ -51,12 +51,10 @@ impl Report {
                 break;
             }
 
-            if count_index == 0 {
-                if self.springs[0..i].iter()
-                    .any(|c| *c == '#') 
-                {
-                    break;
-                }
+            if self.springs[start..i].iter()
+                .any(|c| *c == '#') 
+            {
+                break;
             }
             
             // println!("checking start {} for count_index {}", i, count_index);
