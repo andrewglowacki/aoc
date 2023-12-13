@@ -1,8 +1,6 @@
-use core::num;
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
-use regex::Regex;
 
 type Input = Lines<BufReader<File>>;
 
@@ -12,146 +10,112 @@ fn get_file_lines(file_name: &str) -> Input {
     BufReader::new(file).lines()
 }
 
-enum Group {
-    Damaged(usize, usize, usize),
-    Unknown(usize)
-}
-
 struct Report {
     counts: Vec<usize>,
-    groups: Vec<Group>
+    springs: Vec<char>
 }
 
 impl Report {
 
-    fn parse_groups(group_str: &str) -> Vec<Group> {
-        let mut groups = Vec::new();
-        let mut group_chars = group_str.chars().peekable();
-        
-        while let Some(c) = group_chars.next() {
-            match c {
-                '.' => (),
-                '?' => {
-                    let mut damaged = 0;
-                    let mut unknown_left = 0;
-                    while let Some(c) = group_chars.next() {
-                        match c {
-                            '#' => {
-                                damaged += 1;
-                                break;
-                            },
-                            '?' => unknown_left += 1,
-                            '.' => break,
-                            _ => panic!("{}", c)
-                        }
-                    }
-                    if damaged == 0 {
-                        groups.push(Group::Unknown(unknown_left));
-                        continue;
-                    }
-
-                    let mut unknown_right = 0;
-                    while let Some(c) = group_chars.next() {
-                        match c {
-                            '#' => damaged += 1,
-                            '?' => {
-                                unknown_right += 1;
-                                break;
-                            },
-                            '.' => break,
-                            _ => panic!("{}", c)
-                        }
-                    }
-
-                    if unknown_right > 0 {
-                        while let Some(c) = group_chars.peek() {
-                            if *c == '?' {
-                                unknown_right += 1;
-                            } else {
-                                break;
-                            }
-                            group_chars.next();
-                        }
-                    }
-
-                    groups.push(Group::Damaged(unknown_left, damaged, unknown_right));
-                }, 
-                '#' => {
-                    let mut damaged = 0;
-                    let mut unknown = 0;
-                    while let Some(c) = group_chars.next() {
-                        match c {
-                            '#' => damaged += 1,
-                            '?' => {
-                                unknown += 1;
-                                break;
-                            },
-                            '.' => break,
-                            _ => panic!("{}", c)
-                        }
-                    }
-                    if unknown > 0 {
-                        while let Some(c) = group_chars.peek() {
-                            if *c == '?' {
-                                unknown += 1;
-                            } else {
-                                break;
-                            }
-                            group_chars.next();
-                        }
-                    }
-                    groups.push(Group::Damaged(0, damaged, unknown));
-                },
-                _ => panic!("Unexpected character: {}", c)
-            }
-        }
-
-        groups
-    }
-
     fn parse(line: String) -> Report {
         let mut parts = line.split(' ');
 
-        let groups = Report::parse_groups(parts.next().unwrap());
-        
+        let springs = parts.next()
+            .unwrap()
+            .chars()
+            .collect::<Vec<_>>();
+
         let counts = parts.next()
             .unwrap()
             .split(',')
             .map(|number| number.parse::<usize>().unwrap())
             .collect::<Vec<_>>();
 
-        Report { counts, groups }
+        Report { counts, springs }
     }
 
-    fn count_damaged_options(&self) -> usize {
-        let damaged_expected = self.counts.iter().sum::<usize>();
-        let damaged_known = self.groups.iter()
-            .filter_map(|group| match group {
-                Group::Damaged(_, damaged, _) => Some(damaged),
-                _ => None
-            })
-            .sum::<usize>();
-        let damaged_unknown = damaged_expected - damaged_known;
-        
-        let mut counts_sorted = (0..self.counts.len())
-            .into_iter()
-            .map(|i| (self.counts[i], i))
-            .collect::<Vec<_>>();
-        counts_sorted.sort();
+    fn count_options(&self, start: usize, count_index: usize) -> usize {
+        let count = self.counts[count_index];
 
-        while let Some((count, index)) = counts_sorted.pop() {
+        let right_space_required: usize = 
+            self.counts[count_index + 1..].iter().sum::<usize>() + 
+            (self.counts.len() - (count_index + 1));
+
+        let mut options = 0;
+
+        // println!("counting options with start {} count_index: {}, count: {}", start, count_index, count);
+        // println!("right space required: {}", right_space_required);
+
+        for i in start..self.springs.len() - right_space_required {
+            if i + count > self.springs.len() {
+                break;
+            }
+
+            if count_index == 0 {
+                if self.springs[0..i].iter()
+                    .any(|c| *c == '#') 
+                {
+                    break;
+                }
+            }
             
+            // println!("checking start {} for count_index {}", i, count_index);
+
+            let has_space = self.springs[i..i + count].iter()
+                .any(|c| *c == '.') == false;
+            if !has_space {
+                // not possible
+                // println!("not possible starting at {} - no space", i);
+                continue;
+            }
+
+            if count_index != self.counts.len() - 1 {
+                if i + count >= self.springs.len() {
+                    break;
+                }
+                let sep = self.springs[i + count];
+
+                if sep == '#' {
+                    // not possible
+                    // println!("not possible starting at {} - sep is #", i);
+                    continue;
+                }
+            }
+
+            let start_next = i + count + 1;
+            
+            if count_index + 1 < self.counts.len() {
+                // println!("starting next count index at {}", start_next);
+                options += self.count_options(start_next, count_index + 1);
+                // println!("done with next count index at {}", start_next);
+            } else {
+                let has_damaged = self.springs[i + count..].iter()
+                    .any(|c| *c == '#');
+                if !has_damaged {
+                    options += 1;
+                //     println!("option found");
+                // } else {
+                    // println!("not possible at end - damages are left");
+                }
+            }
         }
 
-        0
+        // println!("returning options {} for count_index {}", options, count_index);
+        options
     }
+
 }
 
 fn part_one(file_name: &str) {
     let total = get_file_lines(file_name)
         .flat_map(|line| line.ok())
         .map(|line| Report::parse(line))
-        .map(|report| report.count_damaged_options())
+        .map(|report| {
+            // println!("testing {:?} - {:?}", report.springs, report.counts);
+            let count = report.count_options(0, 0);
+            // println!("count for {:?} - {:?} is {}", report.springs, report.counts, count);
+            count
+        })
         .sum::<usize>();
     
     println!("Part 1: {}", total);
@@ -165,7 +129,7 @@ fn part_two(file_name: &str) {
 }
 
 fn main() {
-    part_one("sample.txt");
+    part_one("input.txt");
     part_two("sample.txt");
 
     println!("Done!");
