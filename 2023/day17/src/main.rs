@@ -14,7 +14,9 @@ fn get_file_lines(file_name: &str) -> Input {
 struct Map {
     blocks: Vec<Vec<u32>>,
     width: i32,
-    height: i32
+    height: i32,
+    min_straight: usize,
+    max_straight: usize
 }
 
 #[derive(Ord, Eq, PartialEq, PartialOrd)]
@@ -91,11 +93,11 @@ impl Step {
                 };
                 (x, y, straight_count)
             })
-            .filter(|(_, _, straights)| self.straight_count < 3 || *straights == 1)
+            .filter(|(_, _, straights)| self.straight_count >= map.min_straight || *straights > 1 )
+            .filter(|(_, _, straights)| self.straight_count < map.max_straight || *straights == 1 )
             .filter(|(x, y, _)| self.prev != (*x, *y))
             .for_each(|(x, y, straight_count)| {
                 let added_heat = map.blocks[y as usize][x as usize];
-                // print!(" ({}, {})", x, y);
                 let step = Step {
                     heat_loss: self.heat_loss + added_heat,
                     point: (x, y),
@@ -109,7 +111,7 @@ impl Step {
 }
 
 impl Map {
-    fn parse(file_name: &str) -> Map {
+    fn parse(file_name: &str, min_straight: usize, max_straight: usize) -> Map {
 
         let blocks = get_file_lines(file_name)
             .flat_map(|line| line.ok())
@@ -123,7 +125,7 @@ impl Map {
         let height = blocks.len() as i32;
         let width = blocks[0].len() as i32;
         
-        Map { blocks, width, height }
+        Map { blocks, width, height, min_straight, max_straight }
     }
 
     fn find_min_heat_loss(&self) -> u32 {
@@ -147,21 +149,20 @@ impl Map {
 }
 
 fn part_one(file_name: &str) {
-    let map = Map::parse(file_name);
+    let map = Map::parse(file_name, 1, 3);
     let heat_loss = map.find_min_heat_loss();
     println!("Part 1: {}", heat_loss);
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
-    
-    println!("Part 2: {}", "incomplete");
+    let map = Map::parse(file_name, 4, 10);
+    let heat_loss = map.find_min_heat_loss();
+    println!("Part 2: {}", heat_loss);
 }
 
 fn main() {
-    part_one("input.txt");
-    part_two("sample.txt");
+    // part_one("input.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
