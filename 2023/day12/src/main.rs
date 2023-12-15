@@ -121,7 +121,7 @@ fn part_one(file_name: &str) {
         .map(|report| {
             index += 1;
             let count = report.count_options(0, 0);
-            println!("#{} = {}", index, count);
+            // println!("#{} = {}", index, count);
             count
         })
         .sum::<usize>();
@@ -136,11 +136,13 @@ fn part_two(file_name: &str) {
         .collect::<Vec<_>>();
 
     let thread_count = 10;
-    let queue = ConcurrentQueue::<Report>::bounded(reports.len());
+    let queue = ConcurrentQueue::<(Report, usize)>::bounded(reports.len());
     
+    let mut index = 1;
     reports.into_iter().for_each(|mut report| {
         report.unfold();
-        queue.push(report).unwrap();
+        queue.push((report, index)).unwrap();
+        index += 1;
     });
 
     queue.close();
@@ -153,23 +155,13 @@ fn part_two(file_name: &str) {
         let copy = Arc::clone(&queue_rc);
         handles.push(thread::spawn(move || {
             let mut total = 0;
-            while let Ok(report) = copy.pop() {
-                total += report.count_options(0, 0) as u64;
+            while let Ok((report, line)) = copy.pop() {
+                let count = report.count_options(0, 0) as u64;
+                println!("Line {} = {}", line, count);
+                total += count;
             }
             total
         }));
-    }
-
-    let copy = Arc::clone(&queue_rc);
-
-    let mut last = 0;
-    while copy.len() > 0 {
-        let count = copy.len();
-        if count != last {
-            println!("Left: {}", count);
-            last = count;
-        }
-        thread::sleep(Duration::from_secs(1));
     }
 
     let total = handles.into_iter()
