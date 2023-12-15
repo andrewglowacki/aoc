@@ -103,13 +103,16 @@ impl Arrangement {
         let (start_x, start_y, start_direction) = start;
         
         if let Some(mirror) = self.x_to_y[start_x].get(&start_y) {
-            Arrangement::reflect_mirror(start_x, start_y, start_direction, mirror, &mut beams);
+            Arrangement::reflect_mirror(start_x, start_y, start_direction.clone(), mirror, &mut beams);
         } else {
-            beams.push((start_x, start_y, start_direction));
+            beams.push((start_x, start_y, start_direction.clone()));
         }
 
+        beams.iter().for_each(|(x, y, _)| {
+            traversed.insert((*x, *y));
+        });
+
         while let Some((x, y, direction)) = beams.pop() {
-            // println!("Following beam from ({}, {}) in direction {:?}", x, y, direction);
 
             let next = match direction {
                 Direction::Right => {
@@ -146,7 +149,6 @@ impl Arrangement {
                 let x = new_x;
                 let y = new_y;
 
-                // println!("Encountered mirror {:?} at ({}, {})", mirror, x, y);
                 if let Some(directions) = energized.get_mut(&(x, y)) {
                     if !directions.insert(direction.clone()) {
                         // we've already encountered this mirror in this,
@@ -179,7 +181,8 @@ impl Arrangement {
             .filter(|point| !energized.contains_key(point))
             .count();
 
-        energized.len() + traversed_count
+        let total = energized.len() + traversed_count;
+        total
     }
 }
 
