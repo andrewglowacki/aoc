@@ -75,8 +75,8 @@ impl Map {
         // row_mask = 1 << 4 = 010000
         // col_mask = 1 << 2 = 000100
         //
-        let row_mask = 1 << ((self.rows.len() - x) - 1);
-        let col_mask = 1 << ((self.columns.len() - y) - 1);
+        let row_mask = 1 << ((self.columns.len() - x) - 1);
+        let col_mask = 1 << ((self.rows.len() - y) - 1);
 
         let orig_row = self.rows[y];
         let orig_col = self.columns[x];
