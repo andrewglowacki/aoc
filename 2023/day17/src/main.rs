@@ -1,6 +1,5 @@
-use std::collections::{BTreeSet, HashSet, HashMap};
+use std::collections::BTreeSet;
 use std::fs::File;
-use std::iter::FromIterator;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
 
@@ -18,41 +17,12 @@ struct Map {
     height: i32
 }
 
-struct VisitLog {
-    visited: HashMap<(i32, i32), usize>
-}
-
-impl VisitLog {
-    fn new() -> VisitLog {
-        let mut visited = HashMap::new();
-        
-        visited.insert((0, 0), 0);
-
-        VisitLog {
-            visited
-        }
-    }
-    fn contains(&self, point: &(i32, i32), straight_count: &usize) -> bool {
-        self.visited.get(&point)
-            .map(|existing_count| existing_count <= straight_count)
-            .unwrap_or(false)
-    }
-    fn visit(&mut self, point: (i32, i32), straight_count: usize) {
-        if let Some(count) = self.visited.get_mut(&point) {
-            *count = (*count).min(straight_count);
-        } else {
-            self.visited.insert(point, straight_count);
-        }
-    }
-}
-
 #[derive(Ord, Eq, PartialEq, PartialOrd)]
 struct Step {
     heat_loss: u32,
     point: (i32, i32),
     prev: (i32, i32),
-    straight_count: usize,
-    points: BTreeSet<(i32, i32)>
+    straight_count: usize
 }
 
 impl Step {
@@ -62,19 +32,17 @@ impl Step {
                 heat_loss: map.blocks[0][1],
                 point: (1, 0),
                 prev: (0, 0),
-                straight_count: 1,
-                points: BTreeSet::from_iter(vec![(0, 0), (1, 0)].into_iter())
+                straight_count: 1
             }
         );
-        // candidates.insert(
-        //     Step {
-        //         heat_loss: map.blocks[1][0],
-        //         point: (0, 1),
-        //         prev: (0, 0),
-        //         straight_count: 1,
-        //         path: vec![(0, 0), (0, 1)]
-        //     }
-        // );
+        candidates.insert(
+            Step {
+                heat_loss: map.blocks[1][0],
+                point: (0, 1),
+                prev: (0, 0),
+                straight_count: 1
+            }
+        );
     }
     fn is_straight(&self, (x, y): &(i32, i32)) -> bool {
         // comparing this point to the current
@@ -84,7 +52,7 @@ impl Step {
         let (prev_x, prev_y) = self.prev;
         (prev_x - x) == 0 || (prev_y - y) == 0
     }
-    fn visit(&self, map: &Map, visited: &mut VisitLog, candidates: &mut BTreeSet<Step>) {
+    fn visit(&self, map: &Map, candidates: &mut BTreeSet<Step>) {
         let (x, y) = self.point;
 
         let neighbors = vec![
@@ -94,8 +62,6 @@ impl Step {
             (x, y + 1)
         ];
 
-        visited.visit(self.point, self.straight_count);
-        
         // let mut index = 0;
         // let points = self.path.iter()
         //     .map(|point| {
@@ -126,18 +92,15 @@ impl Step {
                 (x, y, straight_count)
             })
             .filter(|(_, _, straights)| self.straight_count < 3 || *straights == 1)
-            .filter(|(x, y, straights)| !visited.contains(&(*x, *y), &straights))
+            .filter(|(x, y, _)| self.prev != (*x, *y))
             .for_each(|(x, y, straight_count)| {
                 let added_heat = map.blocks[y as usize][x as usize];
-                let mut points = self.points.clone();
-                points.insert((x, y));
                 // print!(" ({}, {})", x, y);
                 let step = Step {
                     heat_loss: self.heat_loss + added_heat,
                     point: (x, y),
                     prev: self.point,
-                    straight_count,
-                    points
+                    straight_count
                 };
                 candidates.insert(step);
             });
@@ -170,16 +133,13 @@ impl Map {
         let end_y = self.blocks.len() - 1;
         let end_x = self.blocks[0].len() - 1;
         let end = (end_x as i32, end_y as i32);
-        let end = (8, 0);
-
-        let mut visited = VisitLog::new();
 
         while let Some(step) = candidates.pop_first() {
             if step.point == end {
                 // println!("Path: {:?}", step.path);
                 return step.heat_loss;
             }
-            step.visit(&self, &mut visited, &mut candidates);
+            step.visit(&self, &mut candidates);
         }
 
         panic!("end not found!");
