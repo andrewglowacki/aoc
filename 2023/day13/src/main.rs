@@ -25,11 +25,12 @@ impl Map {
 
         let rows = lines.iter()
             .map(|line| {
+                let width = line.len();
                 line.char_indices()
                     .map(|(i, c)| {
                         columns[i].push(c == '#');
                         let number = match c {
-                            '#' => 1 << i,
+                            '#' => 1 << ((width - i) - 1),
                             '.' => 0,
                             _ => panic!("Unexpected character: {}", c)
                         };
@@ -102,10 +103,12 @@ impl Map {
             for y in 0..self.rows.len() {
                 let summary = self.find_mirror_flip(column, y, orig_summary);
                 if summary > 0 {
+                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
                     return summary;
                 }
                 let summary = self.find_mirror_flip(column + 1, y, orig_summary);
                 if summary > 0 {
+                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
                     return summary;
                 }
             }
@@ -114,10 +117,12 @@ impl Map {
             for x in 0..self.columns.len() {
                 let summary = self.find_mirror_flip(x, row, orig_summary);
                 if summary > 0 {
+                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
                     return summary;
                 }
                 let summary = self.find_mirror_flip(x, row + 1, orig_summary);
                 if summary > 0 {
+                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
                     return summary;
                 }
             }
