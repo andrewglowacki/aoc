@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashSet, BTreeSet};
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -19,7 +19,7 @@ enum Direction {
 }
 
 struct Instruction {
-    vector: (i32, i32)
+    vector: (i64, i64)
 }
 
 impl Instruction {
@@ -29,8 +29,20 @@ impl Instruction {
 
         if hex {
             let hex = pieces[2];
-            let hex = hex[2..hex.len() - 1];
+            let hex = &hex[2..hex.len() - 1];
 
+            let vector = match &hex[hex.len() - 1..] {
+                "2" => (-1,  0), // left
+                "0" => ( 1,  0), // right
+                "3" => ( 0, -1), // up
+                "1" => ( 0,  1), // down
+                _ => panic!("Unexpected direction: {}", pieces[0])
+            };
+
+            let amount = i64::from_str_radix(&hex[0..hex.len() - 2], 16).unwrap();
+            let vector = (vector.0 * amount, vector.1 * amount);
+
+            Instruction { vector }
         } else {
             let vector = match pieces[0] {
                 "L" => (-1,  0),
@@ -40,13 +52,13 @@ impl Instruction {
                 _ => panic!("Unexpected direction: {}", pieces[0])
             };
 
-            let amount = pieces[1].parse::<i32>().unwrap();
+            let amount = pieces[1].parse::<i64>().unwrap();
             let vector = (vector.0 * amount, vector.1 * amount);
 
-            Instruction  vector }
+            Instruction { vector }
         }
     }
-    fn dig(&self, from: (i32, i32), trench: &mut Trench) -> (i32, i32) {
+    fn dig(&self, from: (i64, i64), trench: &mut Trench) -> (i64, i64) {
         let (from_x, from_y) = from;
         let (vector_x, vector_y) = self.vector;
         let x = from_x + vector_x;
@@ -71,25 +83,25 @@ impl Instruction {
 }
 
 struct Trench {
-    border: HashSet<(i32, i32)>,
-    left: i32,
-    right: i32,
-    top: i32,
-    bottom: i32
+    border: HashSet<(i64, i64)>,
+    left: i64,
+    right: i64,
+    top: i64,
+    bottom: i64
 }
 
 impl Trench {
     fn new() -> Trench {
         Trench {
             border: HashSet::new(),
-            left: i32::MAX,
-            top: i32::MAX,
-            right: i32::MIN,
-            bottom: i32::MIN
+            left: i64::MAX,
+            top: i64::MAX,
+            right: i64::MIN,
+            bottom: i64::MIN
         }
     }
 
-    fn add(&mut self, x: i32, y: i32) {
+    fn add(&mut self, x: i64, y: i64) {
         self.border.insert((x, y));
         self.left = self.left.min(x);
         self.right = self.right.max(x);
@@ -97,23 +109,16 @@ impl Trench {
         self.bottom = self.bottom.max(y);
     }
 
-    fn _print(&self) {
-        for y in self.top..self.bottom + 1 {
-            for x in self.left..self.right + 1 {
-                if self.border.contains(&(x, y)) {
-                    print!("#");
-                } else {
-                    print!(".");
-                }
-            }
-            println!("");
-        }
-    }
-    
     fn get_excavation_size(&self) -> u32 {
         let mut inside = false;
         let mut prev_border = false;
-        let mut inside_points = HashSet::<(i32, i32)>::new();
+
+        let mut edges = vec![BTreeSet::new(); (self.bottom - self.top) as usize + 1];
+
+        for (x, y) in self.border {
+            edges[y as usize].insert(x);
+        }
+        
         for y in self.top..self.bottom + 1 {
             for x in self.left..self.right + 1 {
                 if self.border.contains(&(x, y)) {
@@ -121,7 +126,6 @@ impl Trench {
                         inside = !inside;
                         prev_border = true;
                     }
-                    // print!("#");
                 } else {
                     if prev_border {
                         if inside {
@@ -136,16 +140,12 @@ impl Trench {
                     }
                     prev_border = false;
                     if inside {
-                        // print!("X");
                         inside_points.insert((x, y));
-                    // } else {
-                        // print!(".");
                     }
                 }
             }
             inside = false;
             prev_border = false;
-            // println!("");
         }
         inside_points.len() as u32 + self.border.len() as u32
     }
@@ -184,10 +184,10 @@ fn part_one(file_name: &str) {
 }
 
 fn part_two(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
-    
-    println!("Part 2: {}", "incomplete");
+    let plan = DigPlan::parse(file_name, true);
+    let trench = plan.dig_trench();
+    let hole_size = trench.get_excavation_size();
+    println!("Part 2: {}", hole_size);
 }
 
 fn main() {
