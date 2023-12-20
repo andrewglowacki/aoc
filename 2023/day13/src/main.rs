@@ -25,12 +25,12 @@ impl Map {
 
         let rows = lines.iter()
             .map(|line| {
-                let width = line.len();
+                // let width = line.len();
                 line.char_indices()
                     .map(|(i, c)| {
                         columns[i].push(c == '#');
                         let number = match c {
-                            '#' => 1 << ((width - i) - 1),
+                            '#' => 1 << i,
                             '.' => 0,
                             _ => panic!("Unexpected character: {}", c)
                         };
@@ -61,7 +61,24 @@ impl Map {
         Map { rows, columns }
     }
 
-    fn find_mirror_flip(&mut self, x: usize, y: usize, orig_summary: usize) -> usize {
+    fn _print(&self) {
+        let width = self.columns.len();
+        for y in 0..self.rows.len() {
+            let row = self.rows[y];
+            let mut row_str = String::with_capacity(width);
+            for x in 0..width {
+                let c = match ((row >> x) & 1) > 0 {
+                    true => '#',
+                    false => '.'
+                };
+                row_str.insert(0, c);
+            }
+            println!("{}", row_str);
+        }
+        println!("");
+    }
+
+    fn find_mirror_flip(&mut self, x: usize, y: usize, exclude_row: usize, exclude_col: usize) -> usize {
         //  ><
         // xxxxxx 0
         // xxxxxx 1
@@ -85,8 +102,11 @@ impl Map {
         self.rows[y] = orig_row ^ row_mask;
         self.columns[x] = orig_col ^ col_mask;
 
-        let summary = self.summarize();
-        if summary > 0 && summary != orig_summary {
+        // println!("After flip at ({}, {})", x, y);
+        // self._print();
+
+        let summary = self.summarize(exclude_row, exclude_col);
+        if summary > 0 {
             return summary;
         }
 
@@ -97,56 +117,40 @@ impl Map {
     }
 
     fn find_mirror_flip_summary(&mut self) -> usize {
-        let orig_summary = self.summarize();
+        let exclude_col = Map::find_mirror(&self.columns, usize::MAX)
+            .unwrap_or(usize::MAX);
+        let exclude_row = Map::find_mirror(&self.rows, usize::MAX)
+            .unwrap_or(usize::MAX);
 
-        if let Some(column) = Map::find_mirror(&self.columns) {
-            for y in 0..self.rows.len() {
-                let summary = self.find_mirror_flip(column, y, orig_summary);
-                if summary > 0 {
-                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
-                    return summary;
-                }
-                let summary = self.find_mirror_flip(column + 1, y, orig_summary);
-                if summary > 0 {
-                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
-                    return summary;
-                }
-            }
-            panic!("Alternate not found for original: {} with column mirror: {}!", orig_summary, column);
-        } else if let Some(row) = Map::find_mirror(&self.rows) {
+        let orig_summary = self.summarize(usize::MAX, usize::MAX);
+
+        for y in 0..self.rows.len() {
             for x in 0..self.columns.len() {
-                let summary = self.find_mirror_flip(x, row, orig_summary);
+                let summary = self.find_mirror_flip(x, y, exclude_row, exclude_col);
                 if summary > 0 {
-                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
-                    return summary;
-                }
-                let summary = self.find_mirror_flip(x, row + 1, orig_summary);
-                if summary > 0 {
-                    println!("Found alternative mirror: {} vs {}", orig_summary, summary);
                     return summary;
                 }
             }
-            panic!("Alternate not found for original: {} with row mirror: {}!", orig_summary, row);
-        } else {
-            panic!("No base mirror found!");
         }
+        panic!("Alternate not found for original: {}", orig_summary);
     }
 
-    fn summarize(&self) -> usize {
-        let column_sum = Map::find_mirror(&self.columns)
+    fn summarize(&self, exclude_row: usize, exclude_col: usize) -> usize {
+        let column_sum = Map::find_mirror(&self.columns, exclude_col)
             .map(|index| index + 1)
             .unwrap_or(0);
-        let row_sum = Map::find_mirror(&self.rows)
+        let row_sum = Map::find_mirror(&self.rows, exclude_row)
             .map(|index| (index + 1) * 100)
             .unwrap_or(0);
         column_sum + row_sum
     }
 
-    fn find_mirror(within: &Vec<u32>) -> Option<usize> {
+    fn find_mirror(within: &Vec<u32>, exclude: usize) -> Option<usize> {
         let mid = within.len() / 2;
 
         let found = (0..mid).rev()
             .filter(|i| within[*i] == within[i + 1])
+            .filter(|i| *i != exclude)
             .find(|i| {
                 let i = *i;
                 let limit = (i + 1).min((within.len() - i) - 1);
@@ -159,6 +163,7 @@ impl Map {
 
         (mid..within.len() - 1)
             .filter(|i| within[*i] == within[i + 1])
+            .filter(|i| *i != exclude)
             .find(|i| {
                 let i = *i;
                 let limit = (i + 1).min((within.len() - i) - 1);
@@ -187,7 +192,7 @@ fn parse_maps(file_name: &str) -> Vec<Map> {
 fn part_one(file_name: &str) {
     let maps = parse_maps(file_name);
     let total = maps.iter()
-        .map(|map| map.summarize())
+        .map(|map| map.summarize(usize::MAX, usize::MAX))
         .sum::<usize>();
     println!("Part 1: {}", total);
 }
@@ -202,7 +207,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
