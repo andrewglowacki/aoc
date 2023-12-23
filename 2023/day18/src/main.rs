@@ -1,4 +1,4 @@
-use std::collections::{HashSet, BTreeSet};
+use std::collections::{HashSet, BTreeSet, HashMap};
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -11,15 +11,8 @@ fn get_file_lines(file_name: &str) -> Input {
     BufReader::new(file).lines()
 }
 
-enum Direction {
-    Left,
-    Right,
-    Up,
-    Down
-}
-
 struct Instruction {
-    vector: (i64, i64)
+    vector: (i128, i128)
 }
 
 impl Instruction {
@@ -39,7 +32,7 @@ impl Instruction {
                 _ => panic!("Unexpected direction: {}", pieces[0])
             };
 
-            let amount = i64::from_str_radix(&hex[0..hex.len() - 2], 16).unwrap();
+            let amount = i128::from_str_radix(&hex[0..hex.len() - 1], 16).unwrap();
             let vector = (vector.0 * amount, vector.1 * amount);
 
             Instruction { vector }
@@ -52,13 +45,13 @@ impl Instruction {
                 _ => panic!("Unexpected direction: {}", pieces[0])
             };
 
-            let amount = pieces[1].parse::<i64>().unwrap();
+            let amount = pieces[1].parse::<i128>().unwrap();
             let vector = (vector.0 * amount, vector.1 * amount);
 
             Instruction { vector }
         }
     }
-    fn dig(&self, from: (i64, i64), trench: &mut Trench) -> (i64, i64) {
+    fn dig(&self, from: (i128, i128), trench: &mut Trench) -> (i128, i128) {
         let (from_x, from_y) = from;
         let (vector_x, vector_y) = self.vector;
         let x = from_x + vector_x;
@@ -83,25 +76,25 @@ impl Instruction {
 }
 
 struct Trench {
-    border: HashSet<(i64, i64)>,
-    left: i64,
-    right: i64,
-    top: i64,
-    bottom: i64
+    border: HashSet<(i128, i128)>,
+    left: i128,
+    right: i128,
+    top: i128,
+    bottom: i128
 }
 
 impl Trench {
     fn new() -> Trench {
         Trench {
             border: HashSet::new(),
-            left: i64::MAX,
-            top: i64::MAX,
-            right: i64::MIN,
-            bottom: i64::MIN
+            left: i128::MAX,
+            top: i128::MAX,
+            right: i128::MIN,
+            bottom: i128::MIN
         }
     }
 
-    fn add(&mut self, x: i64, y: i64) {
+    fn add(&mut self, x: i128, y: i128) {
         self.border.insert((x, y));
         self.left = self.left.min(x);
         self.right = self.right.max(x);
@@ -109,45 +102,89 @@ impl Trench {
         self.bottom = self.bottom.max(y);
     }
 
-    fn get_excavation_size(&self) -> u32 {
+    fn get_excavation_size(&self) -> i128 {
         let mut inside = false;
-        let mut prev_border = false;
 
-        let mut edges = vec![BTreeSet::new(); (self.bottom - self.top) as usize + 1];
+        let mut edges = HashMap::<i128, BTreeSet<i128>>::new();
 
-        for (x, y) in self.border {
-            edges[y as usize].insert(x);
+        for (x, y) in self.border.iter() {
+            if let Some(edges) = edges.get_mut(y) {
+                edges.insert(*x);
+            } else {
+                let mut x_edges = BTreeSet::new();
+                x_edges.insert(*x);
+                edges.insert(*y, x_edges);
+            }
         }
+
+        let mut inside_count = 0;
+        // let mut inside_points = HashSet::<(i128, i128)>::new();
         
         for y in self.top..self.bottom + 1 {
-            for x in self.left..self.right + 1 {
-                if self.border.contains(&(x, y)) {
-                    if !prev_border {
-                        inside = !inside;
-                        prev_border = true;
-                    }
-                } else {
-                    if prev_border {
-                        if inside {
-                            if !inside_points.contains(&(x, y - 1)) && !self.border.contains(&(x, y - 1)) {
-                                inside = false;
-                            }
+
+            let current = &edges.get(&y).unwrap();
+
+            let mut next = 0;
+            let mut prev_inside_start = 0;
+            while let Some(x) = current.range(next..).next() {
+                if current.contains(&(x + 1)) {
+                    let mut last_x = *x;
+                    for x in current.range(x + 1..) {
+                        if *x == last_x + 1 {
+                            last_x = *x;
                         } else {
-                            if inside_points.contains(&(x, y - 1)) {
-                                inside = true;
-                            }
+                            break;
                         }
                     }
-                    prev_border = false;
+
+                    let above_start = self.border.contains(&(*x, y - 1));
+                    let above_end = self.border.contains(&(last_x, y - 1));
+
                     if inside {
-                        inside_points.insert((x, y));
+                        inside_count += (x - prev_inside_start) - 1;
+                        // for x in prev_inside_start + 1..*x {
+                        //     inside_points.insert((x, y));
+                        // }
                     }
+                    prev_inside_start = last_x;
+
+                    if above_end != above_start {
+                        inside = !inside;
+                    }
+
+                    next = last_x + 1;
+                    
+                } else {
+                    if inside {
+                        inside_count += (x - prev_inside_start) - 1;
+                        // for x in prev_inside_start + 1..*x {
+                        //     inside_points.insert((x, y));
+                        // }
+                    }
+                    prev_inside_start = *x;
+                    inside = !inside;
+                    next = x + 1;
                 }
             }
+
             inside = false;
-            prev_border = false;
         }
-        inside_points.len() as u32 + self.border.len() as u32
+
+        // for y in self.top..self.bottom + 1 {
+        //     for x in self.left..self.right + 1 {
+        //         let point = (x, y);
+        //         if inside_points.contains(&point) {
+        //             print!("O");
+        //         } else if self.border.contains(&point) {
+        //             print!("#");
+        //         } else {
+        //             print!(".");
+        //         }
+        //     }
+        //     println!("");
+        // }
+
+        inside_count + self.border.len() as i128
     }
 }
 
@@ -178,7 +215,6 @@ impl DigPlan {
 fn part_one(file_name: &str) {
     let plan = DigPlan::parse(file_name, false);
     let trench = plan.dig_trench();
-    // trench._print();
     let hole_size = trench.get_excavation_size();
     println!("Part 1: {}", hole_size);
 }
@@ -192,7 +228,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
