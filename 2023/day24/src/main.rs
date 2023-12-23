@@ -1,3 +1,4 @@
+use std::collections::HashSet;
 use std::fs::File;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
@@ -58,10 +59,20 @@ impl Hailstone {
         } else {
             // xX + yY = aA + bB
             // 
+            // from 7 to 27
             // Hailstone A: 19, 13, 30 @ -2, 1, -2
             // Hailstone B: 18, 19, 22 @ -1, -1, -2
             // Hailstones' paths will cross inside the test area (at x=14.333, y=15.333).
             // 
+            // 19 + -2x = 18 + -1x
+            // 19 + x = 18
+            // x = -1
+            //
+            // 13 + y = 19 -y
+            // 13 + 2y = 19
+            // 2y = 19 - 13
+            // 2y = 6
+            // y = 3
             // 
             // 
             None
@@ -69,11 +80,32 @@ impl Hailstone {
     }
 }
 
+fn count_intersections(hailstones: Vec<Hailstone>) -> usize {
+    let mut intersections = HashSet::new();
+
+    for i in 0..hailstones.len() {
+        let left = &hailstones[i];
+        for j in i + 1..hailstones.len() {
+            let right = &hailstones[j];
+            if let Some((x, y)) = left.find_xy_intersection(&right) {
+                intersections.insert(i);
+                intersections.insert(j);
+            }
+        }
+    }
+
+    intersections.len()
+}
+
 fn part_one(file_name: &str) {
-    let lines = get_file_lines(file_name)
-        .flat_map(|line| line.ok());
+    let hailstones = get_file_lines(file_name)
+        .flat_map(|line| line.ok())
+        .map(|line| Hailstone::parse(line))
+        .collect::<Vec<_>>();
+
+    let intersections = count_intersections(hailstones);
     
-    println!("Part 1: {}", "incomplete");
+    println!("Part 1: {}", intersections);
 }
 
 fn part_two(file_name: &str) {
