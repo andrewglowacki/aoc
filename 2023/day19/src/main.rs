@@ -15,6 +15,8 @@ const X: usize = 0;
 const M: usize = 1;
 const A: usize = 2;
 const S: usize = 3;
+const MAX: u32 = 4000;
+const MIN: u32 = 0;
 
 #[derive(Clone)]
 enum Result {
@@ -22,6 +24,12 @@ enum Result {
     Reject,
     GoTo(String),
     Next
+}
+
+#[derive(Clone)]
+enum Requirement {
+    Greater(usize, u32),
+    Less(usize, u32)
 }
 
 enum Operation {
@@ -113,10 +121,26 @@ impl Workflow {
     }
 }
 
+#[derive(Clone)]
+struct Range {
+    from: u32,
+    to: u32
+}
+
+impl Range {
+    fn new(from: u32, to: u32) -> Range {
+        Range { from, to }
+    }
+    fn overlaps(&self, other: &Range) -> bool {
+        
+    }
+}
+
 struct Evaluator {
     start: usize,
     series: Vec<Workflow>,
-    lookup: HashMap<String, usize>
+    lookup: HashMap<String, usize>,
+    dest_to_source: HashMap<String, Vec<String>>
 }
 
 impl Evaluator {
@@ -129,8 +153,31 @@ impl Evaluator {
         }
 
         let start = lookup["in"];
+        let mut dest_to_source = HashMap::<String, Vec<String>>::new();
 
-        Evaluator { series, lookup, start }
+        for workflow in series.iter() {
+            workflow.steps.iter()
+                .flat_map(|step| {
+                    match step {
+                        Operation::Result(Result::GoTo(dest)) => Some(dest),
+                        Operation::Less(_, _, Result::GoTo(dest)) => Some(dest),
+                        Operation::Greater(_, _, Result::GoTo(dest)) => Some(dest),
+                        _ => None
+                    }
+                })
+                .map(String::to_owned)
+                .for_each(|dest| {
+                    let name = workflow.name.to_owned();
+                    if let Some(sources) = dest_to_source.get_mut(&dest) {
+                        sources.push(name);
+                    } else {
+                        dest_to_source.insert(dest, vec![name]);
+                    }
+                });
+        }
+
+
+        Evaluator { series, lookup, start, dest_to_source }
     }
 
     fn accept(&self, part: &Part) -> bool {
@@ -144,6 +191,78 @@ impl Evaluator {
             };
             current = &self.series[self.lookup[&next]];
         }
+    }
+
+    fn gather_accept_requirements(
+        &self, 
+        workflow: &String, 
+        requirements: &mut Vec<Requirement>, 
+        requirements_to_accept: &mut Vec<Vec<Requirement>>) 
+    {
+        let workflow = *self.lookup.get(workflow).unwrap();
+        let workflow = &self.series[workflow];
+        for step in workflow.steps.iter() {
+            let orig_len = requirements.len();
+            match step {
+                Operation::Greater(component, amount, result) => {
+                    requirements.push(Requirement::Greater(*component, *amount));
+                    match result {
+                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Reject => (),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        _ => panic!("Invalid result encountered")
+                    }
+                    requirements.push(Requirement::Less(*component, *amount + 1));
+                },
+                Operation::Less(component, amount, result) => {
+                    requirements.push(Requirement::Less(*component, *amount));
+                    match result {
+                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Reject => (),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        _ => panic!("Invalid result encountered")
+                    }
+                    while requirements.len() > orig_len {
+                        requirements.pop().unwrap();
+                    }
+                    requirements.push(Requirement::Greater(*component, *amount - 1));
+                },
+                Operation::Result(result) => {
+                    match result {
+                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Reject => (),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        _ => panic!("Invalid result encountered")
+                    }
+                    return;
+                }
+            }
+        }
+    }
+
+    fn count_acceptable(requirements: Vec<Requirement>) -> u32 {
+        let mut by_component = vec![Vec::<Range>::new(); 4];
+        for requirement in requirements {
+            let (component, range) = match requirement {
+                Requirement::Greater(component, amount) => {
+                    (component, Range::new(amount, MAX))
+                },
+                Requirement::Less(component, amount) => {
+                    (component, Range::new(MIN, amount))
+                }
+            };
+
+            let existing = &mut by_component[component];
+
+        }
+        0
+    }
+
+    fn count_acceptable_parts(&self) -> u64 {
+        let mut requirements_to_accept = Vec::new();
+        let mut requirements = Vec::new();
+        self.gather_accept_requirements(&"in".to_owned(), &mut requirements, &mut requirements_to_accept);
+        0
     }
 }
 
@@ -195,10 +314,10 @@ fn parse_workflows_and_parts(file_name: &str) -> (Evaluator, Vec<Part>) {
 }
 
 fn part_one(file_name: &str) {
-    let (workflows, parts) = parse_workflows_and_parts(file_name);
+    let (evaluator, parts) = parse_workflows_and_parts(file_name);
 
     let total = parts.iter()
-        .filter(|part| workflows.accept(part))
+        .filter(|part| evaluator.accept(part))
         .map(|part| part.sum())
         .sum::<u32>();
 
@@ -206,9 +325,9 @@ fn part_one(file_name: &str) {
 }
 
 fn part_two(file_name: &str) {
-    let (workflows, _) = parse_workflows_and_parts(file_name);
-
-    println!("Part 2: {}", "incomplete");
+    let (evaluator, _) = parse_workflows_and_parts(file_name);
+    let acceptable = evaluator.count_acceptable_parts();
+    println!("Part 2: {}", acceptable);
 }
 
 fn main() {
