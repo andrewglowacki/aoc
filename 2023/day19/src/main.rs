@@ -1,6 +1,7 @@
 use std::collections::HashMap;
+use std::fmt::{Display, Write};
 use std::fs::File;
-use std::path::{Path, Component};
+use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
 
 type Input = Lines<BufReader<File>>;
@@ -16,7 +17,7 @@ const M: usize = 1;
 const A: usize = 2;
 const S: usize = 3;
 const MAX: u32 = 4000;
-const MIN: u32 = 0;
+const MIN: u32 = 1;
 
 #[derive(Clone)]
 enum Result {
@@ -26,7 +27,7 @@ enum Result {
     Next
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 enum Requirement {
     Greater(usize, u32),
     Less(usize, u32)
@@ -121,7 +122,7 @@ impl Workflow {
     }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 struct Range {
     from: u32,
     to: u32
@@ -148,6 +149,7 @@ impl Range {
     }
 }
 
+#[derive(Debug)]
 struct PartSpec {
     components: Vec<Range>
 }
@@ -158,8 +160,8 @@ impl PartSpec {
             components: vec![Range::full(); 4]
         }
     }
-    fn add(&mut self, component: usize, range: Range) -> bool {
-        let mut current = self.components[component];
+    fn merge(&mut self, component: usize, range: &Range) -> bool {
+        let current = &mut self.components[component];
         current.merge(range)
     }
     fn compute_valid_parts(&self) -> u64 {
@@ -173,7 +175,6 @@ struct Evaluator {
     start: usize,
     series: Vec<Workflow>,
     lookup: HashMap<String, usize>,
-    dest_to_source: HashMap<String, Vec<String>>
 }
 
 impl Evaluator {
@@ -186,31 +187,8 @@ impl Evaluator {
         }
 
         let start = lookup["in"];
-        let mut dest_to_source = HashMap::<String, Vec<String>>::new();
 
-        for workflow in series.iter() {
-            workflow.steps.iter()
-                .flat_map(|step| {
-                    match step {
-                        Operation::Result(Result::GoTo(dest)) => Some(dest),
-                        Operation::Less(_, _, Result::GoTo(dest)) => Some(dest),
-                        Operation::Greater(_, _, Result::GoTo(dest)) => Some(dest),
-                        _ => None
-                    }
-                })
-                .map(String::to_owned)
-                .for_each(|dest| {
-                    let name = workflow.name.to_owned();
-                    if let Some(sources) = dest_to_source.get_mut(&dest) {
-                        sources.push(name);
-                    } else {
-                        dest_to_source.insert(dest, vec![name]);
-                    }
-                });
-        }
-
-
-        Evaluator { series, lookup, start, dest_to_source }
+        Evaluator { series, lookup, start }
     }
 
     fn accept(&self, part: &Part) -> bool {
@@ -226,12 +204,32 @@ impl Evaluator {
         }
     }
 
+    fn add_requirements(
+        &self, 
+        orig_len: usize, 
+        result: &Result, 
+        requirements: &mut Vec<Requirement>, 
+        acceptable_specs: &mut Vec<PartSpec>,
+        workflow: &String) 
+    {
+        match result {
+            Result::Accept => Evaluator::merge_requirements(requirements, acceptable_specs, workflow),
+            Result::Reject => (),
+            Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
+            _ => panic!("Invalid result encountered")
+        }
+        while requirements.len() > orig_len {
+            requirements.pop().unwrap();
+        }
+    }
+
     fn gather_accept_requirements(
         &self, 
         workflow: &String, 
         requirements: &mut Vec<Requirement>, 
         acceptable_specs: &mut Vec<PartSpec>) 
     {
+        let workflow_str = workflow;
         let workflow = *self.lookup.get(workflow).unwrap();
         let workflow = &self.series[workflow];
         for step in workflow.steps.iter() {
@@ -239,69 +237,52 @@ impl Evaluator {
             match step {
                 Operation::Greater(component, amount, result) => {
                     requirements.push(Requirement::Greater(*component, *amount));
-                    match result {
-                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
-                        Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
-                        _ => panic!("Invalid result encountered")
-                    }
+                    self.add_requirements(orig_len, result, requirements, acceptable_specs, workflow_str);
                     requirements.push(Requirement::Less(*component, *amount + 1));
                 },
                 Operation::Less(component, amount, result) => {
                     requirements.push(Requirement::Less(*component, *amount));
-                    match result {
-                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
-                        Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
-                        _ => panic!("Invalid result encountered")
-                    }
-                    while requirements.len() > orig_len {
-                        requirements.pop().unwrap();
-                    }
+                    self.add_requirements(orig_len, result, requirements, acceptable_specs, workflow_str);
                     requirements.push(Requirement::Greater(*component, *amount - 1));
                 },
                 Operation::Result(result) => {
-                    match result {
-                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
-                        Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
-                        _ => panic!("Invalid result encountered")
-                    }
+                    self.add_requirements(orig_len, result, requirements, acceptable_specs, workflow_str);
                     return;
                 }
             }
         }
     }
 
-    fn merge_requirements(requirements: &Vec<Requirement>) -> Option<PartSpec> {
+    fn merge_requirements(requirements: &Vec<Requirement>, acceptable_specs: &mut Vec<PartSpec>, workflow: &String) {
         let mut spec = PartSpec::new();
 
         for requirement in requirements {
             let (component, range) = match requirement {
                 Requirement::Greater(component, amount) => {
-                    (component, Range::new(amount, MAX))
+                    (component, Range::new(*amount + 1, MAX))
                 },
                 Requirement::Less(component, amount) => {
-                    (component, Range::new(MIN, amount))
+                    (component, Range::new(MIN, *amount - 1))
                 }
             };
 
-            if !spec.merge(component, range) {
-                return None;
+            if !spec.merge(*component, &range) {
+                return;
             }
 
         }
-        Some(spec)
+        acceptable_specs.push(spec);
     }
 
     fn count_acceptable_parts(&self) -> u64 {
         let mut acceptable_specs = Vec::new();
         let mut requirements = Vec::new();
         self.gather_accept_requirements(&"in".to_owned(), &mut requirements, &mut acceptable_specs);
-        acceptable_specs.into_iter().map(|spec| {
-            spec.compute_valid_parts()
-        })
-        .sum::<u64>()
+        acceptable_specs.into_iter()
+            .map(|spec| {
+                spec.compute_valid_parts()
+            })
+            .sum::<u64>()
     }
 }
 
@@ -371,7 +352,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
