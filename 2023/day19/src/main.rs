@@ -131,8 +131,33 @@ impl Range {
     fn new(from: u32, to: u32) -> Range {
         Range { from, to }
     }
-    fn overlaps(&self, other: &Range) -> bool {
-        
+    fn full() -> Range {
+        Range::new(MIN, MAX)
+    }
+    fn merge(&mut self, other: &Range) -> bool {
+        if self.from > other.to || self.to < other.from {
+            false
+        } else {
+            self.to = self.to.min(other.to);
+            self.from = self.from.max(other.from);
+            true
+        }
+    }
+}
+
+struct PartSpec {
+    components: Vec<Range>
+}
+
+impl PartSpec {
+    fn new() -> PartSpec {
+        PartSpec {
+            components: vec![Range::full(); 4]
+        }
+    }
+    fn add(&mut self, component: usize, range: Range) -> bool {
+        let mut current = self.components[component];
+        current.merge(range)
     }
 }
 
@@ -197,7 +222,7 @@ impl Evaluator {
         &self, 
         workflow: &String, 
         requirements: &mut Vec<Requirement>, 
-        requirements_to_accept: &mut Vec<Vec<Requirement>>) 
+        acceptable_specs: &mut Vec<PartSpec>) 
     {
         let workflow = *self.lookup.get(workflow).unwrap();
         let workflow = &self.series[workflow];
@@ -207,9 +232,9 @@ impl Evaluator {
                 Operation::Greater(component, amount, result) => {
                     requirements.push(Requirement::Greater(*component, *amount));
                     match result {
-                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
                         Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
                         _ => panic!("Invalid result encountered")
                     }
                     requirements.push(Requirement::Less(*component, *amount + 1));
@@ -217,9 +242,9 @@ impl Evaluator {
                 Operation::Less(component, amount, result) => {
                     requirements.push(Requirement::Less(*component, *amount));
                     match result {
-                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
                         Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
                         _ => panic!("Invalid result encountered")
                     }
                     while requirements.len() > orig_len {
@@ -229,9 +254,9 @@ impl Evaluator {
                 },
                 Operation::Result(result) => {
                     match result {
-                        Result::Accept => requirements_to_accept.push(requirements.to_vec()),
+                        Result::Accept => acceptable_specs.push(Evaluator::merge_requirements(requirements)),
                         Result::Reject => (),
-                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, requirements_to_accept),
+                        Result::GoTo(next) => self.gather_accept_requirements(next, requirements, acceptable_specs),
                         _ => panic!("Invalid result encountered")
                     }
                     return;
@@ -240,8 +265,9 @@ impl Evaluator {
         }
     }
 
-    fn count_acceptable(requirements: Vec<Requirement>) -> u32 {
-        let mut by_component = vec![Vec::<Range>::new(); 4];
+    fn merge_requirements(requirements: &Vec<Requirement>) -> Option<PartSpec> {
+        let mut spec = PartSpec::new();
+
         for requirement in requirements {
             let (component, range) = match requirement {
                 Requirement::Greater(component, amount) => {
@@ -252,16 +278,18 @@ impl Evaluator {
                 }
             };
 
-            let existing = &mut by_component[component];
+            if !spec.merge(component, range) {
+                return None;
+            }
 
         }
-        0
+        Some(spec)
     }
 
     fn count_acceptable_parts(&self) -> u64 {
-        let mut requirements_to_accept = Vec::new();
+        let mut acceptable_specs = Vec::new();
         let mut requirements = Vec::new();
-        self.gather_accept_requirements(&"in".to_owned(), &mut requirements, &mut requirements_to_accept);
+        self.gather_accept_requirements(&"in".to_owned(), &mut requirements, &mut acceptable_specs);
         0
     }
 }
