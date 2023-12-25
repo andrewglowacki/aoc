@@ -143,6 +143,9 @@ impl Range {
             true
         }
     }
+    fn count(&self) -> u32 {
+        (self.to - self.from) + 1
+    }
 }
 
 struct PartSpec {
@@ -158,6 +161,11 @@ impl PartSpec {
     fn add(&mut self, component: usize, range: Range) -> bool {
         let mut current = self.components[component];
         current.merge(range)
+    }
+    fn compute_valid_parts(&self) -> u64 {
+        self.components.iter()
+            .map(|range| range.count() as u64)
+            .product::<u64>()
     }
 }
 
@@ -290,7 +298,10 @@ impl Evaluator {
         let mut acceptable_specs = Vec::new();
         let mut requirements = Vec::new();
         self.gather_accept_requirements(&"in".to_owned(), &mut requirements, &mut acceptable_specs);
-        0
+        acceptable_specs.into_iter().map(|spec| {
+            spec.compute_valid_parts()
+        })
+        .sum::<u64>()
     }
 }
 
