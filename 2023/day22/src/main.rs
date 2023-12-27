@@ -114,9 +114,9 @@ impl BlockPile {
         self.blocks.push(block);
     }
 
-    fn drop_blocks(&mut self, from_z: i32) {
+    fn drop_blocks(&mut self) {
         let z_last = *self.z_to_block.keys().last().unwrap(); 
-        for z in from_z..z_last + 1 {
+        for z in 2..z_last + 1 {
             if let Some(mut blocks) = self.z_to_block.remove(&z) {
                 while let Some(block_id) = blocks.pop() {
                     let points = &self.block_to_points[block_id];
@@ -261,17 +261,27 @@ impl BlockPile {
         let mut count = 0;
 
         for i in 0..self.blocks.len() {
+            let mut dropped = HashSet::<usize>::new();
             let mut to_check = Vec::new();
             to_check.push(i);
             while let Some(check_block) = to_check.pop() {
                 if let Some(supporting) = key_is_supporting.get(&check_block) {
                     let to_fall = supporting.iter()
-                        .filter(|block| key_is_supported_by.get(block).unwrap().len() == 1)
+                        .filter(|block| {
+                            key_is_supported_by.get(block)
+                                .unwrap()
+                                .iter()
+                                .filter(|by_block| !dropped.contains(by_block))
+                                .count() <= 1
+                        })
                         .collect::<Vec<_>>();
 
                     count += to_fall.len();
 
-                    to_fall.into_iter().for_each(|block| to_check.push(*block));
+                    to_fall.into_iter().for_each(|block| {
+                        to_check.push(*block);
+                        dropped.insert(*block);
+                    });
                 }
             }
         }
@@ -282,14 +292,14 @@ impl BlockPile {
 
 fn part_one(file_name: &str) {
     let mut pile = BlockPile::parse(file_name);
-    pile.drop_blocks(2);
+    pile.drop_blocks();
     let count = pile.count_independent();
     println!("Part 1: {}", count);
 }
 
 fn part_two(file_name: &str) {
     let mut pile = BlockPile::parse(file_name);
-    pile.drop_blocks(2);
+    pile.drop_blocks();
     let total = pile.sum_fallen_if_dissolved();
     println!("Part 2: {}", total);
 }
