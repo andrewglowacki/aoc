@@ -1,8 +1,6 @@
-use core::num;
-use std::collections::{BTreeMap, BTreeSet, HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 use std::fs::File;
 use std::iter::FromIterator;
-use std::mem::swap;
 use std::path::Path;
 use std::io::{BufRead, BufReader, Lines};
 
@@ -26,9 +24,6 @@ impl Range {
             from: a.min(b),
             to: a.max(b)
         }
-    }
-    fn intersects(&self, other: &Range) -> bool {
-        self.from <= other.to && self.to >= other.from
     }
     fn new_from(&mut self, new_from: i32) {
         let diff = self.from - new_from;
@@ -199,11 +194,9 @@ impl BlockPile {
                     .min()
                     .unwrap();
                 if min_above_supports > 1 {
-                    println!("Block {} is dissolvable with supporting: {:?} and min above: {}", i, supporting, min_above_supports);
                     count += 1;
                 }
             } else {
-                println!("Block {} is dissolvable not supporting anything", i);
                 count += 1;
             }
         }
@@ -271,12 +264,10 @@ impl BlockPile {
                             key_is_supported_by.get(block)
                                 .unwrap()
                                 .iter()
-                                .filter(|by_block| !dropped.contains(by_block))
-                                .count() <= 1
+                                .filter(|by_block| !dropped.contains(by_block) && **by_block != check_block)
+                                .count() == 0
                         })
                         .collect::<Vec<_>>();
-
-                    count += to_fall.len();
 
                     to_fall.into_iter().for_each(|block| {
                         to_check.push(*block);
@@ -284,6 +275,7 @@ impl BlockPile {
                     });
                 }
             }
+            count += dropped.len();
         }
 
         count
@@ -306,7 +298,7 @@ fn part_two(file_name: &str) {
 
 fn main() {
     part_one("input.txt");
-    part_two("sample.txt");
+    part_two("input.txt");
 
     println!("Done!");
 }
